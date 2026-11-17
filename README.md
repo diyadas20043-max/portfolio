@@ -8,3 +8,4 @@ Live website: [https://diyainscribe.in](https://diyainscribe.in)
 - Pure HTML5 / CSS3 / Vanilla ES6 JavaScript
 - Zero external build dependencies
 - 100/100 Lighthouse Performance score
+
