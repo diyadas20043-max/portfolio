@@ -418,18 +418,20 @@
     .nb-featured {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 52px;
+      gap: 48px;
       align-items: center;
       background: #FAF6EE;
-      border: 1.5px solid var(--ink);
-      box-shadow: 6px 6px 0 var(--ink);
-      padding: 38px;
-      margin-bottom: 48px;
+      border: 1px solid rgba(23, 23, 23, 0.16);
+      box-shadow: 4px 4px 0 rgba(23, 23, 23, 0.08);
+      border-radius: 4px;
+      padding: 36px;
+      margin-bottom: 40px;
       position: relative;
-      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+      transition: all 0.25s ease;
     }
     .nb-featured:hover {
-      box-shadow: 9px 9px 0 var(--ink);
+      box-shadow: 6px 6px 0 rgba(23, 23, 23, 0.14);
+      border-color: rgba(23, 23, 23, 0.35);
     }
 
     /* Artwork Wrappers with 3D Tilt */
@@ -441,14 +443,15 @@
       width: 100%;
       height: auto;
       display: block;
-      border: 1.5px solid var(--ink);
-      box-shadow: 4px 4px 0 rgba(23, 23, 23, 0.12);
+      border: 1px solid rgba(23, 23, 23, 0.14);
+      box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.05);
       background: #FDFBF7;
+      border-radius: 2px;
       transform-style: preserve-3d;
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .nb-featured:hover .nb-collage {
-      box-shadow: 6px 6px 0 rgba(23, 23, 23, 0.18);
+      box-shadow: 3px 5px 12px rgba(0, 0, 0, 0.08);
     }
 
     /* Featured Article Content */
@@ -572,16 +575,18 @@
     }
     .nb-card {
       background: #FAF6EE;
-      border: 1.5px solid var(--ink);
-      box-shadow: 5px 5px 0 var(--ink);
-      padding: 28px;
+      border: 1px solid rgba(23, 23, 23, 0.16);
+      border-radius: 4px;
+      box-shadow: 3px 3px 0 rgba(23, 23, 23, 0.06);
+      padding: 26px;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+      transition: all 0.25s ease;
     }
     .nb-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 8px 8px 0 var(--ink);
+      transform: translateY(-2px);
+      box-shadow: 5px 5px 0 rgba(23, 23, 23, 0.12);
+      border-color: rgba(23, 23, 23, 0.35);
     }
     .nb-card .nb-artwork-wrap {
       margin-bottom: 22px;
@@ -823,33 +828,31 @@
     /* The Notebook Object */
     .dnb-book {
       position: relative;
-      width: min(1100px, calc(100vw - 88px));
-      height: min(650px, calc(100vh - 96px));
+      width: min(1080px, calc(100vw - 72px));
+      height: min(640px, calc(100vh - 90px));
       transform-style: preserve-3d;
-      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1), height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), width 0.6s cubic-bezier(0.22, 1, 0.36, 1), height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
-
-    /* Closed Quarter-Bound Cover State Rig */
     .dnb-book.state-cover {
-      width: min(460px, 88vw);
-      height: min(630px, calc(100vh - 96px));
+      width: min(440px, 88vw);
+      height: min(610px, calc(100vh - 90px));
     }
 
     /* Realistic Drop Shadow on Walnut Desk */
     .dnb-shadow {
       position: absolute;
-      inset: 8px -18px -28px -10px;
-      border-radius: 18px;
-      background: rgba(0, 0, 0, 0.62);
-      filter: blur(30px);
-      transform: translateZ(-40px);
+      inset: 12px 0 -18px 0;
+      border-radius: 6px;
+      background: rgba(23, 23, 23, 0.10);
+      filter: blur(20px);
+      transform: translateZ(-30px);
       pointer-events: none;
-      transition: all 0.55s ease;
+      transition: all 0.4s ease;
     }
     .dnb-book.state-cover .dnb-shadow {
-      inset: 14px -16px -26px 8px;
-      filter: blur(26px);
-      background: rgba(0, 0, 0, 0.72);
+      inset: 16px -8px -20px 8px;
+      filter: blur(16px);
+      background: rgba(23, 23, 23, 0.14);
     }
 
     /* Authentic Quarter-Bound Linen & Leather Hardcover View */
@@ -857,26 +860,19 @@
       position: absolute;
       inset: 0;
       box-sizing: border-box;
-      background:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)' opacity='0.06'/%3E%3C/svg%3E"),
-        linear-gradient(135deg, #EFE6D5 0%, #E2D5BE 100%);
-      border: 2px solid #2b1a12;
-      border-radius: 4px 12px 12px 4px;
+      background: #F5EFE4;
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: clamp(22px, 3.2vh, 36px) clamp(24px, 2.8vw, 38px) clamp(20px, 2.8vh, 30px) clamp(58px, 5vw, 70px);
+      padding: clamp(24px, 3.5vh, 40px) clamp(24px, 3vw, 42px) clamp(20px, 3vh, 32px) clamp(44px, 4.5vw, 56px);
       box-shadow:
-        inset -2px 0 8px rgba(45, 30, 18, 0.14),
-        inset 0 2px 4px rgba(255, 255, 255, 0.45),
-        3px 3px 0 #f5efe4,
-        6px 6px 0 #e0d5c3,
-        9px 9px 0 #f2eadb,
-        12px 12px 0 #3a241b,
-        18px 24px 38px rgba(0, 0, 0, 0.65);
+        4px 4px 0 var(--ink),
+        0 14px 28px rgba(0, 0, 0, 0.08);
       transform-origin: left center;
-      transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1.000), box-shadow 0.6s ease;
+      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000), box-shadow 0.4s ease;
       backface-visibility: hidden;
       z-index: 50;
       cursor: pointer;
@@ -893,22 +889,8 @@
       left: 0;
       top: 0;
       bottom: 0;
-      width: 48px;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          transparent 0px,
-          transparent 96px,
-          rgba(220, 185, 125, 0.35) 96px,
-          rgba(220, 185, 125, 0.35) 98px,
-          rgba(0, 0, 0, 0.38) 98px,
-          rgba(0, 0, 0, 0.38) 104px,
-          rgba(255, 255, 255, 0.1) 104px,
-          rgba(255, 255, 255, 0.1) 106px
-        ),
-        linear-gradient(to right, #23140d 0%, #4A3025 32%, #5c3c2e 55%, #3a241a 88%, #25150e 100%);
-      box-shadow: inset -3px 0 6px rgba(0,0,0,0.45), 3px 0 8px rgba(0,0,0,0.28);
-      border-right: 1px solid rgba(214, 180, 120, 0.55);
+      width: 26px;
+      background: var(--ink);
       z-index: 2;
     }
 
@@ -916,11 +898,11 @@
     .dnb-cover-view::after {
       content: "";
       position: absolute;
-      left: 54px;
-      top: 14px;
-      bottom: 14px;
+      left: 32px;
+      top: 0;
+      bottom: 0;
       width: 1px;
-      border-left: 1px dashed rgba(166, 56, 32, 0.4);
+      background: rgba(23, 23, 23, 0.12);
       pointer-events: none;
     }
 
@@ -929,12 +911,9 @@
       position: relative;
       z-index: 3;
       background: #FAF6EE;
-      border: 1.5px solid #2b1a12;
-      box-shadow:
-        inset 0 1px 4px rgba(0, 0, 0, 0.12),
-        0 0 0 4px #FAF6EE,
-        0 0 0 5px rgba(166, 56, 32, 0.35);
-      padding: clamp(16px, 2.2vh, 24px) clamp(16px, 2vw, 22px);
+      border: 1.5px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      padding: clamp(16px, 2.4vh, 26px) clamp(16px, 2vw, 24px);
       border-radius: 2px;
     }
     .dnb-cover-plate::after {
@@ -1062,18 +1041,18 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
-      background: linear-gradient(145deg, #3d251b 0%, #291811 100%);
-      padding: 10px 14px 12px;
-      border-radius: 10px 14px 14px 10px;
-      border: 1.5px solid #4e3225;
+      background: #F5EFE4;
+      padding: 0;
+      border-radius: 3px;
+      border: 1.5px solid var(--ink);
       transform-style: preserve-3d;
       box-shadow:
-        inset 0 0 0 1px rgba(214, 192, 155, 0.24),
-        0 28px 65px rgba(0, 0, 0, 0.72),
-        0 10px 24px rgba(0, 0, 0, 0.45);
+        6px 6px 0 var(--ink),
+        0 18px 36px rgba(0, 0, 0, 0.08);
+      overflow: visible;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.45s ease 0.2s;
+      transition: opacity 0.35s ease 0.15s;
     }
     .dnb-book:not(.state-cover) .dnb-spread-view {
       opacity: 1;
@@ -1082,51 +1061,25 @@
 
     /* Crimson Silk Ribbon Bookmark Hanging Below Spine */
     .dnb-ribbon-bookmark {
-      position: absolute;
-      left: 50%;
-      bottom: -24px;
-      width: 18px;
-      height: 34px;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, #7e2112 0%, #a83320 45%, #751e10 100%);
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
-      z-index: 32;
-      pointer-events: none;
+      display: none !important;
     }
 
     /* Realistic Central Spine Gutter & Natural Page Curvature */
     .dnb-spine-gutter {
       position: absolute;
-      top: 10px;
-      bottom: 12px;
+      top: 0;
+      bottom: 0;
       left: 50%;
-      width: 44px;
+      width: 1px;
       transform: translateX(-50%);
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        rgba(45, 30, 18, 0.08) 38%,
-        rgba(30, 18, 10, 0.28) 49%,
-        rgba(255, 250, 240, 0.28) 51%,
-        rgba(45, 30, 18, 0.09) 62%,
-        transparent 100%
-      );
+      background: rgba(23, 23, 23, 0.15);
+      box-shadow: 0 0 16px rgba(23, 23, 23, 0.08);
       z-index: 26;
       pointer-events: none;
     }
     /* Delicate Linen Binding Stitches Down Center Crease */
     .dnb-spine-gutter::after {
-      content: "";
-      position: absolute;
-      top: 28px;
-      bottom: 28px;
-      left: 50%;
-      width: 2px;
-      transform: translateX(-50%);
-      background-image: linear-gradient(to bottom, rgba(166, 130, 95, 0.45) 35%, transparent 35%);
-      background-size: 2px 18px;
-      opacity: 0.7;
+      display: none;
     }
 
     /* Page Halves with Stacked Paper Block Edges */
@@ -1145,27 +1098,13 @@
       scrollbar-color: rgba(166, 56, 32, 0.25) transparent;
     }
     .dnb-page-left {
-      padding-right: clamp(26px, 3vw, 40px);
-      border-radius: 4px 0 0 4px;
-      background: linear-gradient(to right, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #C4B49E 100%);
-      border-right: 1px solid rgba(55, 38, 25, 0.14);
-      box-shadow:
-        -2px 1px 0 #ebe3d5,
-        -4px 2px 0 #dfd5c4,
-        -6px 3px 0 #ebe3d5,
-        -8px 4px 0 #d4c8b4,
-        -10px 5px 8px rgba(0, 0, 0, 0.35);
+      padding-right: clamp(24px, 2.8vw, 38px);
+      background: #FAF6EE;
+      border-right: 1px solid rgba(23, 23, 23, 0.12);
     }
     .dnb-page-right {
-      padding-left: clamp(26px, 3vw, 40px);
-      border-radius: 0 4px 4px 0;
-      background: linear-gradient(to left, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #B8A790 100%);
-      box-shadow:
-        2px 1px 0 #ebe3d5,
-        4px 2px 0 #dfd5c4,
-        6px 3px 0 #ebe3d5,
-        8px 4px 0 #d4c8b4,
-        10px 5px 8px rgba(0, 0, 0, 0.35);
+      padding-left: clamp(24px, 2.8vw, 38px);
+      background: #FAF6EE;
     }
 
     /* Fine Horizontal Notebook Ruling & Paper Grain */
@@ -1570,37 +1509,39 @@
     /* Edge Bookmarks / Side Tabs (Unclipped Outside Casing) */
     .dnb-tabs {
       position: absolute;
-      right: -32px;
-      top: 40px;
+      right: -36px;
+      top: 28px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      z-index: 35;
+      gap: 7px;
+      z-index: 45;
     }
     .dnb-tab {
       background: #FAF6EE;
-      color: var(--dnb-ink);
-      border: 1.5px solid #2d1d16;
+      color: var(--ink);
+      border: 1px solid var(--ink);
       border-left: none;
-      border-radius: 0 6px 6px 0;
-      padding: 10px 8px;
-      font: 700 9px var(--mono);
+      border-radius: 0 4px 4px 0;
+      padding: 9px 8px;
+      font: 600 10px var(--mono);
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 rgba(23, 23, 23, 0.15);
+      transition: all 0.2s ease;
       writing-mode: vertical-rl;
       text-orientation: mixed;
-      cursor: pointer;
-      box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.35);
-      transition: transform 0.2s, background-color 0.2s, color 0.2s;
     }
     .dnb-tab:hover {
-      transform: translateX(5px);
+      transform: translateX(3px);
+      background: #FFF;
     }
     .dnb-tab.active {
-      background: var(--dnb-terracotta);
-      color: #fff;
-      transform: translateX(7px);
-      box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.42);
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: #FFF;
+      transform: translateX(5px);
+      box-shadow: 2px 2px 0 var(--ink);
     }
     .dnb-tab[data-tab-idx="1"] { border-color: #2d1d16; }
     .dnb-tab[data-tab-idx="2"] { border-color: var(--dnb-terracotta); }
