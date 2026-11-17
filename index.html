@@ -734,7 +734,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 16px 26px 14px;
+      padding: 12px 24px 12px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
@@ -768,7 +768,8 @@
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
-      padding-bottom: 6px;
+      padding-bottom: 4px;
+      flex-shrink: 0;
     }
     .dnb-hud-brand {
       display: inline-flex;
@@ -801,7 +802,7 @@
       border: 1px solid rgba(245, 239, 228, 0.22);
       color: #f5efe4;
       border-radius: 100px;
-      padding: 7px 15px;
+      padding: 6px 14px;
       font: 600 11px var(--mono);
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -834,27 +835,28 @@
       position: relative;
       z-index: 5;
       flex: 1;
+      min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       perspective: 2600px;
       perspective-origin: center center;
-      padding: 6px 0;
+      padding: 4px 18px;
     }
 
     /* The Notebook Object */
     .dnb-book {
       position: relative;
-      width: min(1140px, 92vw);
-      height: min(690px, 78vh);
+      width: min(1100px, calc(100vw - 88px));
+      height: min(650px, calc(100vh - 96px));
       transform-style: preserve-3d;
       transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1), height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* Closed Quarter-Bound Cover State Rig */
     .dnb-book.state-cover {
-      width: min(520px, 90vw);
-      height: min(680px, 78vh);
+      width: min(460px, 88vw);
+      height: min(630px, calc(100vh - 96px));
     }
 
     /* Realistic Drop Shadow on Walnut Desk */
@@ -878,6 +880,7 @@
     .dnb-cover-view {
       position: absolute;
       inset: 0;
+      box-sizing: border-box;
       background:
         url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)' opacity='0.06'/%3E%3C/svg%3E"),
         linear-gradient(135deg, #EFE6D5 0%, #E2D5BE 100%);
@@ -887,7 +890,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 40px 44px 36px 76px;
+      padding: clamp(22px, 3.2vh, 36px) clamp(24px, 2.8vw, 38px) clamp(20px, 2.8vh, 30px) clamp(58px, 5vw, 70px);
       box-shadow:
         inset -2px 0 8px rgba(45, 30, 18, 0.14),
         inset 0 2px 4px rgba(255, 255, 255, 0.45),
@@ -914,7 +917,7 @@
       left: 0;
       top: 0;
       bottom: 0;
-      width: 52px;
+      width: 48px;
       background:
         repeating-linear-gradient(
           to bottom,
@@ -937,7 +940,7 @@
     .dnb-cover-view::after {
       content: "";
       position: absolute;
-      left: 58px;
+      left: 54px;
       top: 14px;
       bottom: 14px;
       width: 1px;
@@ -955,14 +958,14 @@
         inset 0 1px 4px rgba(0, 0, 0, 0.12),
         0 0 0 4px #FAF6EE,
         0 0 0 5px rgba(166, 56, 32, 0.35);
-      padding: 28px 26px 24px;
+      padding: clamp(16px, 2.2vh, 24px) clamp(16px, 2vw, 22px);
       border-radius: 2px;
     }
     .dnb-cover-plate::after {
       content: "✦";
       position: absolute;
-      right: 16px;
-      bottom: 14px;
+      right: 14px;
+      bottom: 12px;
       font-size: 14px;
       color: var(--dnb-terracotta);
       opacity: 0.7;
@@ -972,11 +975,11 @@
       z-index: 3;
     }
     .dnb-cover-author {
-      font: 700 10.5px var(--mono);
+      font: 700 10px var(--mono);
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--dnb-terracotta);
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -988,14 +991,14 @@
       background: var(--dnb-terracotta);
     }
     .dnb-cover-title {
-      font: 700 clamp(34px, 4.4vw, 50px)/0.98 var(--dnb-serif);
+      font: 700 clamp(28px, 3.6vw, 44px)/0.98 var(--dnb-serif);
       letter-spacing: -0.04em;
-      margin: 0 0 14px;
+      margin: 0 0 10px;
       color: var(--dnb-ink);
     }
     .dnb-cover-subtitle {
-      font-size: 13.5px;
-      line-height: 1.6;
+      font-size: clamp(12px, 1.15vw, 13.5px);
+      line-height: 1.5;
       color: #524c44;
       margin: 0;
     }
@@ -1005,12 +1008,12 @@
       z-index: 3;
       display: flex;
       align-items: center;
-      gap: 20px;
-      padding: 6px 0;
+      gap: 18px;
+      padding: 4px 0;
     }
     .dnb-wax-seal {
-      width: 66px;
-      height: 66px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: radial-gradient(circle at 38% 35%, #c7472a 15%, #9c331b 65%, #73200f 100%);
       box-shadow: 2px 5px 12px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.35), inset 1px 1px 2px rgba(255,255,255,0.4);
@@ -1020,7 +1023,7 @@
       align-items: center;
       justify-content: center;
       color: #fff;
-      font: 700 8px var(--mono);
+      font: 700 7.5px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       transform: rotate(-8deg);
@@ -1029,11 +1032,11 @@
       flex-shrink: 0;
     }
     .dnb-wax-seal span {
-      font: 700 18px/1 var(--dnb-serif);
+      font: 700 16px/1 var(--dnb-serif);
       color: #ffeae3;
     }
     .dnb-cover-annotation {
-      font: 600 22px/1.25 var(--dnb-hand);
+      font: 600 clamp(18px, 2vw, 21px)/1.25 var(--dnb-hand);
       color: var(--dnb-cobalt);
       transform: rotate(2.5deg);
     }
@@ -1053,9 +1056,9 @@
       gap: 10px;
       background: var(--dnb-ink);
       color: #f5efe4;
-      padding: 11px 20px;
+      padding: 10px 18px;
       border-radius: 100px;
-      font: 700 11.5px var(--mono);
+      font: 700 11px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       box-shadow: 4px 4px 0 var(--dnb-terracotta);
@@ -1079,8 +1082,10 @@
     .dnb-spread-view {
       position: absolute;
       inset: 0;
+      box-sizing: border-box;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
       background: linear-gradient(145deg, #3d251b 0%, #291811 100%);
       padding: 10px 14px 12px;
       border-radius: 10px 14px 14px 10px;
@@ -1103,9 +1108,9 @@
     .dnb-ribbon-bookmark {
       position: absolute;
       left: 50%;
-      bottom: -36px;
-      width: 20px;
-      height: 52px;
+      bottom: -24px;
+      width: 18px;
+      height: 34px;
       transform: translateX(-50%);
       background: linear-gradient(90deg, #7e2112 0%, #a83320 45%, #751e10 100%);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
@@ -1151,8 +1156,11 @@
     /* Page Halves with Stacked Paper Block Edges */
     .dnb-page {
       position: relative;
+      box-sizing: border-box;
+      min-height: 0;
+      max-height: 100%;
       height: 100%;
-      padding: 32px 40px 34px;
+      padding: clamp(18px, 2.5vh, 28px) clamp(22px, 2.6vw, 36px);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -1161,7 +1169,7 @@
       scrollbar-color: rgba(166, 56, 32, 0.25) transparent;
     }
     .dnb-page-left {
-      padding-right: 44px;
+      padding-right: clamp(26px, 3vw, 40px);
       border-radius: 4px 0 0 4px;
       background: linear-gradient(to right, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #C4B49E 100%);
       border-right: 1px solid rgba(55, 38, 25, 0.14);
@@ -1173,7 +1181,7 @@
         -10px 5px 8px rgba(0, 0, 0, 0.35);
     }
     .dnb-page-right {
-      padding-left: 44px;
+      padding-left: clamp(26px, 3vw, 40px);
       border-radius: 0 4px 4px 0;
       background: linear-gradient(to left, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #B8A790 100%);
       box-shadow:
@@ -1227,6 +1235,7 @@
       position: relative;
       z-index: 2;
       flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: column;
     }
@@ -1240,8 +1249,9 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: #6a6358;
-      padding-bottom: 10px;
-      margin-bottom: 16px;
+      padding-bottom: 7px;
+      margin-bottom: clamp(10px, 1.4vh, 14px);
+      flex-shrink: 0;
       border-bottom: 1px solid rgba(23, 23, 23, 0.14);
       position: relative;
       z-index: 2;
@@ -1252,28 +1262,28 @@
 
     /* Spread 1: Table of Contents Left Page */
     .dnb-toc-title {
-      font: 600 clamp(28px, 3vw, 40px)/1.08 var(--dnb-serif);
+      font: 600 clamp(22px, 2.4vw, 34px)/1.08 var(--dnb-serif);
       letter-spacing: -0.035em;
-      margin: 0 0 12px;
+      margin: 0 0 8px;
       color: var(--dnb-ink);
     }
     .dnb-toc-copy {
-      font-size: 14px;
-      line-height: 1.65;
+      font-size: clamp(12.5px, 1.15vw, 13.5px);
+      line-height: 1.52;
       color: #4a443c;
-      margin: 0 0 16px;
+      margin: 0 0 10px;
     }
     .dnb-toc-visual-row {
       display: flex;
       align-items: center;
-      gap: 22px;
-      margin: 4px 0 14px;
+      gap: 16px;
+      margin: 2px 0 8px;
     }
     .dnb-polaroid-frame {
       position: relative;
-      width: 168px;
+      width: clamp(128px, 13vw, 154px);
       background: #FFFDF9;
-      padding: 9px 9px 13px;
+      padding: 7px 7px 10px;
       border: 1px solid rgba(23, 23, 23, 0.22);
       box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.18);
       transform: rotate(-3deg);
@@ -1285,9 +1295,9 @@
     }
     .dnb-polaroid-clip {
       position: absolute;
-      top: -16px;
-      left: 14px;
-      width: 26px;
+      top: -14px;
+      left: 12px;
+      width: 24px;
       height: auto;
       transform: rotate(12deg);
       pointer-events: none;
@@ -1295,10 +1305,10 @@
     }
     .dnb-polaroid-tape {
       position: absolute;
-      top: -8px;
-      right: 14px;
-      width: 48px;
-      height: 16px;
+      top: -7px;
+      right: 12px;
+      width: 42px;
+      height: 14px;
       background: rgba(226, 201, 160, 0.72);
       border: 1px solid rgba(130, 105, 70, 0.25);
       transform: rotate(14deg);
@@ -1306,27 +1316,27 @@
     }
     .dnb-polaroid-img {
       width: 100%;
-      height: 124px;
+      height: clamp(88px, 12.5vh, 114px);
       object-fit: cover;
       object-position: center 20%;
       filter: saturate(1.04) contrast(1.02);
       display: block;
     }
     .dnb-polaroid-cap {
-      font: 600 13.5px/1 var(--dnb-hand);
+      font: 600 13px/1 var(--dnb-hand);
       color: var(--dnb-terracotta);
       text-align: center;
-      margin-top: 8px;
+      margin-top: 6px;
     }
     .dnb-toc-stamp-col {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
+      gap: 8px;
     }
     .dnb-archive-stamp {
-      width: 82px;
-      height: 82px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       border: 1.5px dashed rgba(166, 56, 32, 0.65);
       display: flex;
@@ -1339,15 +1349,15 @@
       background: rgba(250, 246, 238, 0.6);
     }
     .dnb-archive-stamp small {
-      font: 700 7.5px var(--mono);
+      font: 700 7px var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
     .dnb-archive-stamp strong {
-      font: 700 15px/1.1 var(--dnb-serif);
+      font: 700 14px/1.1 var(--dnb-serif);
     }
     .dnb-toc-scrawl {
-      font: 600 18.5px/1.25 var(--dnb-hand);
+      font: 600 clamp(15.5px, 1.6vw, 18px)/1.25 var(--dnb-hand);
       color: var(--dnb-cobalt);
       margin-top: auto;
       transform: rotate(-1deg);
@@ -1357,19 +1367,19 @@
     .dnb-toc-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-top: 4px;
+      gap: clamp(8px, 1.2vh, 12px);
+      margin-top: 2px;
     }
     .dnb-toc-item {
       background: #FAF6EE;
       border: 1.5px solid rgba(23, 23, 23, 0.85);
       border-radius: 6px;
-      padding: 13px 15px;
+      padding: clamp(8px, 1.2vh, 12px) 13px;
       box-shadow: 3px 3px 0 var(--dnb-ink);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s, background-color 0.2s;
     }
     .dnb-toc-item:hover {
@@ -1378,8 +1388,8 @@
       background: #FFFDF9;
     }
     .dnb-toc-thumb {
-      width: 68px;
-      height: 54px;
+      width: 58px;
+      height: 44px;
       object-fit: cover;
       border: 1px solid #171717;
       border-radius: 3px;
@@ -1391,35 +1401,35 @@
       transform: scale(1.06) rotate(-2deg);
     }
     .dnb-toc-num {
-      font: 700 22px/1 var(--dnb-serif);
+      font: 700 20px/1 var(--dnb-serif);
       color: var(--dnb-terracotta);
-      min-width: 24px;
+      min-width: 22px;
     }
     .dnb-toc-info {
       flex: 1;
     }
     .dnb-toc-meta {
-      font: 600 9px var(--mono);
+      font: 600 8.5px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--dnb-cobalt);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
     .dnb-toc-item-title {
-      font: 600 17px/1.18 var(--dnb-serif);
+      font: 600 clamp(14.5px, 1.35vw, 16.5px)/1.16 var(--dnb-serif);
       letter-spacing: -0.02em;
       color: var(--dnb-ink);
       margin: 0;
     }
     .dnb-toc-arrow {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       border: 1.5px solid var(--dnb-ink);
       background: var(--dnb-paper);
       display: grid;
       place-items: center;
-      font-size: 13px;
+      font-size: 12px;
       flex-shrink: 0;
       transition: transform 0.2s, background-color 0.2s, color 0.2s;
     }
@@ -1432,24 +1442,24 @@
 
     /* Article Spreads Artwork Frame & Presentation */
     .dnb-art-title {
-      font: 600 clamp(23px, 2.4vw, 33px)/1.12 var(--dnb-serif);
+      font: 600 clamp(20px, 2.1vw, 28px)/1.12 var(--dnb-serif);
       letter-spacing: -0.03em;
-      margin: 0 0 10px;
+      margin: 0 0 6px;
       color: var(--dnb-ink);
     }
     .dnb-art-intro {
-      font-size: 13.5px;
-      line-height: 1.62;
+      font-size: clamp(12.2px, 1.1vw, 13.2px);
+      line-height: 1.48;
       color: #524c43;
-      margin: 0 0 14px;
+      margin: 0 0 10px;
     }
     .dnb-art-frame {
       position: relative;
       background: #FFFDF9;
-      padding: 8px;
+      padding: 6px;
       border: 1.5px solid var(--dnb-ink);
       box-shadow: 4px 5px 0 rgba(23, 23, 23, 0.14);
-      margin-bottom: 14px;
+      margin-bottom: 8px;
       transform: rotate(-0.6deg);
       transition: transform 0.3s ease;
     }
@@ -1458,34 +1468,34 @@
     }
     .dnb-tape {
       position: absolute;
-      width: 56px;
-      height: 16px;
+      width: 50px;
+      height: 14px;
       background: rgba(224, 198, 152, 0.72);
       border: 1px solid rgba(120, 95, 60, 0.22);
       z-index: 4;
       pointer-events: none;
     }
     .dnb-tape-tl {
-      top: -7px;
-      left: 16px;
+      top: -6px;
+      left: 14px;
       transform: rotate(-12deg);
     }
     .dnb-tape-tr {
-      top: -7px;
-      right: 16px;
+      top: -6px;
+      right: 14px;
       transform: rotate(10deg);
     }
     .dnb-art-collage {
       width: 100%;
-      aspect-ratio: 16 / 10;
-      max-height: 220px;
+      height: clamp(120px, 20vh, 185px);
+      max-height: 185px;
       object-fit: cover;
       display: block;
       border: 1px solid rgba(23, 23, 23, 0.16);
       background: #FDFBF7;
     }
     .dnb-art-note {
-      font: 600 16px/1.28 var(--dnb-hand);
+      font: 600 clamp(14.5px, 1.4vw, 16px)/1.2 var(--dnb-hand);
       color: var(--dnb-terracotta);
       margin-top: auto;
       transform: rotate(-1deg);
@@ -1493,25 +1503,25 @@
 
     /* Right Page Article Reading Text */
     .dnb-prose {
-      font-size: 14px;
-      line-height: 1.78;
+      font-size: clamp(12.4px, 1.15vw, 13.6px);
+      line-height: 1.58;
       color: #38342e;
     }
     .dnb-prose p {
-      margin: 0 0 14px;
+      margin: 0 0 clamp(7px, 1.1vh, 11px);
     }
     .dnb-dropcap::first-letter {
       float: left;
-      font: 700 48px/0.82 var(--dnb-serif);
-      padding: 4px 10px 0 0;
+      font: 700 clamp(38px, 3.8vw, 44px)/0.82 var(--dnb-serif);
+      padding: 4px 9px 0 0;
       color: var(--dnb-terracotta);
     }
     .dnb-pullquote {
-      margin: 16px 0;
-      padding: 12px 16px;
+      margin: clamp(8px, 1.2vh, 12px) 0;
+      padding: clamp(8px, 1.1vh, 11px) 14px;
       background: rgba(166, 56, 32, 0.06);
       border-left: 3px solid var(--dnb-terracotta);
-      font: italic 600 16.5px/1.42 var(--dnb-serif);
+      font: italic 600 clamp(13.8px, 1.35vw, 15.5px)/1.35 var(--dnb-serif);
       color: var(--dnb-ink);
     }
     .dnb-highlight {
@@ -1522,12 +1532,13 @@
     }
     .dnb-signoff {
       margin-top: auto;
-      padding-top: 12px;
+      padding-top: 8px;
+      flex-shrink: 0;
       border-top: 1px dashed rgba(23, 23, 23, 0.18);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font: 600 10px var(--mono);
+      font: 600 9.5px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #696257;
@@ -1538,7 +1549,7 @@
       background: none;
       border: none;
       padding: 0;
-      font: 700 10px var(--mono);
+      font: 700 9.5px var(--mono);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--dnb-terracotta);
@@ -1553,8 +1564,8 @@
     /* Dog-Ear Interactive Page Corners */
     .dnb-dogear {
       position: absolute;
-      width: 46px;
-      height: 46px;
+      width: 42px;
+      height: 42px;
       cursor: pointer;
       z-index: 25;
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1625,6 +1636,9 @@
       position: absolute;
       top: 10px;
       bottom: 12px;
+      box-sizing: border-box;
+      overflow: hidden;
+      padding: clamp(18px, 2.5vh, 28px) clamp(22px, 2.6vw, 36px);
       z-index: 22;
       pointer-events: none;
       display: none;
@@ -1632,10 +1646,12 @@
     .dnb-underlay-left {
       left: 14px;
       width: calc(50% - 14px);
+      padding-right: clamp(26px, 3vw, 40px);
     }
     .dnb-underlay-right {
       left: 50%;
       width: calc(50% - 14px);
+      padding-left: clamp(26px, 3vw, 40px);
     }
     .dnb-underlay-clone.active {
       display: flex;
@@ -1660,22 +1676,23 @@
     .dnb-leaf-face {
       position: absolute;
       inset: 0;
+      box-sizing: border-box;
       backface-visibility: hidden;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      padding: 32px 40px 34px;
+      padding: clamp(18px, 2.5vh, 28px) clamp(22px, 2.6vw, 36px);
     }
     .dnb-leaf-front {
       transform: rotateY(0deg);
-      padding-left: 44px;
+      padding-left: clamp(26px, 3vw, 40px);
       border-radius: 0 4px 4px 0;
       background: linear-gradient(to left, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #B8A790 100%);
       box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.25);
     }
     .dnb-leaf-back {
       transform: rotateY(180deg);
-      padding-right: 44px;
+      padding-right: clamp(26px, 3vw, 40px);
       border-radius: 4px 0 0 4px;
       background: linear-gradient(to right, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #C4B49E 100%);
       border-right: 1px solid rgba(55, 38, 25, 0.14);
@@ -1700,7 +1717,8 @@
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
-      padding-top: 8px;
+      padding-top: 6px;
+      flex-shrink: 0;
       font: 600 10.5px var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -1838,20 +1856,21 @@
     /* Responsive Adaptation for Tablets and Mobiles */
     @media (max-width: 960px) {
       .dnb-book {
-        width: 94vw;
-        height: 80vh;
+        width: calc(100vw - 68px);
+        height: min(620px, calc(100vh - 90px));
       }
       .dnb-page {
-        padding: 22px 26px 26px;
+        padding: 18px 20px 20px;
       }
       .dnb-page-left {
-        padding-right: 28px;
+        padding-right: 22px;
       }
       .dnb-page-right {
-        padding-left: 28px;
+        padding-left: 22px;
       }
       .dnb-art-collage {
-        max-height: 175px;
+        height: clamp(110px, 16vh, 150px);
+        max-height: 150px;
       }
       .dnb-tabs {
         right: -28px;
@@ -1864,13 +1883,14 @@
 
     @media (max-width: 680px) {
       .dnb-overlay {
-        padding: 12px 14px 10px;
+        padding: 10px 12px;
       }
       .dnb-hud-brand span {
         display: none;
       }
       .dnb-stage {
         align-items: stretch;
+        padding: 4px 0;
       }
       .dnb-book,
       .dnb-book.state-cover {
@@ -1878,27 +1898,33 @@
         height: 100%;
       }
       .dnb-cover-view {
-        padding: 28px 22px 24px 48px;
+        padding: 24px 20px 22px 44px;
       }
       .dnb-cover-view::before {
-        width: 30px;
+        width: 28px;
       }
       .dnb-cover-view::after {
-        left: 34px;
+        left: 33px;
       }
       .dnb-spread-view {
         grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
         overflow-y: auto;
         padding: 8px;
+      }
+      .dnb-page {
+        height: auto;
+        max-height: none;
+        overflow-y: visible;
       }
       .dnb-page-left {
         border-right: none;
         border-bottom: 2px dashed rgba(35, 25, 18, 0.25);
-        padding: 22px 18px;
+        padding: 20px 16px;
         box-shadow: none;
       }
       .dnb-page-right {
-        padding: 22px 18px;
+        padding: 20px 16px;
         box-shadow: none;
       }
       .dnb-spine-gutter,
