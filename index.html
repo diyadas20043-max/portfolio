@@ -706,8 +706,880 @@
       .exp-preview{display:none!important}
       .margin-doodle{position:relative;top:0;right:0;margin-top:8px;align-items:flex-start}.doodle-arrow-svg{display:none}.doodle-note{font-size:12px;padding:4px 9px;transform:none}
     }
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.preloader{display:none}}
-  </style>
+    /* =========================================================
+       06. IMMERSIVE 3D DIGITAL NOTEBOOK EXPERIENCE
+       ========================================================= */
+    :root {
+      --dnb-paper: #F5EFE4;
+      --dnb-paper-alt: #FAF6EE;
+      --dnb-paper-shadow: #E3D5C1;
+      --dnb-ink: #171717;
+      --dnb-terracotta: #A63820;
+      --dnb-cobalt: #334C68;
+      --dnb-leather: #4A3025;
+      --dnb-leather-dark: #362219;
+      --dnb-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+      --dnb-hand: "Caveat", cursive, sans-serif;
+    }
+
+    /* Modal Desk Viewport Overlay */
+    .dnb-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: radial-gradient(circle at 50% 45%, #27211b 0%, #171412 85%);
+      color: var(--dnb-ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 24px 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow: hidden;
+      user-select: none;
+    }
+    .dnb-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Wood grain / desk texture overlay */
+    .dnb-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Minimalist Top HUD Bar */
+    .dnb-hud-top {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-bottom: 8px;
+    }
+    .dnb-hud-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #dfd8cc;
+    }
+    .dnb-hud-brand span {
+      color: var(--dnb-terracotta);
+    }
+    .dnb-hud-leather-pill {
+      background: var(--dnb-leather);
+      color: #e8ded1;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 9.5px;
+      letter-spacing: 0.1em;
+    }
+    .dnb-hud-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dnb-hud-btn {
+      background: rgba(245, 239, 228, 0.08);
+      border: 1px solid rgba(245, 239, 228, 0.22);
+      color: #f5efe4;
+      border-radius: 100px;
+      padding: 7px 15px;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dnb-hud-btn:hover {
+      background: var(--dnb-terracotta);
+      border-color: var(--dnb-terracotta);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .dnb-close-btn {
+      background: rgba(255, 90, 54, 0.15);
+      border-color: rgba(255, 90, 54, 0.35);
+      color: #ff917a;
+    }
+    .dnb-close-btn:hover {
+      background: #ff5a36;
+      border-color: #ff5a36;
+      color: #171717;
+    }
+
+    /* 3D Physical Desk & Stage Rig */
+    .dnb-stage {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 2600px;
+      perspective-origin: center center;
+      padding: 6px 0;
+    }
+
+    /* The Notebook Object */
+    .dnb-book {
+      position: relative;
+      width: min(1140px, 94vw);
+      height: min(690px, 78vh);
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Closed Cover State Rig */
+    .dnb-book.state-cover {
+      width: min(560px, 90vw);
+    }
+
+    /* Realistic Drop Shadow on Wood Desk */
+    .dnb-shadow {
+      position: absolute;
+      inset: -15px -20px -25px -15px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.55);
+      filter: blur(28px);
+      transform: translateZ(-40px);
+      pointer-events: none;
+      transition: all 0.5s ease;
+    }
+    .dnb-book.state-cover .dnb-shadow {
+      filter: blur(22px);
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    /* Physical Hardcover View */
+    .dnb-cover-view {
+      position: absolute;
+      inset: 0;
+      background: var(--dnb-paper);
+      border: 2px solid #2d1d16;
+      border-radius: 6px 14px 14px 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 44px 52px;
+      box-shadow: inset 0 0 40px rgba(74, 48, 37, 0.12);
+      transform-origin: left center;
+      transition: transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+      backface-visibility: hidden;
+      z-index: 25;
+      cursor: pointer;
+    }
+    .dnb-book:not(.state-cover) .dnb-cover-view {
+      transform: rotateY(-180deg);
+      pointer-events: none;
+    }
+
+    /* Leather Spine on Cover */
+    .dnb-cover-view::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 42px;
+      background: linear-gradient(to right, #2c1b13, #4A3025 80%, #3a241a 100%);
+      box-shadow: inset -2px 0 5px rgba(0,0,0,0.4), 3px 0 6px rgba(0,0,0,0.25);
+      border-right: 1.5px dashed rgba(220, 190, 140, 0.35);
+      z-index: 2;
+    }
+
+    /* Gold foil stitch lines on cover */
+    .dnb-cover-view::after {
+      content: "";
+      position: absolute;
+      left: 47px;
+      top: 12px;
+      bottom: 12px;
+      width: 1px;
+      background: rgba(166, 56, 32, 0.28);
+      pointer-events: none;
+    }
+
+    /* Cover Letterpress Typography */
+    .dnb-cover-top {
+      position: relative;
+      z-index: 3;
+      padding-left: 20px;
+    }
+    .dnb-cover-author {
+      font: 700 12px var(--mono);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dnb-terracotta);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dnb-cover-author::before {
+      content: "";
+      width: 18px;
+      height: 1.5px;
+      background: var(--dnb-terracotta);
+    }
+    .dnb-cover-title {
+      font: 700 clamp(36px, 5vw, 56px)/1.02 var(--dnb-serif);
+      letter-spacing: -0.04em;
+      margin: 0 0 16px;
+      color: var(--dnb-ink);
+    }
+    .dnb-cover-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #524c44;
+      max-width: 380px;
+      margin: 0;
+    }
+
+    .dnb-cover-middle {
+      position: relative;
+      z-index: 3;
+      padding-left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .dnb-wax-seal {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #b84024 30%, #8c2e19 90%);
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.35), inset 1px 1px 2px rgba(255,255,255,0.35);
+      border: 2px solid #732210;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font: 700 8.5px var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transform: rotate(-8deg);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .dnb-wax-seal span {
+      font: 700 18px/1 var(--dnb-serif);
+      color: #ffeae3;
+    }
+    .dnb-cover-annotation {
+      font: 600 21px/1.3 var(--dnb-hand);
+      color: var(--dnb-cobalt);
+      transform: rotate(3deg);
+    }
+
+    .dnb-cover-bottom {
+      position: relative;
+      z-index: 3;
+      padding-left: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .dnb-open-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--dnb-ink);
+      color: #f5efe4;
+      padding: 12px 22px;
+      border-radius: 100px;
+      font: 700 12px var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 4px 4px 0 var(--dnb-terracotta);
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    }
+    .dnb-cover-view:hover .dnb-open-cta {
+      background: var(--dnb-terracotta);
+      box-shadow: 6px 6px 0 var(--dnb-ink);
+      transform: translate(-2px, -2px);
+    }
+    .dnb-cover-badge {
+      font: 600 10px var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #696257;
+    }
+
+    /* Open 2-Page Spread Rig */
+    .dnb-spread-view {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--dnb-paper);
+      border: 2px solid #2d1d16;
+      border-radius: 8px 14px 14px 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease 0.25s;
+    }
+    .dnb-book:not(.state-cover) .dnb-spread-view {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Central Spine Gutter & Crease */
+    .dnb-spine-gutter {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 32px;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, 
+        rgba(35, 25, 18, 0.3) 0%, 
+        rgba(35, 25, 18, 0.5) 45%, 
+        rgba(20, 15, 10, 0.7) 50%, 
+        rgba(35, 25, 18, 0.5) 55%, 
+        rgba(35, 25, 18, 0.3) 100%
+      );
+      z-index: 15;
+      pointer-events: none;
+      box-shadow: 0 0 14px rgba(0,0,0,0.25);
+    }
+    /* Stitching dots down spine */
+    .dnb-spine-gutter::after {
+      content: "";
+      position: absolute;
+      top: 24px;
+      bottom: 24px;
+      left: 50%;
+      width: 2px;
+      transform: translateX(-50%);
+      background-image: linear-gradient(to bottom, #d6c09b 30%, transparent 30%);
+      background-size: 2px 14px;
+      opacity: 0.65;
+    }
+
+    /* Page Halves */
+    .dnb-page {
+      position: relative;
+      height: 100%;
+      padding: 38px 46px 42px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: var(--dnb-paper);
+    }
+    .dnb-page-left {
+      padding-right: 48px;
+      background: linear-gradient(to right, var(--dnb-paper) 88%, rgba(220,208,188,0.9) 100%);
+      border-right: 1px solid rgba(0,0,0,0.06);
+    }
+    .dnb-page-right {
+      padding-left: 48px;
+      background: linear-gradient(to left, var(--dnb-paper) 88%, rgba(220,208,188,0.9) 100%);
+    }
+
+    /* Fine notebook ruling */
+    .dnb-page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(to bottom, transparent, transparent 31px, rgba(166, 56, 32, 0.04) 32px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .dnb-page-content {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Running Header on Spread */
+    .dnb-folio-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font: 600 10px var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #6a6358;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+    }
+    .dnb-folio-head span:first-child {
+      color: var(--dnb-terracotta);
+    }
+
+    /* Spread 1: Table of Contents Left Page */
+    .dnb-toc-title {
+      font: 600 clamp(30px, 3.2vw, 44px)/1.08 var(--dnb-serif);
+      letter-spacing: -0.035em;
+      margin: 0 0 14px;
+      color: var(--dnb-ink);
+    }
+    .dnb-toc-copy {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #4a443c;
+      margin: 0 0 22px;
+    }
+    .dnb-polaroid-frame {
+      width: 175px;
+      background: #FFFDF9;
+      padding: 10px 10px 14px;
+      border: 1px solid rgba(23,23,23,0.18);
+      box-shadow: 4px 5px 12px rgba(0,0,0,0.18);
+      transform: rotate(-3deg);
+      margin: 8px 0 16px;
+      transition: transform 0.3s ease;
+    }
+    .dnb-polaroid-frame:hover {
+      transform: rotate(0deg) scale(1.03);
+    }
+    .dnb-polaroid-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: saturate(1.05) contrast(1.02);
+      display: block;
+    }
+    .dnb-polaroid-cap {
+      font: 600 14px/1 var(--dnb-hand);
+      color: var(--dnb-terracotta);
+      text-align: center;
+      margin-top: 8px;
+    }
+    .dnb-toc-scrawl {
+      font: 600 18px/1.3 var(--dnb-hand);
+      color: var(--dnb-cobalt);
+      margin-top: auto;
+      transform: rotate(-1.5deg);
+    }
+
+    /* Spread 1: Table of Contents Right Page (Article Entries) */
+    .dnb-toc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .dnb-toc-item {
+      background: #FAF6EE;
+      border: 1.5px solid rgba(23, 23, 23, 0.85);
+      border-radius: 6px;
+      padding: 16px 18px;
+      box-shadow: 3px 3px 0 var(--dnb-ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s, background-color 0.2s;
+    }
+    .dnb-toc-item:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--dnb-terracotta);
+      background: #FFFDF9;
+    }
+    .dnb-toc-num {
+      font: 700 24px/1 var(--dnb-serif);
+      color: var(--dnb-terracotta);
+      min-width: 28px;
+    }
+    .dnb-toc-info {
+      flex: 1;
+    }
+    .dnb-toc-meta {
+      font: 600 9.5px var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dnb-cobalt);
+      margin-bottom: 4px;
+    }
+    .dnb-toc-item-title {
+      font: 600 18px/1.2 var(--dnb-serif);
+      letter-spacing: -0.02em;
+      color: var(--dnb-ink);
+      margin: 0;
+    }
+    .dnb-toc-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--dnb-ink);
+      background: var(--dnb-paper);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      transition: transform 0.2s, background-color 0.2s, color 0.2s;
+    }
+    .dnb-toc-item:hover .dnb-toc-arrow {
+      background: var(--dnb-terracotta);
+      border-color: var(--dnb-terracotta);
+      color: #fff;
+      transform: translateX(3px);
+    }
+
+    /* Article Spreads Presentation */
+    .dnb-art-title {
+      font: 600 clamp(24px, 2.6vw, 36px)/1.15 var(--dnb-serif);
+      letter-spacing: -0.03em;
+      margin: 0 0 14px;
+      color: var(--dnb-ink);
+    }
+    .dnb-art-intro {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #524c43;
+      margin: 0 0 18px;
+    }
+    .dnb-art-collage {
+      width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      border: 1.5px solid var(--dnb-ink);
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.12);
+      background: #FDFBF7;
+      margin-bottom: 14px;
+    }
+    .dnb-art-note {
+      font: 600 16px/1.3 var(--dnb-hand);
+      color: var(--dnb-terracotta);
+      margin-top: auto;
+      transform: rotate(-1.5deg);
+    }
+
+    /* Right Page Article Reading Text */
+    .dnb-prose {
+      font-size: 14.5px;
+      line-height: 1.85;
+      color: #38342e;
+    }
+    .dnb-prose p {
+      margin: 0 0 16px;
+    }
+    .dnb-dropcap::first-letter {
+      float: left;
+      font: 700 52px/0.82 var(--dnb-serif);
+      padding: 4px 10px 0 0;
+      color: var(--dnb-terracotta);
+    }
+    .dnb-pullquote {
+      margin: 20px 0;
+      padding: 14px 18px;
+      background: rgba(166, 56, 32, 0.06);
+      border-left: 3px solid var(--dnb-terracotta);
+      font: italic 600 17px/1.45 var(--dnb-serif);
+      color: var(--dnb-ink);
+    }
+    .dnb-highlight {
+      background: linear-gradient(120deg, rgba(166, 56, 32, 0.16) 0%, rgba(166, 56, 32, 0.16) 100%);
+      padding: 2px 4px;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+    .dnb-signoff {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(23, 23, 23, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font: 600 10.5px var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #696257;
+    }
+
+    /* Dog-Ear Interactive Page Corners */
+    .dnb-dogear {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      z-index: 20;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .dnb-dogear-next {
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(135deg, transparent 50%, rgba(225, 211, 188, 0.95) 50%, #d4bf9c 100%);
+      border-top-left-radius: 6px;
+      box-shadow: -2px -2px 5px rgba(0,0,0,0.12);
+    }
+    .dnb-dogear-next:hover {
+      transform: scale(1.3) translate(-3px, -3px);
+    }
+    .dnb-dogear-prev {
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(225deg, transparent 50%, rgba(225, 211, 188, 0.95) 50%, #d4bf9c 100%);
+      border-top-right-radius: 6px;
+      box-shadow: 2px -2px 5px rgba(0,0,0,0.12);
+    }
+    .dnb-dogear-prev:hover {
+      transform: scale(1.3) translate(3px, -3px);
+    }
+
+    /* Edge Bookmarks / Side Tabs */
+    .dnb-tabs {
+      position: absolute;
+      right: -34px;
+      top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 30;
+    }
+    .dnb-tab {
+      background: #FAF6EE;
+      color: var(--dnb-ink);
+      border: 1.5px solid #2d1d16;
+      border-left: none;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 8px;
+      font: 700 9px var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      cursor: pointer;
+      box-shadow: 3px 2px 6px rgba(0,0,0,0.22);
+      transition: transform 0.2s, background-color 0.2s, color 0.2s;
+    }
+    .dnb-tab:hover {
+      transform: translateX(5px);
+    }
+    .dnb-tab.active {
+      background: var(--dnb-terracotta);
+      color: #fff;
+      transform: translateX(6px);
+      box-shadow: 4px 3px 8px rgba(0,0,0,0.3);
+    }
+    .dnb-tab[data-tab="toc"] { background: #FAF6EE; }
+    .dnb-tab[data-tab="01"] { border-color: var(--dnb-terracotta); }
+    .dnb-tab[data-tab="02"] { border-color: var(--dnb-cobalt); }
+    .dnb-tab[data-tab="03"] { border-color: var(--dnb-leather); }
+
+    /* 3D Animated Page Turn Leaf Rig */
+    .dnb-flip-leaf {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 50%;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      z-index: 28;
+      pointer-events: none;
+      display: none;
+    }
+    .dnb-flip-leaf.turning {
+      display: block;
+    }
+    .dnb-leaf-face {
+      position: absolute;
+      inset: 0;
+      background: var(--dnb-paper);
+      border: 1.5px solid #2d1d16;
+      border-radius: 0 14px 14px 0;
+      padding: 38px 46px 42px;
+      backface-visibility: hidden;
+      overflow: hidden;
+    }
+    .dnb-leaf-front {
+      transform: rotateY(0deg);
+    }
+    .dnb-leaf-back {
+      transform: rotateY(180deg);
+      border-radius: 14px 0 0 14px;
+      border-right: none;
+    }
+    .dnb-leaf-shade {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(0,0,0,0.35) 0%, transparent 60%);
+      opacity: 0;
+    }
+
+    /* Minimalist Bottom HUD Bar */
+    .dnb-hud-bottom {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-top: 8px;
+      font: 600 10.5px var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #a69e92;
+    }
+    .dnb-hud-progress-wrap {
+      width: min(280px, 40vw);
+      height: 3px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 0 16px;
+    }
+    .dnb-hud-progress-bar {
+      height: 100%;
+      width: 25%;
+      background: var(--dnb-terracotta);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    /* Portal CTA in Main Page Notebook Section */
+    .nb-portal-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      background: #FAF6EE;
+      border: 1.5px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      padding: 22px 28px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .nb-portal-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nb-portal-icon {
+      font-size: 28px;
+    }
+    .nb-portal-title {
+      font: 700 18px var(--dnb-serif);
+      margin: 0 0 4px;
+    }
+    .nb-portal-desc {
+      font-size: 13.5px;
+      color: #554f46;
+      margin: 0;
+    }
+    .nb-portal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--dnb-terracotta);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 100px;
+      font: 700 12px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nb-portal-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    /* Responsive Adaptation for Tablets and Mobiles */
+    @media (max-width: 960px) {
+      .dnb-book {
+        width: 96vw;
+        height: 80vh;
+      }
+      .dnb-page {
+        padding: 24px 28px 28px;
+      }
+      .dnb-page-left {
+        padding-right: 28px;
+      }
+      .dnb-page-right {
+        padding-left: 28px;
+      }
+      .dnb-art-collage {
+        max-height: 180px;
+      }
+      .dnb-tabs {
+        right: -28px;
+      }
+      .dnb-tab {
+        padding: 8px 6px;
+        font-size: 8px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .dnb-overlay {
+        padding: 12px 14px 10px;
+      }
+      .dnb-hud-brand span {
+        display: none;
+      }
+      .dnb-stage {
+        align-items: stretch;
+      }
+      .dnb-book {
+        width: 100%;
+        height: 100%;
+      }
+      .dnb-book.state-cover {
+        width: 100%;
+      }
+      .dnb-cover-view {
+        padding: 30px 24px;
+      }
+      .dnb-cover-view::before {
+        width: 24px;
+      }
+      .dnb-spread-view {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+      }
+      .dnb-page-left {
+        border-right: none;
+        border-bottom: 2px dashed rgba(35, 25, 18, 0.25);
+        padding: 24px 20px;
+      }
+      .dnb-page-right {
+        padding: 24px 20px;
+      }
+      .dnb-spine-gutter {
+        display: none;
+      }
+      .dnb-tabs {
+        display: none;
+      }
+      .dnb-hud-progress-wrap {
+        display: none;
+      }
+    }
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -771,7 +1643,7 @@
       </a>
       <button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
       <nav class="navlinks" aria-label="Main navigation">
-        <a href="#about">About</a><a href="#work">Selected work</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#blog">Notebook</a>
+        <a href="#about">About</a><a href="#work">Selected work</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#notebook" id="navNotebookLink" data-cursor="BOOK">Notebook</a>
         <a class="nav-cta" href="#contact" data-cursor="HELLO">Let's talk ↗</a>
       </nav>
     </div>
@@ -957,6 +1829,19 @@
           </div>
           <div class="nb-divider" aria-hidden="true"></div>
         </header>
+
+        <!-- Interactive 3D Digital Notebook Desk Portal -->
+        <aside class="nb-portal-banner" style="margin-bottom: 34px;">
+          <div class="nb-portal-info">
+            <div class="mono" style="font-size: 10px; color: var(--dnb-terracotta); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 4px;">IMMERSIVE READING ROOM</div>
+            <h3 class="nb-portal-title">Experience the Complete Bound Journal</h3>
+            <p class="nb-portal-desc">Step into the 3D desk view to browse leather binding, tactile page turns, handwritten notes, and full essay reading spreads.</p>
+          </div>
+          <button type="button" class="nb-portal-cta" id="openNotebookPortalBtn" data-cursor="BOOK">
+            <span>📖 Open Interactive Journal</span>
+            <span>↗</span>
+          </button>
+        </aside>
 
         <!-- Featured Article — Asymmetric 2-Column Editorial Spread -->
         <article class="nb-featured" aria-labelledby="featuredTitle">
@@ -1302,6 +2187,390 @@
       <button class="drawer-close" id="drawerNext">Next Spread →</button>
     </div>
   </aside>
+
+  <!-- =========================================================
+       06. IMMERSIVE 3D DIGITAL NOTEBOOK EXPERIENCE MODAL
+       ========================================================= -->
+  <div id="digitalNotebookOverlay" class="dnb-overlay" role="dialog" aria-modal="true" aria-label="Diya Das Interactive Digital Notebook">
+    <!-- Top HUD Bar -->
+    <header class="dnb-hud-top">
+      <div class="dnb-hud-brand">
+        <span class="dnb-hud-leather-pill">ARCHIVE</span>
+        <strong>DIYA DAS</strong>
+        <span>/</span>
+        <small>THE OPEN NOTEBOOK</small>
+      </div>
+      <div class="dnb-hud-actions">
+        <button type="button" class="dnb-hud-btn" id="dnbContentsBtn" aria-label="Go to Table of Contents">
+          <span>☰</span> <span>Contents</span>
+        </button>
+        <button type="button" class="dnb-hud-btn" id="dnbPrevBtn" aria-label="Previous Page Spread">
+          <span>←</span> <span>Prev</span>
+        </button>
+        <button type="button" class="dnb-hud-btn" id="dnbNextBtn" aria-label="Next Page Spread">
+          <span>Next</span> <span>→</span>
+        </button>
+        <button type="button" class="dnb-hud-btn dnb-close-btn" id="dnbCloseBtn" aria-label="Close Notebook">
+          <span>✕</span> <span>Close [ESC]</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 3D Physical Desk & Book Stage -->
+    <div class="dnb-stage">
+      <div class="dnb-book state-cover" id="dnbBook">
+        <div class="dnb-shadow" aria-hidden="true"></div>
+
+        <!-- Physical Hardcover Closed View (Spread 0) -->
+        <div class="dnb-cover-view" id="dnbCoverView" tabindex="0" role="button" aria-label="Open Hardcover Notebook">
+          <div class="dnb-cover-top">
+            <div class="dnb-cover-author">DIYA DAS · WRITER &amp; RESEARCHER</div>
+            <h2 class="dnb-cover-title">THE OPEN<br>NOTEBOOK</h2>
+            <p class="dnb-cover-subtitle">Ideas, stories, observations &amp; everything in between — collected across 50+ articles, interviews and creative experiments.</p>
+          </div>
+
+          <div class="dnb-cover-middle">
+            <div class="dnb-wax-seal" aria-hidden="true">
+              <span>DD</span>
+              ISSUE 01
+            </div>
+            <div class="dnb-cover-annotation">
+              “Collected along the way.”
+            </div>
+          </div>
+
+          <div class="dnb-cover-bottom">
+            <div class="dnb-open-cta">
+              <span>📖 Open Journal</span>
+              <span>↗</span>
+            </div>
+            <div class="dnb-cover-badge">HANDBOUND EDITORIAL · VOL. I</div>
+          </div>
+        </div>
+
+        <!-- 2-Page Spreads Container -->
+        <div class="dnb-spread-view" id="dnbSpreadView">
+          <div class="dnb-spine-gutter" aria-hidden="true"></div>
+
+          <!-- Spread 1: Table of Contents -->
+          <div class="dnb-spread-panel" data-spread-idx="1" style="display: contents;">
+            <!-- Left Page: Editorial Title & Polaroid -->
+            <div class="dnb-page dnb-page-left">
+              <div class="dnb-folio-head">
+                <span>05 / THE OPEN NOTEBOOK</span>
+                <span>VOL. I · 2026</span>
+              </div>
+              <div class="dnb-page-content">
+                <h2 class="dnb-toc-title">A living notebook of ideas, people and <em style="font-family: var(--dnb-serif); font-style: italic; color: var(--dnb-terracotta);">stories</em>.</h2>
+                <p class="dnb-toc-copy">Thoughts, little discoveries and drafts — about communication, people, creativity and the small details that shape how we connect.</p>
+                
+                <div class="dnb-polaroid-frame">
+                  <img src="diya-das-portrait.jpeg" alt="Diya Das portrait" class="dnb-polaroid-img">
+                  <div class="dnb-polaroid-cap">diya das · on-ground archive</div>
+                </div>
+
+                <div class="dnb-toc-scrawl">
+                  “Every interview begins with a willingness to be surprised.”
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-prev" title="Return to Cover"></div>
+            </div>
+
+            <!-- Right Page: Index List -->
+            <div class="dnb-page dnb-page-right">
+              <div class="dnb-folio-head">
+                <span>INDEX OF ESSAYS</span>
+                <span>PAGE 01</span>
+              </div>
+              <div class="dnb-page-content">
+                <div class="dnb-toc-list">
+                  <!-- Item 1 -->
+                  <article class="dnb-toc-item" data-goto-spread="2" tabindex="0" role="button" aria-label="Read Article 01">
+                    <div class="dnb-toc-num">01</div>
+                    <div class="dnb-toc-info">
+                      <div class="dnb-toc-meta">PSYCHOLOGY / PERSPECTIVE · 5 MIN</div>
+                      <h3 class="dnb-toc-item-title">Why understanding people makes communication more meaningful</h3>
+                    </div>
+                    <div class="dnb-toc-arrow">↗</div>
+                  </article>
+
+                  <!-- Item 2 -->
+                  <article class="dnb-toc-item" data-goto-spread="3" tabindex="0" role="button" aria-label="Read Article 02">
+                    <div class="dnb-toc-num">02</div>
+                    <div class="dnb-toc-info">
+                      <div class="dnb-toc-meta">RESEARCH / INTERVIEWS · 4 MIN</div>
+                      <h3 class="dnb-toc-item-title">The art of asking a better question</h3>
+                    </div>
+                    <div class="dnb-toc-arrow">↗</div>
+                  </article>
+
+                  <!-- Item 3 -->
+                  <article class="dnb-toc-item" data-goto-spread="4" tabindex="0" role="button" aria-label="Read Article 03">
+                    <div class="dnb-toc-num">03</div>
+                    <div class="dnb-toc-info">
+                      <div class="dnb-toc-meta">WRITING / STORYTELLING · 6 MIN</div>
+                      <h3 class="dnb-toc-item-title">From a blank page to a story worth sharing</h3>
+                    </div>
+                    <div class="dnb-toc-arrow">↗</div>
+                  </article>
+                </div>
+                <div class="dnb-signoff" style="margin-top: auto;">
+                  <span>SELECT AN ESSAY OR FLIP CORNER</span>
+                  <span>READING ROOM</span>
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 01)"></div>
+            </div>
+          </div>
+
+          <!-- Spread 2: Article 01 -->
+          <div class="dnb-spread-panel" data-spread-idx="2" style="display: none;">
+            <!-- Left Page: Artwork & Intro -->
+            <div class="dnb-page dnb-page-left">
+              <div class="dnb-folio-head">
+                <span>ARTICLE 01 · PSYCHOLOGY &amp; PERSPECTIVE</span>
+                <span>PAGE 02</span>
+              </div>
+              <div class="dnb-page-content">
+                <div class="dnb-toc-meta" style="color: var(--dnb-terracotta);">FEATURED ESSAY · 5 MIN READ</div>
+                <h2 class="dnb-art-title">Why understanding people makes communication more meaningful</h2>
+                <p class="dnb-art-intro">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
+                
+                <svg class="dnb-art-collage" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Psychology and human perspective illustration">
+                  <rect width="400" height="220" fill="#F4ECE1"/>
+                  <!-- Torn paper collage layer -->
+                  <path d="M20 25 L380 20 L375 195 L25 200 Z" fill="#EADCC8" stroke="#D3C1A7" stroke-width="1.5"/>
+                  <!-- Profile silhouette & mental resonance wave -->
+                  <path d="M120 180 C120 130 140 110 160 100 C180 90 200 90 215 75 C230 60 235 40 250 40 C265 40 280 55 280 75 C280 95 270 105 270 120 C270 140 285 155 285 180 Z" fill="rgba(166,56,32,0.12)" stroke="var(--dnb-terracotta)" stroke-width="2"/>
+                  <!-- Mind resonance contour circles -->
+                  <circle cx="230" cy="85" r="28" stroke="var(--dnb-cobalt)" stroke-width="1.5" stroke-dasharray="3 3"/>
+                  <circle cx="230" cy="85" r="44" stroke="var(--dnb-cobalt)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+                  <circle cx="230" cy="85" r="60" stroke="var(--dnb-terracotta)" stroke-width="1" stroke-dasharray="5 5" opacity="0.4"/>
+                  <!-- Botanical branch scrap -->
+                  <path d="M60 160 Q100 130 140 100" stroke="#4A3025" stroke-width="2" stroke-linecap="round"/>
+                  <ellipse cx="80" cy="140" rx="9" ry="5" transform="rotate(-30 80 140)" fill="rgba(80,105,75,0.35)"/>
+                  <ellipse cx="110" cy="120" rx="9" ry="5" transform="rotate(-20 110 120)" fill="rgba(80,105,75,0.35)"/>
+                  <ellipse cx="135" cy="102" rx="8" ry="4" transform="rotate(-40 135 102)" fill="rgba(80,105,75,0.35)"/>
+                  <!-- Editorial Stamp -->
+                  <g transform="translate(310, 45) rotate(12)">
+                    <circle cx="28" cy="28" r="26" stroke="#A63820" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
+                    <text x="28" y="24" font-family="'DM Mono', monospace" font-size="7" fill="#A63820" text-anchor="middle" letter-spacing="1">ARCHIVE</text>
+                    <text x="28" y="36" font-family="'Cormorant Garamond', serif" font-weight="700" font-size="12" fill="#A63820" text-anchor="middle">01 · PSY</text>
+                  </g>
+                  <text x="35" y="185" font-family="'Caveat', cursive" font-size="18" fill="var(--dnb-cobalt)">“We listen with more than just our ears.”</text>
+                </svg>
+
+                <div class="dnb-art-note">
+                  Field note: Empathy is an active craft of observation, not a passive reaction.
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (TOC)"></div>
+            </div>
+
+            <!-- Right Page: Prose Reading -->
+            <div class="dnb-page dnb-page-right">
+              <div class="dnb-folio-head">
+                <span>READING ESSAY</span>
+                <span>PAGE 03</span>
+              </div>
+              <div class="dnb-page-content">
+                <div class="dnb-prose">
+                  <p class="dnb-dropcap">Most communication failures are rarely about vocabulary; they are almost always failures of perception. In corporate meetings, brand campaigns, and casual conversations alike, we tend to fixate on <em>what we want to deliver</em> rather than <em>what the other person is equipped to receive</em>.</p>
+                  
+                  <p>During my academic background in psychology, one principle continually resurfaced: people do not process language in a vacuum. Every phrase lands against a backdrop of personal fatigue, unspoken insecurities, cognitive load, and silent motivations.</p>
+
+                  <blockquote class="dnb-pullquote">
+                    “When you understand who someone is defending themselves against, your words stop triggering resistance and start building bridges.”
+                  </blockquote>
+
+                  <p>When you shift the foundation of communication from <span class="dnb-highlight">persuasion to comprehension</span>, the tone changes completely. You stop speaking to impress and start speaking to connect. Sentences become shorter, metaphors become more vivid, and listening becomes an active investigation rather than a pause before your next turn to speak.</p>
+
+                  <p>True resonance isn't loud. It is the quiet feeling an audience gets when they realize: <em>“This writer actually sees the world from where I am standing.”</em></p>
+                </div>
+                <div class="dnb-signoff">
+                  <span>DIYA DAS · ESSAY 01 ARCHIVE</span>
+                  <span>END OF SPREAD</span>
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 02)"></div>
+            </div>
+          </div>
+
+          <!-- Spread 3: Article 02 -->
+          <div class="dnb-spread-panel" data-spread-idx="3" style="display: none;">
+            <!-- Left Page: Artwork & Intro -->
+            <div class="dnb-page dnb-page-left">
+              <div class="dnb-folio-head">
+                <span>ARTICLE 02 · RESEARCH &amp; INTERVIEWS</span>
+                <span>PAGE 04</span>
+              </div>
+              <div class="dnb-page-content">
+                <div class="dnb-toc-meta" style="color: var(--dnb-cobalt);">FIELD REPORT · 4 MIN READ</div>
+                <h2 class="dnb-art-title">The art of asking a better question</h2>
+                <p class="dnb-art-intro">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
+                
+                <svg class="dnb-art-collage" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Question mark and interview craft illustration">
+                  <rect width="400" height="220" fill="#EAE5DC"/>
+                  <!-- Torn paper collage layers -->
+                  <path d="M15 15 L260 25 L245 205 L30 195 Z" fill="#F4ECE1" stroke="#D3C1A7" stroke-width="1.5"/>
+                  <path d="M190 35 L385 45 L370 190 L180 180 Z" fill="#334C68" opacity="0.12"/>
+                  <!-- Oversized handcrafted question mark -->
+                  <path d="M175 60 C175 40 195 30 220 30 C250 30 270 45 270 70 C270 95 245 110 230 125 C222 133 220 142 220 152 M220 172 L220 176" stroke="var(--dnb-terracotta)" stroke-width="9" stroke-linecap="round"/>
+                  <circle cx="220" cy="180" r="4.5" fill="var(--dnb-terracotta)"/>
+                  <!-- Field tape strip -->
+                  <rect x="70" y="30" width="85" height="22" fill="#E2C9A0" opacity="0.75" transform="rotate(-8 70 30)"/>
+                  <text x="80" y="45" font-family="'DM Mono', monospace" font-size="8" fill="#4A3025" letter-spacing="1">ON-GROUND</text>
+                  <!-- Interview microphone sketch -->
+                  <rect x="75" y="100" width="22" height="38" rx="11" stroke="#334C68" stroke-width="2" fill="#FAF6EE"/>
+                  <line x1="86" y1="138" x2="86" y2="160" stroke="#334C68" stroke-width="2"/>
+                  <line x1="72" y1="160" x2="100" y2="160" stroke="#334C68" stroke-width="2"/>
+                  <!-- Red stamp -->
+                  <g transform="translate(295, 115) rotate(-6)">
+                    <rect x="0" y="0" width="70" height="36" rx="4" stroke="#A63820" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
+                    <text x="35" y="16" font-family="'DM Mono', monospace" font-size="7" fill="#A63820" text-anchor="middle" letter-spacing="1">FIELDWORK</text>
+                    <text x="35" y="28" font-family="'Cormorant Garamond', serif" font-weight="700" font-size="11" fill="#A63820" text-anchor="middle">50+ SUBJECTS</text>
+                  </g>
+                  <text x="35" y="185" font-family="'Caveat', cursive" font-size="18" fill="var(--dnb-cobalt)">“The best answers live in the follow-up.”</text>
+                </svg>
+
+                <div class="dnb-art-note">
+                  Notebook rule: Never ask a question you can answer with a search engine.
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (Article 01)"></div>
+            </div>
+
+            <!-- Right Page: Prose Reading -->
+            <div class="dnb-page dnb-page-right">
+              <div class="dnb-folio-head">
+                <span>READING ESSAY</span>
+                <span>PAGE 05</span>
+              </div>
+              <div class="dnb-page-content">
+                <div class="dnb-prose">
+                  <p class="dnb-dropcap">Across more than fifty live, on-ground interviews with university chancellors, visiting dignitaries, student founders, and artists, I learned that people arrive with an invisible script. They know their accomplishments, their soundbites, and the safe answers they’ve repeated a dozen times before.</p>
+
+                  <p>If you ask conventional questions, you receive conventional press releases. The breakthrough happens when you step off the planned script and ask about the emotional turning point.</p>
+
+                  <blockquote class="dnb-pullquote">
+                    “Ask not what they did, but what surprised them most when the original plan collapsed.”
+                  </blockquote>
+
+                  <p>A great interviewer doesn’t focus on sounding intelligent. A great interviewer creates an atmosphere of <span class="dnb-highlight">unhurried psychological safety</span>. When someone feels that you are genuinely tracking the nuances of their story rather than checking off questions on a clipboard, their posture relaxes and genuine honesty emerges.</p>
+
+                  <p>The art of the question is ultimately the art of presence: paying attention to where a person hesitates, where their voice drops, and having the courage to follow that thread into unscripted territory.</p>
+                </div>
+                <div class="dnb-signoff">
+                  <span>DIYA DAS · ESSAY 02 ARCHIVE</span>
+                  <span>END OF SPREAD</span>
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 03)"></div>
+            </div>
+          </div>
+
+          <!-- Spread 4: Article 03 -->
+          <div class="dnb-spread-panel" data-spread-idx="4" style="display: none;">
+            <!-- Left Page: Artwork & Intro -->
+            <div class="dnb-page dnb-page-left">
+              <div class="dnb-folio-head">
+                <span>ARTICLE 03 · WRITING &amp; STORYTELLING</span>
+                <span>PAGE 06</span>
+              </div>
+              <div class="dnb-page-content">
+                <div class="dnb-toc-meta" style="color: var(--dnb-leather);">CRAFT ESSAY · 6 MIN READ</div>
+                <h2 class="dnb-art-title">From a blank page to a story worth sharing</h2>
+                <p class="dnb-art-intro">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
+                
+                <svg class="dnb-art-collage" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Typewriter and story craft collage illustration">
+                  <rect width="400" height="220" fill="#F4ECE1"/>
+                  <!-- Lined manuscript scrap -->
+                  <rect x="30" y="25" width="220" height="165" fill="#FAF6EE" stroke="#D3C1A7" stroke-width="1.5"/>
+                  <line x1="45" y1="55" x2="235" y2="55" stroke="rgba(166,56,32,0.15)"/>
+                  <line x1="45" y1="80" x2="235" y2="80" stroke="rgba(166,56,32,0.15)"/>
+                  <line x1="45" y1="105" x2="235" y2="105" stroke="rgba(166,56,32,0.15)"/>
+                  <line x1="45" y1="130" x2="235" y2="130" stroke="rgba(166,56,32,0.15)"/>
+                  <line x1="45" y1="155" x2="200" y2="155" stroke="rgba(166,56,32,0.15)"/>
+                  <!-- Handwritten draft strikethroughs -->
+                  <path d="M48 76 Q120 74 195 78" stroke="#A63820" stroke-width="1.5" stroke-linecap="round"/>
+                  <text x="130" y="70" font-family="'Caveat', cursive" font-size="14" fill="#334C68">better verb!</text>
+                  <!-- Vintage typewriter silhouette -->
+                  <path d="M230 130 L360 130 L345 185 L245 185 Z" fill="#2E241E" stroke="#171717" stroke-width="2"/>
+                  <rect x="255" y="110" width="80" height="20" rx="3" fill="#D3C1A7" stroke="#171717"/>
+                  <rect x="265" y="90" width="60" height="20" fill="#FFFDF9" stroke="#171717"/>
+                  <line x1="270" y1="98" x2="315" y2="98" stroke="#171717" stroke-dasharray="2 2"/>
+                  <!-- Red stamp -->
+                  <g transform="translate(305, 30) rotate(8)">
+                    <circle cx="28" cy="28" r="26" stroke="#4A3025" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
+                    <text x="28" y="24" font-family="'DM Mono', monospace" font-size="7" fill="#4A3025" text-anchor="middle" letter-spacing="1">DRAFT 04</text>
+                    <text x="28" y="36" font-family="'Cormorant Garamond', serif" font-weight="700" font-size="12" fill="#4A3025" text-anchor="middle">APPROVED</text>
+                  </g>
+                  <text x="35" y="185" font-family="'Caveat', cursive" font-size="18" fill="var(--dnb-terracotta)">“Cut every word that doesn't breathe.”</text>
+                </svg>
+
+                <div class="dnb-art-note">
+                  Craft takeaway: The first draft is telling yourself the story; the revision is telling it to the reader.
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (Article 02)"></div>
+            </div>
+
+            <!-- Right Page: Prose Reading -->
+            <div class="dnb-page dnb-page-right">
+              <div class="dnb-folio-head">
+                <span>READING ESSAY</span>
+                <span>PAGE 07</span>
+              </div>
+              <div class="dnb-page-content">
+                <div class="dnb-prose">
+                  <p class="dnb-dropcap">The most intimidating sight for any writer is not a difficult brief or a looming deadline; it is the blinding white glare of an empty page. We look at great writing and imagine it arrived as a continuous, effortless stream of genius. In reality, writing is an act of patient archaeology.</p>
+
+                  <p>You begin with scattered fragments: an overheard remark in a corridor, a psychological quirk observed during an interview, three contradictory sentences in a voice memo recorded at midnight.</p>
+
+                  <blockquote class="dnb-pullquote">
+                    “Good editing is not polite pruning; it is stripping away everything ornamental until only the pulse remains.”
+                  </blockquote>
+
+                  <p>The secret to finding momentum is giving yourself permission to <span class="dnb-highlight">write badly first</span>. Clear thinking is not the prerequisite for writing — writing is the process through which thinking becomes clear.</p>
+
+                  <p>When you edit without ego, ruthlessly eliminating padding and preserving only the details that ring true, a piece of writing stops feeling like homework and begins to feel alive.</p>
+                </div>
+                <div class="dnb-signoff">
+                  <span>DIYA DAS · ESSAY 03 ARCHIVE</span>
+                  <span>COMPLETE COLLECTION</span>
+                </div>
+              </div>
+              <div class="dnb-dogear dnb-dogear-next" title="Back to Table of Contents"></div>
+            </div>
+          </div>
+
+          <!-- Edge Bookmarks / Tabs -->
+          <nav class="dnb-tabs" aria-label="Notebook edge bookmark tabs">
+            <button type="button" class="dnb-tab active" data-tab-idx="1" title="Table of Contents">TOC</button>
+            <button type="button" class="dnb-tab" data-tab-idx="2" title="Article 01">01</button>
+            <button type="button" class="dnb-tab" data-tab-idx="3" title="Article 02">02</button>
+            <button type="button" class="dnb-tab" data-tab-idx="4" title="Article 03">03</button>
+          </nav>
+
+          <!-- 3D Page Turn Leaf Rig -->
+          <div class="dnb-flip-leaf" id="dnbFlipLeaf" aria-hidden="true">
+            <div class="dnb-leaf-face dnb-leaf-front" id="dnbLeafFront"></div>
+            <div class="dnb-leaf-face dnb-leaf-back" id="dnbLeafBack"></div>
+            <div class="dnb-leaf-shade" id="dnbLeafShade"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom HUD Bar -->
+    <footer class="dnb-hud-bottom">
+      <div class="mono" id="dnbSpreadIndicator">SPREAD: 01 · TABLE OF CONTENTS</div>
+      <div class="dnb-hud-progress-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
+        <div class="dnb-hud-progress-bar" id="dnbProgressBar"></div>
+      </div>
+      <div class="mono" id="dnbPageCounter">PAGE 01 OF 07</div>
+    </footer>
+  </div>
 
   <script>
     // 1. Preloader Curtain + Handwritten Logo Signature
@@ -1858,6 +3127,347 @@
         });
       }
     }
+
+    // 18. IMMERSIVE 3D DIGITAL NOTEBOOK CONTROLLER & AUDIO RIG
+    (function initDigitalNotebook() {
+      const overlay = document.getElementById('digitalNotebookOverlay');
+      if (!overlay) return;
+
+      const book = document.getElementById('dnbBook');
+      const coverView = document.getElementById('dnbCoverView');
+      const spreadPanels = document.querySelectorAll('.dnb-spread-panel');
+      const tabs = document.querySelectorAll('.dnb-tab');
+      const spreadIndicator = document.getElementById('dnbSpreadIndicator');
+      const progressBar = document.getElementById('dnbProgressBar');
+      const pageCounter = document.getElementById('dnbPageCounter');
+      const prevBtn = document.getElementById('dnbPrevBtn');
+      const nextBtn = document.getElementById('dnbNextBtn');
+      const contentsBtn = document.getElementById('dnbContentsBtn');
+      const closeBtn = document.getElementById('dnbCloseBtn');
+      const flipLeaf = document.getElementById('dnbFlipLeaf');
+      const leafShade = document.getElementById('dnbLeafShade');
+
+      let currentSpread = 0; // 0: cover, 1: TOC, 2: art 01, 3: art 02, 4: art 03
+      let isFlipping = false;
+
+      const spreadData = [
+        { name: 'COVER · HANDBOUND VOLUME', pages: 'COVER', progress: 0 },
+        { name: 'SPREAD: 01 · TABLE OF CONTENTS', pages: 'PAGE 01 OF 07', progress: 25 },
+        { name: 'SPREAD: 02 · ARTICLE 01', pages: 'PAGES 02–03 OF 07', progress: 50 },
+        { name: 'SPREAD: 03 · ARTICLE 02', pages: 'PAGES 04–05 OF 07', progress: 75 },
+        { name: 'SPREAD: 04 · ARTICLE 03', pages: 'PAGES 06–07 OF 07', progress: 100 }
+      ];
+
+      // Subtle Web Audio API paper turn sound synthesis (Zero network latency, 0 external files)
+      let audioCtx = null;
+      function playPaperSound() {
+        try {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          const bufferSize = audioCtx.sampleRate * 0.16;
+          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
+          }
+          const noise = audioCtx.createBufferSource();
+          noise.buffer = buffer;
+
+          const filter = audioCtx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(1400, audioCtx.currentTime);
+          filter.Q.setValueAtTime(2.2, audioCtx.currentTime);
+
+          const gain = audioCtx.createGain();
+          gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+          noise.connect(filter);
+          filter.connect(gain);
+          gain.connect(audioCtx.destination);
+          noise.start();
+        } catch (e) {
+          // Audio not allowed or failed, fail silently
+        }
+      }
+
+      function updateUI() {
+        const data = spreadData[currentSpread];
+        if (spreadIndicator) spreadIndicator.textContent = data.name;
+        if (pageCounter) pageCounter.textContent = data.pages;
+        if (progressBar) progressBar.style.width = data.progress + '%';
+
+        // Update side tabs
+        tabs.forEach(tab => {
+          const idx = parseInt(tab.dataset.tabIdx, 10);
+          tab.classList.toggle('active', idx === currentSpread);
+        });
+
+        // Prev/Next buttons
+        if (prevBtn) {
+          prevBtn.style.opacity = currentSpread === 0 ? '0.4' : '1';
+          prevBtn.style.pointerEvents = currentSpread === 0 ? 'none' : 'auto';
+        }
+        if (nextBtn) {
+          nextBtn.style.opacity = currentSpread === 4 ? '0.4' : '1';
+          nextBtn.style.pointerEvents = currentSpread === 4 ? 'none' : 'auto';
+        }
+      }
+
+      function goToSpread(targetIdx, direction = 'auto') {
+        if (isFlipping) return;
+        targetIdx = Math.max(0, Math.min(4, targetIdx));
+        if (targetIdx === currentSpread) return;
+
+        if (direction === 'auto') {
+          direction = targetIdx > currentSpread ? 'next' : 'prev';
+        }
+
+        playPaperSound();
+
+        // Transitioning from/to cover
+        if (currentSpread === 0) {
+          book.classList.remove('state-cover');
+          spreadPanels.forEach(p => {
+            p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
+          });
+          currentSpread = targetIdx;
+          updateUI();
+          return;
+        }
+
+        if (targetIdx === 0) {
+          book.classList.add('state-cover');
+          currentSpread = 0;
+          updateUI();
+          return;
+        }
+
+        // Page flipping animation between open spreads
+        isFlipping = true;
+
+        if (typeof gsap !== 'undefined' && flipLeaf && leafShade) {
+          flipLeaf.classList.add('turning');
+
+          if (direction === 'next') {
+            gsap.fromTo(flipLeaf, 
+              { rotateY: 0 },
+              { 
+                rotateY: -180, 
+                duration: 0.65, 
+                ease: 'power2.inOut',
+                onUpdate: function() {
+                  const p = this.progress();
+                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.45;
+                },
+                onComplete: function() {
+                  spreadPanels.forEach(p => {
+                    p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
+                  });
+                  flipLeaf.classList.remove('turning');
+                  gsap.set(flipLeaf, { rotateY: 0 });
+                  leafShade.style.opacity = 0;
+                  currentSpread = targetIdx;
+                  updateUI();
+                  isFlipping = false;
+                }
+              }
+            );
+          } else {
+            gsap.fromTo(flipLeaf, 
+              { rotateY: -180 },
+              { 
+                rotateY: 0, 
+                duration: 0.65, 
+                ease: 'power2.inOut',
+                onUpdate: function() {
+                  const p = this.progress();
+                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.45;
+                },
+                onComplete: function() {
+                  spreadPanels.forEach(p => {
+                    p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
+                  });
+                  flipLeaf.classList.remove('turning');
+                  leafShade.style.opacity = 0;
+                  currentSpread = targetIdx;
+                  updateUI();
+                  isFlipping = false;
+                }
+              }
+            );
+          }
+        } else {
+          // Instant fallback
+          spreadPanels.forEach(p => {
+            p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
+          });
+          currentSpread = targetIdx;
+          updateUI();
+          isFlipping = false;
+        }
+      }
+
+      function openNotebook(targetSpread = 1) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (window.location.hash !== '#notebook') {
+          history.pushState(null, '', '#notebook');
+        }
+
+        if (targetSpread > 0) {
+          book.classList.remove('state-cover');
+          spreadPanels.forEach(p => {
+            p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetSpread ? 'contents' : 'none';
+          });
+          currentSpread = targetSpread;
+        } else {
+          book.classList.add('state-cover');
+          currentSpread = 0;
+        }
+        updateUI();
+        playPaperSound();
+      }
+
+      function closeNotebook() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        if (window.location.hash === '#notebook') {
+          history.pushState(null, '', window.location.pathname + window.location.search);
+        }
+      }
+
+      // Event Listeners
+      coverView?.addEventListener('click', () => goToSpread(1, 'next'));
+      contentsBtn?.addEventListener('click', () => goToSpread(1));
+      
+      prevBtn?.addEventListener('click', () => {
+        if (currentSpread > 1) {
+          goToSpread(currentSpread - 1, 'prev');
+        } else if (currentSpread === 1) {
+          goToSpread(0, 'prev');
+        }
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        if (currentSpread < 4) {
+          goToSpread(currentSpread + 1, 'next');
+        }
+      });
+
+      closeBtn?.addEventListener('click', closeNotebook);
+
+      // Edge Bookmark Tabs
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const idx = parseInt(tab.dataset.tabIdx, 10);
+          goToSpread(idx);
+        });
+      });
+
+      // Dog-ear Corner Click Listeners
+      document.querySelectorAll('.dnb-dogear-next').forEach(dogear => {
+        dogear.addEventListener('click', e => {
+          e.stopPropagation();
+          if (currentSpread < 4) {
+            goToSpread(currentSpread + 1, 'next');
+          } else {
+            goToSpread(1, 'prev'); // Loop back to TOC
+          }
+        });
+      });
+
+      document.querySelectorAll('.dnb-dogear-prev').forEach(dogear => {
+        dogear.addEventListener('click', e => {
+          e.stopPropagation();
+          if (currentSpread > 1) {
+            goToSpread(currentSpread - 1, 'prev');
+          } else if (currentSpread === 1) {
+            goToSpread(0, 'prev');
+          }
+        });
+      });
+
+      // TOC Item Clicks -> Go to Article Spread
+      document.querySelectorAll('.dnb-toc-item[data-goto-spread]').forEach(item => {
+        item.addEventListener('click', () => {
+          const target = parseInt(item.dataset.gotoSpread, 10);
+          goToSpread(target, 'next');
+        });
+        item.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const target = parseInt(item.dataset.gotoSpread, 10);
+            goToSpread(target, 'next');
+          }
+        });
+      });
+
+      // Keyboard Navigation
+      window.addEventListener('keydown', e => {
+        if (!overlay.classList.contains('active')) return;
+        if (e.key === 'Escape') {
+          closeNotebook();
+        } else if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+          if (currentSpread < 4) goToSpread(currentSpread + 1, 'next');
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          if (currentSpread > 1) goToSpread(currentSpread - 1, 'prev');
+          else if (currentSpread === 1) goToSpread(0, 'prev');
+        }
+      });
+
+      // Mobile Touch Gesture Support (Swipe left/right)
+      let touchStartX = 0;
+      let touchEndX = 0;
+      overlay.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      overlay.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 55) {
+          if (diffX < 0 && currentSpread < 4) {
+            goToSpread(currentSpread + 1, 'next'); // Swipe left -> next
+          } else if (diffX > 0 && currentSpread > 0) {
+            goToSpread(currentSpread - 1, 'prev'); // Swipe right -> prev
+          }
+        }
+      }, { passive: true });
+
+      // Portfolio page triggers
+      const navNotebook = document.getElementById('navNotebookLink');
+      if (navNotebook) {
+        navNotebook.addEventListener('click', e => {
+          e.preventDefault();
+          openNotebook(1);
+        });
+      }
+
+      const portalBtn = document.getElementById('openNotebookPortalBtn');
+      if (portalBtn) {
+        portalBtn.addEventListener('click', () => openNotebook(1));
+      }
+
+      // Hash routing
+      function checkRoute() {
+        if (window.location.hash === '#notebook' || window.location.pathname.endsWith('/notebook')) {
+          openNotebook(1);
+        }
+      }
+      window.addEventListener('hashchange', checkRoute);
+      window.addEventListener('popstate', checkRoute);
+      checkRoute();
+
+      // Export functions for debugging / external triggers if needed
+      window.openDigitalNotebook = openNotebook;
+      window.closeDigitalNotebook = closeNotebook;
+      window.goToNotebookSpread = goToSpread;
+    })();
 
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
