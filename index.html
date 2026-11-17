@@ -717,22 +717,24 @@
       --dnb-terracotta: #A63820;
       --dnb-cobalt: #334C68;
       --dnb-leather: #4A3025;
-      --dnb-leather-dark: #362219;
+      --dnb-leather-dark: #291811;
       --dnb-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
       --dnb-hand: "Caveat", cursive, sans-serif;
     }
 
-    /* Modal Desk Viewport Overlay */
+    /* Warm Walnut Desk Studio Viewport Overlay */
     .dnb-overlay {
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: radial-gradient(circle at 50% 45%, #27211b 0%, #171412 85%);
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255, 224, 178, 0.10) 0%, transparent 48%),
+        radial-gradient(ellipse at 45% 35%, #3d2b1f 0%, #241811 55%, #120c08 100%);
       color: var(--dnb-ink);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 18px 24px 14px;
+      padding: 16px 26px 14px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
@@ -744,12 +746,14 @@
       pointer-events: auto;
     }
 
-    /* Wood grain / desk texture overlay */
+    /* Wood-grain / desk surface texture overlay */
     .dnb-overlay::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-image:
+        repeating-linear-gradient(92deg, rgba(255, 225, 190, 0.014) 0px, rgba(255, 225, 190, 0.014) 2px, transparent 2px, transparent 18px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 1;
     }
@@ -764,7 +768,7 @@
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
     }
     .dnb-hud-brand {
       display: inline-flex;
@@ -779,18 +783,18 @@
       color: var(--dnb-terracotta);
     }
     .dnb-hud-leather-pill {
-      background: var(--dnb-leather);
-      color: #e8ded1;
-      padding: 3px 8px;
+      background: linear-gradient(135deg, #543729, #362219);
+      color: #efe2cf !important;
+      padding: 3px 9px;
       border-radius: 4px;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(220, 190, 140, 0.25);
       font-size: 9.5px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
     }
     .dnb-hud-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .dnb-hud-btn {
       background: rgba(245, 239, 228, 0.08);
@@ -806,6 +810,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      backdrop-filter: blur(6px);
     }
     .dnb-hud-btn:hover {
       background: var(--dnb-terracotta);
@@ -840,50 +845,61 @@
     /* The Notebook Object */
     .dnb-book {
       position: relative;
-      width: min(1140px, 94vw);
+      width: min(1140px, 92vw);
       height: min(690px, 78vh);
       transform-style: preserve-3d;
-      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1), height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    /* Closed Cover State Rig */
+    /* Closed Quarter-Bound Cover State Rig */
     .dnb-book.state-cover {
-      width: min(560px, 90vw);
+      width: min(520px, 90vw);
+      height: min(680px, 78vh);
     }
 
-    /* Realistic Drop Shadow on Wood Desk */
+    /* Realistic Drop Shadow on Walnut Desk */
     .dnb-shadow {
       position: absolute;
-      inset: -15px -20px -25px -15px;
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.55);
-      filter: blur(28px);
+      inset: 8px -18px -28px -10px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.62);
+      filter: blur(30px);
       transform: translateZ(-40px);
       pointer-events: none;
-      transition: all 0.5s ease;
+      transition: all 0.55s ease;
     }
     .dnb-book.state-cover .dnb-shadow {
-      filter: blur(22px);
-      background: rgba(0, 0, 0, 0.65);
+      inset: 14px -16px -26px 8px;
+      filter: blur(26px);
+      background: rgba(0, 0, 0, 0.72);
     }
 
-    /* Physical Hardcover View */
+    /* Authentic Quarter-Bound Linen & Leather Hardcover View */
     .dnb-cover-view {
       position: absolute;
       inset: 0;
-      background: var(--dnb-paper);
-      border: 2px solid #2d1d16;
-      border-radius: 6px 14px 14px 6px;
+      background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)' opacity='0.06'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #EFE6D5 0%, #E2D5BE 100%);
+      border: 2px solid #2b1a12;
+      border-radius: 4px 12px 12px 4px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 44px 52px;
-      box-shadow: inset 0 0 40px rgba(74, 48, 37, 0.12);
+      padding: 40px 44px 36px 76px;
+      box-shadow:
+        inset -2px 0 8px rgba(45, 30, 18, 0.14),
+        inset 0 2px 4px rgba(255, 255, 255, 0.45),
+        3px 3px 0 #f5efe4,
+        6px 6px 0 #e0d5c3,
+        9px 9px 0 #f2eadb,
+        12px 12px 0 #3a241b,
+        18px 24px 38px rgba(0, 0, 0, 0.65);
       transform-origin: left center;
-      transition: transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+      transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1.000), box-shadow 0.6s ease;
       backface-visibility: hidden;
-      z-index: 25;
+      z-index: 50;
       cursor: pointer;
     }
     .dnb-book:not(.state-cover) .dnb-cover-view {
@@ -891,122 +907,155 @@
       pointer-events: none;
     }
 
-    /* Leather Spine on Cover */
+    /* Espresso Leather Spine on Cover with Raised Hubs & Gold Rules */
     .dnb-cover-view::before {
       content: "";
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
-      width: 42px;
-      background: linear-gradient(to right, #2c1b13, #4A3025 80%, #3a241a 100%);
-      box-shadow: inset -2px 0 5px rgba(0,0,0,0.4), 3px 0 6px rgba(0,0,0,0.25);
-      border-right: 1.5px dashed rgba(220, 190, 140, 0.35);
+      width: 52px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 96px,
+          rgba(220, 185, 125, 0.35) 96px,
+          rgba(220, 185, 125, 0.35) 98px,
+          rgba(0, 0, 0, 0.38) 98px,
+          rgba(0, 0, 0, 0.38) 104px,
+          rgba(255, 255, 255, 0.1) 104px,
+          rgba(255, 255, 255, 0.1) 106px
+        ),
+        linear-gradient(to right, #23140d 0%, #4A3025 32%, #5c3c2e 55%, #3a241a 88%, #25150e 100%);
+      box-shadow: inset -3px 0 6px rgba(0,0,0,0.45), 3px 0 8px rgba(0,0,0,0.28);
+      border-right: 1px solid rgba(214, 180, 120, 0.55);
       z-index: 2;
     }
 
-    /* Gold foil stitch lines on cover */
+    /* Gold foil stitch line bordering leather joint */
     .dnb-cover-view::after {
       content: "";
       position: absolute;
-      left: 47px;
-      top: 12px;
-      bottom: 12px;
+      left: 58px;
+      top: 14px;
+      bottom: 14px;
       width: 1px;
-      background: rgba(166, 56, 32, 0.28);
+      border-left: 1px dashed rgba(166, 56, 32, 0.4);
       pointer-events: none;
     }
 
-    /* Cover Letterpress Typography */
+    /* Recessed Cream Letterpress Title Plate on Hardcover */
+    .dnb-cover-plate {
+      position: relative;
+      z-index: 3;
+      background: #FAF6EE;
+      border: 1.5px solid #2b1a12;
+      box-shadow:
+        inset 0 1px 4px rgba(0, 0, 0, 0.12),
+        0 0 0 4px #FAF6EE,
+        0 0 0 5px rgba(166, 56, 32, 0.35);
+      padding: 28px 26px 24px;
+      border-radius: 2px;
+    }
+    .dnb-cover-plate::after {
+      content: "✦";
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      font-size: 14px;
+      color: var(--dnb-terracotta);
+      opacity: 0.7;
+    }
     .dnb-cover-top {
       position: relative;
       z-index: 3;
-      padding-left: 20px;
     }
     .dnb-cover-author {
-      font: 700 12px var(--mono);
+      font: 700 10.5px var(--mono);
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--dnb-terracotta);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     .dnb-cover-author::before {
       content: "";
-      width: 18px;
+      width: 16px;
       height: 1.5px;
       background: var(--dnb-terracotta);
     }
     .dnb-cover-title {
-      font: 700 clamp(36px, 5vw, 56px)/1.02 var(--dnb-serif);
+      font: 700 clamp(34px, 4.4vw, 50px)/0.98 var(--dnb-serif);
       letter-spacing: -0.04em;
-      margin: 0 0 16px;
+      margin: 0 0 14px;
       color: var(--dnb-ink);
     }
     .dnb-cover-subtitle {
-      font-size: 15px;
+      font-size: 13.5px;
       line-height: 1.6;
       color: #524c44;
-      max-width: 380px;
       margin: 0;
     }
 
     .dnb-cover-middle {
       position: relative;
       z-index: 3;
-      padding-left: 20px;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
+      padding: 6px 0;
     }
     .dnb-wax-seal {
-      width: 68px;
-      height: 68px;
+      width: 66px;
+      height: 66px;
       border-radius: 50%;
-      background: radial-gradient(circle, #b84024 30%, #8c2e19 90%);
-      box-shadow: 2px 4px 10px rgba(0,0,0,0.35), inset 1px 1px 2px rgba(255,255,255,0.35);
-      border: 2px solid #732210;
+      background: radial-gradient(circle at 38% 35%, #c7472a 15%, #9c331b 65%, #73200f 100%);
+      box-shadow: 2px 5px 12px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.35), inset 1px 1px 2px rgba(255,255,255,0.4);
+      border: 2px solid #6b1d0d;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font: 700 8.5px var(--mono);
+      font: 700 8px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       transform: rotate(-8deg);
       text-align: center;
       line-height: 1.2;
+      flex-shrink: 0;
     }
     .dnb-wax-seal span {
       font: 700 18px/1 var(--dnb-serif);
       color: #ffeae3;
     }
     .dnb-cover-annotation {
-      font: 600 21px/1.3 var(--dnb-hand);
+      font: 600 22px/1.25 var(--dnb-hand);
       color: var(--dnb-cobalt);
-      transform: rotate(3deg);
+      transform: rotate(2.5deg);
     }
 
     .dnb-cover-bottom {
       position: relative;
       z-index: 3;
-      padding-left: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
     .dnb-open-cta {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       background: var(--dnb-ink);
       color: #f5efe4;
-      padding: 12px 22px;
+      padding: 11px 20px;
       border-radius: 100px;
-      font: 700 12px var(--mono);
+      font: 700 11.5px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       box-shadow: 4px 4px 0 var(--dnb-terracotta);
@@ -1018,91 +1067,158 @@
       transform: translate(-2px, -2px);
     }
     .dnb-cover-badge {
-      font: 600 10px var(--mono);
+      font: 600 9.5px var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #696257;
     }
 
-    /* Open 2-Page Spread Rig */
+    /* =========================================================
+       Open 2-Page Physical Hardcover Casing + Paper Stack
+       ========================================================= */
     .dnb-spread-view {
       position: absolute;
       inset: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: var(--dnb-paper);
-      border: 2px solid #2d1d16;
-      border-radius: 8px 14px 14px 8px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      background: linear-gradient(145deg, #3d251b 0%, #291811 100%);
+      padding: 10px 14px 12px;
+      border-radius: 10px 14px 14px 10px;
+      border: 1.5px solid #4e3225;
+      transform-style: preserve-3d;
+      box-shadow:
+        inset 0 0 0 1px rgba(214, 192, 155, 0.24),
+        0 28px 65px rgba(0, 0, 0, 0.72),
+        0 10px 24px rgba(0, 0, 0, 0.45);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease 0.25s;
+      transition: opacity 0.45s ease 0.2s;
     }
     .dnb-book:not(.state-cover) .dnb-spread-view {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* Central Spine Gutter & Crease */
+    /* Crimson Silk Ribbon Bookmark Hanging Below Spine */
+    .dnb-ribbon-bookmark {
+      position: absolute;
+      left: 50%;
+      bottom: -36px;
+      width: 20px;
+      height: 52px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #7e2112 0%, #a83320 45%, #751e10 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
+      z-index: 32;
+      pointer-events: none;
+    }
+
+    /* Realistic Central Spine Gutter & Natural Page Curvature */
     .dnb-spine-gutter {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: 10px;
+      bottom: 12px;
       left: 50%;
-      width: 32px;
+      width: 44px;
       transform: translateX(-50%);
-      background: linear-gradient(to right, 
-        rgba(35, 25, 18, 0.3) 0%, 
-        rgba(35, 25, 18, 0.5) 45%, 
-        rgba(20, 15, 10, 0.7) 50%, 
-        rgba(35, 25, 18, 0.5) 55%, 
-        rgba(35, 25, 18, 0.3) 100%
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(45, 30, 18, 0.08) 38%,
+        rgba(30, 18, 10, 0.28) 49%,
+        rgba(255, 250, 240, 0.28) 51%,
+        rgba(45, 30, 18, 0.09) 62%,
+        transparent 100%
       );
-      z-index: 15;
+      z-index: 26;
       pointer-events: none;
-      box-shadow: 0 0 14px rgba(0,0,0,0.25);
     }
-    /* Stitching dots down spine */
+    /* Delicate Linen Binding Stitches Down Center Crease */
     .dnb-spine-gutter::after {
       content: "";
       position: absolute;
-      top: 24px;
-      bottom: 24px;
+      top: 28px;
+      bottom: 28px;
       left: 50%;
       width: 2px;
       transform: translateX(-50%);
-      background-image: linear-gradient(to bottom, #d6c09b 30%, transparent 30%);
-      background-size: 2px 14px;
-      opacity: 0.65;
+      background-image: linear-gradient(to bottom, rgba(166, 130, 95, 0.45) 35%, transparent 35%);
+      background-size: 2px 18px;
+      opacity: 0.7;
     }
 
-    /* Page Halves */
+    /* Page Halves with Stacked Paper Block Edges */
     .dnb-page {
       position: relative;
       height: 100%;
-      padding: 38px 46px 42px;
+      padding: 32px 40px 34px;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
       background: var(--dnb-paper);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(166, 56, 32, 0.25) transparent;
     }
     .dnb-page-left {
-      padding-right: 48px;
-      background: linear-gradient(to right, var(--dnb-paper) 88%, rgba(220,208,188,0.9) 100%);
-      border-right: 1px solid rgba(0,0,0,0.06);
+      padding-right: 44px;
+      border-radius: 4px 0 0 4px;
+      background: linear-gradient(to right, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #C4B49E 100%);
+      border-right: 1px solid rgba(55, 38, 25, 0.14);
+      box-shadow:
+        -2px 1px 0 #ebe3d5,
+        -4px 2px 0 #dfd5c4,
+        -6px 3px 0 #ebe3d5,
+        -8px 4px 0 #d4c8b4,
+        -10px 5px 8px rgba(0, 0, 0, 0.35);
     }
     .dnb-page-right {
-      padding-left: 48px;
-      background: linear-gradient(to left, var(--dnb-paper) 88%, rgba(220,208,188,0.9) 100%);
+      padding-left: 44px;
+      border-radius: 0 4px 4px 0;
+      background: linear-gradient(to left, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #B8A790 100%);
+      box-shadow:
+        2px 1px 0 #ebe3d5,
+        4px 2px 0 #dfd5c4,
+        6px 3px 0 #ebe3d5,
+        8px 4px 0 #d4c8b4,
+        10px 5px 8px rgba(0, 0, 0, 0.35);
     }
 
-    /* Fine notebook ruling */
+    /* Fine Horizontal Notebook Ruling & Paper Grain */
     .dnb-page::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-image: repeating-linear-gradient(to bottom, transparent, transparent 31px, rgba(166, 56, 32, 0.04) 32px);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 30px,
+        rgba(51, 76, 104, 0.055) 31px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Faint Vertical Margin Rule */
+    .dnb-page-left::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 28px;
+      width: 1px;
+      background: rgba(166, 56, 32, 0.14);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .dnb-page-right::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 28px;
+      width: 1px;
+      background: rgba(166, 56, 32, 0.12);
       pointer-events: none;
       z-index: 0;
     }
@@ -1120,13 +1236,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font: 600 10px var(--mono);
+      font: 600 9.5px var(--mono);
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: #6a6358;
-      padding-bottom: 12px;
-      margin-bottom: 18px;
-      border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.14);
+      position: relative;
+      z-index: 2;
     }
     .dnb-folio-head span:first-child {
       color: var(--dnb-terracotta);
@@ -1134,68 +1252,124 @@
 
     /* Spread 1: Table of Contents Left Page */
     .dnb-toc-title {
-      font: 600 clamp(30px, 3.2vw, 44px)/1.08 var(--dnb-serif);
+      font: 600 clamp(28px, 3vw, 40px)/1.08 var(--dnb-serif);
       letter-spacing: -0.035em;
-      margin: 0 0 14px;
+      margin: 0 0 12px;
       color: var(--dnb-ink);
     }
     .dnb-toc-copy {
-      font-size: 14.5px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.65;
       color: #4a443c;
-      margin: 0 0 22px;
+      margin: 0 0 16px;
+    }
+    .dnb-toc-visual-row {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 4px 0 14px;
     }
     .dnb-polaroid-frame {
-      width: 175px;
+      position: relative;
+      width: 168px;
       background: #FFFDF9;
-      padding: 10px 10px 14px;
-      border: 1px solid rgba(23,23,23,0.18);
-      box-shadow: 4px 5px 12px rgba(0,0,0,0.18);
+      padding: 9px 9px 13px;
+      border: 1px solid rgba(23, 23, 23, 0.22);
+      box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.18);
       transform: rotate(-3deg);
-      margin: 8px 0 16px;
       transition: transform 0.3s ease;
+      flex-shrink: 0;
     }
     .dnb-polaroid-frame:hover {
       transform: rotate(0deg) scale(1.03);
     }
+    .dnb-polaroid-clip {
+      position: absolute;
+      top: -16px;
+      left: 14px;
+      width: 26px;
+      height: auto;
+      transform: rotate(12deg);
+      pointer-events: none;
+      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.22));
+    }
+    .dnb-polaroid-tape {
+      position: absolute;
+      top: -8px;
+      right: 14px;
+      width: 48px;
+      height: 16px;
+      background: rgba(226, 201, 160, 0.72);
+      border: 1px solid rgba(130, 105, 70, 0.25);
+      transform: rotate(14deg);
+      pointer-events: none;
+    }
     .dnb-polaroid-img {
       width: 100%;
-      height: 130px;
+      height: 124px;
       object-fit: cover;
       object-position: center 20%;
-      filter: saturate(1.05) contrast(1.02);
+      filter: saturate(1.04) contrast(1.02);
       display: block;
     }
     .dnb-polaroid-cap {
-      font: 600 14px/1 var(--dnb-hand);
+      font: 600 13.5px/1 var(--dnb-hand);
       color: var(--dnb-terracotta);
       text-align: center;
       margin-top: 8px;
     }
+    .dnb-toc-stamp-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .dnb-archive-stamp {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(166, 56, 32, 0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--dnb-terracotta);
+      transform: rotate(-10deg);
+      background: rgba(250, 246, 238, 0.6);
+    }
+    .dnb-archive-stamp small {
+      font: 700 7.5px var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .dnb-archive-stamp strong {
+      font: 700 15px/1.1 var(--dnb-serif);
+    }
     .dnb-toc-scrawl {
-      font: 600 18px/1.3 var(--dnb-hand);
+      font: 600 18.5px/1.25 var(--dnb-hand);
       color: var(--dnb-cobalt);
       margin-top: auto;
-      transform: rotate(-1.5deg);
+      transform: rotate(-1deg);
     }
 
-    /* Spread 1: Table of Contents Right Page (Article Entries) */
+    /* Spread 1: Table of Contents Right Page (Article Entries with Thumbnails) */
     .dnb-toc-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      margin-top: 8px;
+      gap: 14px;
+      margin-top: 4px;
     }
     .dnb-toc-item {
       background: #FAF6EE;
       border: 1.5px solid rgba(23, 23, 23, 0.85);
       border-radius: 6px;
-      padding: 16px 18px;
+      padding: 13px 15px;
       box-shadow: 3px 3px 0 var(--dnb-ink);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s, background-color 0.2s;
     }
     .dnb-toc-item:hover {
@@ -1203,36 +1377,50 @@
       box-shadow: 6px 6px 0 var(--dnb-terracotta);
       background: #FFFDF9;
     }
+    .dnb-toc-thumb {
+      width: 68px;
+      height: 54px;
+      object-fit: cover;
+      border: 1px solid #171717;
+      border-radius: 3px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.14);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .dnb-toc-item:hover .dnb-toc-thumb {
+      transform: scale(1.06) rotate(-2deg);
+    }
     .dnb-toc-num {
-      font: 700 24px/1 var(--dnb-serif);
+      font: 700 22px/1 var(--dnb-serif);
       color: var(--dnb-terracotta);
-      min-width: 28px;
+      min-width: 24px;
     }
     .dnb-toc-info {
       flex: 1;
     }
     .dnb-toc-meta {
-      font: 600 9.5px var(--mono);
+      font: 600 9px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--dnb-cobalt);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
     .dnb-toc-item-title {
-      font: 600 18px/1.2 var(--dnb-serif);
+      font: 600 17px/1.18 var(--dnb-serif);
       letter-spacing: -0.02em;
       color: var(--dnb-ink);
       margin: 0;
     }
     .dnb-toc-arrow {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       border: 1.5px solid var(--dnb-ink);
       background: var(--dnb-paper);
       display: grid;
       place-items: center;
-      font-size: 14px;
+      font-size: 13px;
+      flex-shrink: 0;
       transition: transform 0.2s, background-color 0.2s, color 0.2s;
     }
     .dnb-toc-item:hover .dnb-toc-arrow {
@@ -1242,56 +1430,88 @@
       transform: translateX(3px);
     }
 
-    /* Article Spreads Presentation */
+    /* Article Spreads Artwork Frame & Presentation */
     .dnb-art-title {
-      font: 600 clamp(24px, 2.6vw, 36px)/1.15 var(--dnb-serif);
+      font: 600 clamp(23px, 2.4vw, 33px)/1.12 var(--dnb-serif);
       letter-spacing: -0.03em;
-      margin: 0 0 14px;
+      margin: 0 0 10px;
       color: var(--dnb-ink);
     }
     .dnb-art-intro {
-      font-size: 14px;
-      line-height: 1.7;
+      font-size: 13.5px;
+      line-height: 1.62;
       color: #524c43;
-      margin: 0 0 18px;
+      margin: 0 0 14px;
+    }
+    .dnb-art-frame {
+      position: relative;
+      background: #FFFDF9;
+      padding: 8px;
+      border: 1.5px solid var(--dnb-ink);
+      box-shadow: 4px 5px 0 rgba(23, 23, 23, 0.14);
+      margin-bottom: 14px;
+      transform: rotate(-0.6deg);
+      transition: transform 0.3s ease;
+    }
+    .dnb-art-frame:hover {
+      transform: rotate(0deg) scale(1.01);
+    }
+    .dnb-tape {
+      position: absolute;
+      width: 56px;
+      height: 16px;
+      background: rgba(224, 198, 152, 0.72);
+      border: 1px solid rgba(120, 95, 60, 0.22);
+      z-index: 4;
+      pointer-events: none;
+    }
+    .dnb-tape-tl {
+      top: -7px;
+      left: 16px;
+      transform: rotate(-12deg);
+    }
+    .dnb-tape-tr {
+      top: -7px;
+      right: 16px;
+      transform: rotate(10deg);
     }
     .dnb-art-collage {
       width: 100%;
-      max-height: 240px;
-      object-fit: contain;
-      border: 1.5px solid var(--dnb-ink);
-      box-shadow: 3px 3px 0 rgba(0,0,0,0.12);
+      aspect-ratio: 16 / 10;
+      max-height: 220px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid rgba(23, 23, 23, 0.16);
       background: #FDFBF7;
-      margin-bottom: 14px;
     }
     .dnb-art-note {
-      font: 600 16px/1.3 var(--dnb-hand);
+      font: 600 16px/1.28 var(--dnb-hand);
       color: var(--dnb-terracotta);
       margin-top: auto;
-      transform: rotate(-1.5deg);
+      transform: rotate(-1deg);
     }
 
     /* Right Page Article Reading Text */
     .dnb-prose {
-      font-size: 14.5px;
-      line-height: 1.85;
+      font-size: 14px;
+      line-height: 1.78;
       color: #38342e;
     }
     .dnb-prose p {
-      margin: 0 0 16px;
+      margin: 0 0 14px;
     }
     .dnb-dropcap::first-letter {
       float: left;
-      font: 700 52px/0.82 var(--dnb-serif);
+      font: 700 48px/0.82 var(--dnb-serif);
       padding: 4px 10px 0 0;
       color: var(--dnb-terracotta);
     }
     .dnb-pullquote {
-      margin: 20px 0;
-      padding: 14px 18px;
+      margin: 16px 0;
+      padding: 12px 16px;
       background: rgba(166, 56, 32, 0.06);
       border-left: 3px solid var(--dnb-terracotta);
-      font: italic 600 17px/1.45 var(--dnb-serif);
+      font: italic 600 16.5px/1.42 var(--dnb-serif);
       color: var(--dnb-ink);
     }
     .dnb-highlight {
@@ -1302,56 +1522,73 @@
     }
     .dnb-signoff {
       margin-top: auto;
-      padding-top: 14px;
-      border-top: 1px dashed rgba(23, 23, 23, 0.15);
+      padding-top: 12px;
+      border-top: 1px dashed rgba(23, 23, 23, 0.18);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font: 600 10.5px var(--mono);
+      font: 600 10px var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #696257;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .dnb-signoff-link {
+      background: none;
+      border: none;
+      padding: 0;
+      font: 700 10px var(--mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dnb-terracotta);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .dnb-signoff-link:hover {
+      color: var(--dnb-ink);
     }
 
     /* Dog-Ear Interactive Page Corners */
     .dnb-dogear {
       position: absolute;
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       cursor: pointer;
-      z-index: 20;
+      z-index: 25;
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .dnb-dogear-next {
       bottom: 0;
       right: 0;
-      background: linear-gradient(135deg, transparent 50%, rgba(225, 211, 188, 0.95) 50%, #d4bf9c 100%);
+      background: linear-gradient(135deg, transparent 50%, rgba(215, 198, 172, 0.96) 50%, #cbb48e 100%);
       border-top-left-radius: 6px;
-      box-shadow: -2px -2px 5px rgba(0,0,0,0.12);
+      box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.14);
     }
     .dnb-dogear-next:hover {
-      transform: scale(1.3) translate(-3px, -3px);
+      transform: scale(1.28) translate(-3px, -3px);
     }
     .dnb-dogear-prev {
       bottom: 0;
       left: 0;
-      background: linear-gradient(225deg, transparent 50%, rgba(225, 211, 188, 0.95) 50%, #d4bf9c 100%);
+      background: linear-gradient(225deg, transparent 50%, rgba(215, 198, 172, 0.96) 50%, #cbb48e 100%);
       border-top-right-radius: 6px;
-      box-shadow: 2px -2px 5px rgba(0,0,0,0.12);
+      box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.14);
     }
     .dnb-dogear-prev:hover {
-      transform: scale(1.3) translate(3px, -3px);
+      transform: scale(1.28) translate(3px, -3px);
     }
 
-    /* Edge Bookmarks / Side Tabs */
+    /* Edge Bookmarks / Side Tabs (Unclipped Outside Casing) */
     .dnb-tabs {
       position: absolute;
-      right: -34px;
-      top: 36px;
+      right: -32px;
+      top: 40px;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      z-index: 30;
+      z-index: 35;
     }
     .dnb-tab {
       background: #FAF6EE;
@@ -1366,7 +1603,7 @@
       writing-mode: vertical-rl;
       text-orientation: mixed;
       cursor: pointer;
-      box-shadow: 3px 2px 6px rgba(0,0,0,0.22);
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.35);
       transition: transform 0.2s, background-color 0.2s, color 0.2s;
     }
     .dnb-tab:hover {
@@ -1375,24 +1612,45 @@
     .dnb-tab.active {
       background: var(--dnb-terracotta);
       color: #fff;
-      transform: translateX(6px);
-      box-shadow: 4px 3px 8px rgba(0,0,0,0.3);
+      transform: translateX(7px);
+      box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.42);
     }
-    .dnb-tab[data-tab="toc"] { background: #FAF6EE; }
-    .dnb-tab[data-tab="01"] { border-color: var(--dnb-terracotta); }
-    .dnb-tab[data-tab="02"] { border-color: var(--dnb-cobalt); }
-    .dnb-tab[data-tab="03"] { border-color: var(--dnb-leather); }
+    .dnb-tab[data-tab-idx="1"] { border-color: #2d1d16; }
+    .dnb-tab[data-tab-idx="2"] { border-color: var(--dnb-terracotta); }
+    .dnb-tab[data-tab-idx="3"] { border-color: var(--dnb-cobalt); }
+    .dnb-tab[data-tab-idx="4"] { border-color: var(--dnb-leather); }
+
+    /* Temporary Underlay Clones for Seamless 3D Page Turn */
+    .dnb-underlay-clone {
+      position: absolute;
+      top: 10px;
+      bottom: 12px;
+      z-index: 22;
+      pointer-events: none;
+      display: none;
+    }
+    .dnb-underlay-left {
+      left: 14px;
+      width: calc(50% - 14px);
+    }
+    .dnb-underlay-right {
+      left: 50%;
+      width: calc(50% - 14px);
+    }
+    .dnb-underlay-clone.active {
+      display: flex;
+    }
 
     /* 3D Animated Page Turn Leaf Rig */
     .dnb-flip-leaf {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: 10px;
+      bottom: 12px;
       left: 50%;
-      width: 50%;
+      width: calc(50% - 14px);
       transform-origin: left center;
       transform-style: preserve-3d;
-      z-index: 28;
+      z-index: 40;
       pointer-events: none;
       display: none;
     }
@@ -1402,27 +1660,34 @@
     .dnb-leaf-face {
       position: absolute;
       inset: 0;
-      background: var(--dnb-paper);
-      border: 1.5px solid #2d1d16;
-      border-radius: 0 14px 14px 0;
-      padding: 38px 46px 42px;
       backface-visibility: hidden;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 40px 34px;
     }
     .dnb-leaf-front {
       transform: rotateY(0deg);
+      padding-left: 44px;
+      border-radius: 0 4px 4px 0;
+      background: linear-gradient(to left, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #B8A790 100%);
+      box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.25);
     }
     .dnb-leaf-back {
       transform: rotateY(180deg);
-      border-radius: 14px 0 0 14px;
-      border-right: none;
+      padding-right: 44px;
+      border-radius: 4px 0 0 4px;
+      background: linear-gradient(to right, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #C4B49E 100%);
+      border-right: 1px solid rgba(55, 38, 25, 0.14);
+      box-shadow: -2px 2px 14px rgba(0, 0, 0, 0.25);
     }
     .dnb-leaf-shade {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: linear-gradient(to right, rgba(0,0,0,0.35) 0%, transparent 60%);
+      background: linear-gradient(to right, rgba(20, 12, 6, 0.42) 0%, rgba(20, 12, 6, 0.12) 45%, transparent 100%);
       opacity: 0;
+      transform: translateZ(1px);
     }
 
     /* Minimalist Bottom HUD Bar */
@@ -1457,7 +1722,7 @@
       transition: width 0.4s ease;
     }
 
-    /* Portal CTA in Main Page Notebook Section */
+    /* Portal CTA & Article Action Row in Main Page Notebook Section */
     .nb-portal-banner {
       display: flex;
       justify-content: space-between;
@@ -1479,7 +1744,7 @@
       font-size: 28px;
     }
     .nb-portal-title {
-      font: 700 18px var(--dnb-serif);
+      font: 700 20px var(--dnb-serif);
       margin: 0 0 4px;
     }
     .nb-portal-desc {
@@ -1487,7 +1752,8 @@
       color: #554f46;
       margin: 0;
     }
-    .nb-portal-btn {
+    .nb-portal-btn,
+    .nb-portal-cta {
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -1501,21 +1767,82 @@
       border: 1.5px solid var(--ink);
       box-shadow: 3px 3px 0 var(--ink);
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     }
-    .nb-portal-btn:hover {
+    .nb-portal-btn:hover,
+    .nb-portal-cta:hover {
       transform: translate(-2px, -2px);
       box-shadow: 5px 5px 0 var(--ink);
+      background: #8c2e19;
+    }
+    .nb-action-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .nb-open-journal-link {
+      background: #F5EFE4;
+      border: 1.2px solid var(--ink);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font: 700 10.5px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .nb-open-journal-link:hover {
+      background: var(--dnb-terracotta);
+      border-color: var(--dnb-terracotta);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Framed Mixed-Media Collages in Main Page Notebook Section */
+    .nb-photo-frame {
+      position: relative;
+      background: #FFFDF9;
+      padding: 12px;
+      border: 1.5px solid var(--ink);
+      box-shadow: 4px 4px 0 rgba(23, 23, 23, 0.14);
+      transform-style: preserve-3d;
+    }
+    .nb-photo-frame .nb-collage {
+      border: 1px solid rgba(23, 23, 23, 0.15);
+      box-shadow: none;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+    .nb-collage-tape {
+      position: absolute;
+      width: 68px;
+      height: 18px;
+      background: rgba(224, 198, 152, 0.72);
+      border: 1px solid rgba(120, 95, 60, 0.25);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .nb-collage-tape-tl {
+      top: -8px;
+      left: 18px;
+      transform: rotate(-10deg);
+    }
+    .nb-collage-tape-tr {
+      top: -8px;
+      right: 18px;
+      transform: rotate(9deg);
     }
 
     /* Responsive Adaptation for Tablets and Mobiles */
     @media (max-width: 960px) {
       .dnb-book {
-        width: 96vw;
+        width: 94vw;
         height: 80vh;
       }
       .dnb-page {
-        padding: 24px 28px 28px;
+        padding: 22px 26px 26px;
       }
       .dnb-page-left {
         padding-right: 28px;
@@ -1524,7 +1851,7 @@
         padding-left: 28px;
       }
       .dnb-art-collage {
-        max-height: 180px;
+        max-height: 175px;
       }
       .dnb-tabs {
         right: -28px;
@@ -1545,37 +1872,38 @@
       .dnb-stage {
         align-items: stretch;
       }
-      .dnb-book {
+      .dnb-book,
+      .dnb-book.state-cover {
         width: 100%;
         height: 100%;
       }
-      .dnb-book.state-cover {
-        width: 100%;
-      }
       .dnb-cover-view {
-        padding: 30px 24px;
+        padding: 28px 22px 24px 48px;
       }
       .dnb-cover-view::before {
-        width: 24px;
+        width: 30px;
+      }
+      .dnb-cover-view::after {
+        left: 34px;
       }
       .dnb-spread-view {
         grid-template-columns: 1fr;
         overflow-y: auto;
+        padding: 8px;
       }
       .dnb-page-left {
         border-right: none;
         border-bottom: 2px dashed rgba(35, 25, 18, 0.25);
-        padding: 24px 20px;
+        padding: 22px 18px;
+        box-shadow: none;
       }
       .dnb-page-right {
-        padding: 24px 20px;
+        padding: 22px 18px;
+        box-shadow: none;
       }
-      .dnb-spine-gutter {
-        display: none;
-      }
-      .dnb-tabs {
-        display: none;
-      }
+      .dnb-spine-gutter,
+      .dnb-ribbon-bookmark,
+      .dnb-tabs,
       .dnb-hud-progress-wrap {
         display: none;
       }
@@ -1846,113 +2174,32 @@
 
         <!-- Featured Article — Asymmetric 2-Column Editorial Spread -->
         <article class="nb-featured" aria-labelledby="featuredTitle">
-          <!-- LEFT: Handcrafted Editorial Collage Artwork -->
+          <!-- LEFT: Handcrafted Mixed-Media Editorial Collage Artwork -->
           <div class="nb-artwork-wrap" data-cursor="VIEW">
-            <svg class="nb-collage nb-collage-featured" viewBox="0 0 540 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Handcrafted editorial collage: psychology profile, torn paper, contour lines, and botanical branch">
-              <defs>
-                <!-- Subtle paper fiber filter -->
-                <filter id="nbPaperNoise" x="0%" y="0%" width="100%" height="100%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="noise" />
-                  <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.04 0" />
-                  <feComposite in2="SourceGraphic" in="gl" operator="in" />
-                </filter>
-                <clipPath id="deckleClip1">
-                  <path d="M12 18 C 60 14, 180 22, 280 16 C 380 12, 470 20, 524 18 C 528 80, 522 180, 526 280 C 522 350, 528 375, 522 384 C 440 388, 320 380, 200 386 C 100 382, 30 388, 14 382 C 18 300, 10 180, 14 80 Z" />
-                </clipPath>
-              </defs>
-
-              <!-- Base Ivory Paper Sheet with Deckled Edge -->
-              <path d="M16 16 C 90 12, 260 20, 420 14 C 480 12, 514 18, 524 22 C 526 90, 522 220, 526 330 C 524 370, 518 382, 512 384 C 410 388, 240 380, 110 386 C 40 384, 22 382, 16 376 C 12 300, 18 160, 14 60 Z" fill="#FDFBF7" stroke="#171717" stroke-width="1.5" />
-              <!-- Fine notebook rule lines in background -->
-              <g stroke="#E6D8C3" stroke-width="1" stroke-dasharray="2 4" opacity="0.8">
-                <line x1="36" y1="70" x2="504" y2="70" />
-                <line x1="36" y1="110" x2="504" y2="110" />
-                <line x1="36" y1="150" x2="504" y2="150" />
-                <line x1="36" y1="190" x2="504" y2="190" />
-                <line x1="36" y1="230" x2="504" y2="230" />
-                <line x1="36" y1="270" x2="504" y2="270" />
-                <line x1="36" y1="310" x2="504" y2="310" />
-                <line x1="36" y1="350" x2="504" y2="350" />
-              </g>
-
-              <!-- Layer 1: Torn Paper Backing in #E6D8C3 -->
-              <path d="M38 48 C 110 42, 220 54, 340 46 C 410 52, 470 44, 486 52 C 490 130, 484 240, 490 320 C 484 350, 460 358, 420 354 C 290 360, 160 352, 50 358 C 42 270, 46 170, 38 88 Z" fill="#E6D8C3" opacity="0.65" stroke="#171717" stroke-width="1.2" stroke-dasharray="4 2" />
-
-              <!-- Layer 2: Muted Cobalt Torn Paper Swatch (#334C68) -->
-              <path d="M48 68 C 110 62, 180 72, 238 66 C 244 140, 238 230, 246 310 C 180 316, 120 308, 62 314 C 54 230, 58 140, 48 94 Z" fill="#334C68" opacity="0.12" />
-              <path d="M42 62 C 90 58, 140 64, 180 60 C 184 100, 180 150, 184 200 C 130 204, 80 198, 44 202 Z" fill="#334C68" opacity="0.9" stroke="#171717" stroke-width="1.2" />
-              <!-- Crosshatch detail on cobalt block -->
-              <g stroke="#F5EFE4" stroke-width="0.8" opacity="0.35">
-                <line x1="50" y1="70" x2="170" y2="190" />
-                <line x1="70" y1="70" x2="180" y2="180" />
-                <line x1="90" y1="70" x2="180" y2="160" />
-                <line x1="50" y1="90" x2="160" y2="200" />
-              </g>
-
-              <!-- Layer 3: Terracotta Torn Accent (#A63820) -->
-              <path d="M260 210 C 330 202, 420 214, 468 206 C 474 270, 466 310, 470 348 C 390 354, 310 346, 252 352 C 256 300, 250 250, 260 210 Z" fill="#A63820" opacity="0.15" />
-              <path d="M300 240 C 360 234, 430 242, 458 238 C 462 290, 456 320, 460 342 C 400 346, 340 340, 296 344 Z" fill="#A63820" stroke="#171717" stroke-width="1.2" />
-              <text x="312" y="300" font-family="'Cormorant Garamond', Georgia, serif" font-size="28" font-style="italic" font-weight="600" fill="#FDFBF7">empathy</text>
-
-              <!-- Layer 4: Psychology Contour Lines (Perception Waves) -->
-              <g stroke="#A63820" stroke-width="1.4" fill="none" opacity="0.75">
-                <path d="M160 140 C 210 110, 270 120, 320 150 C 370 180, 420 170, 470 140" />
-                <path d="M150 160 C 200 130, 260 140, 310 170 C 360 200, 410 190, 460 160" />
-                <path d="M140 180 C 190 150, 250 160, 300 190 C 350 220, 400 210, 450 180" />
-                <path d="M130 200 C 180 170, 240 180, 290 210 C 340 240, 390 230, 440 200" stroke="#334C68" stroke-dasharray="3 3" />
-              </g>
-
-              <!-- Layer 5: Human Profile Line Silhouette (Psychology Lens) -->
-              <path d="M220 280 C 215 250, 205 230, 205 210 C 205 190, 218 165, 230 155 C 242 145, 245 130, 242 115 C 240 98, 250 82, 268 76 C 288 70, 310 74, 326 88 C 340 100, 348 118, 345 136 C 342 152, 332 165, 330 180 C 328 190, 336 195, 342 198 C 348 200, 345 208, 338 212 C 330 216, 334 222, 338 226 C 344 232, 335 240, 326 242 C 320 244, 318 252, 322 260 C 328 270, 330 290, 332 310" stroke="#171717" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-              <!-- Eye & Ear subtle contour hints -->
-              <path d="M298 142 C 304 140, 312 142, 316 146" stroke="#171717" stroke-width="1.5" stroke-linecap="round" fill="none" />
-              <path d="M270 176 C 265 182, 265 192, 270 198 C 274 202, 278 198, 276 188" stroke="#171717" stroke-width="1.4" stroke-linecap="round" fill="none" />
-
-              <!-- Layer 6: Botanical Details (Pressed Olive/Fern Branch) -->
-              <g stroke="#334C68" stroke-width="1.5" fill="#334C68" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Main stem -->
-                <path d="M190 320 C 195 280, 208 240, 224 200 C 236 170, 252 140, 270 110" fill="none" />
-                <!-- Leaflets -->
-                <path d="M208 240 C 196 232, 186 234, 184 242 C 182 250, 194 252, 208 240 Z" fill-opacity="0.25" />
-                <path d="M214 220 C 224 212, 234 214, 236 222 C 238 230, 226 232, 214 220 Z" fill-opacity="0.25" />
-                <path d="M226 190 C 214 182, 204 184, 202 192 C 200 200, 212 202, 226 190 Z" fill-opacity="0.25" />
-                <path d="M238 165 C 248 157, 258 159, 260 167 C 262 175, 250 177, 238 165 Z" fill-opacity="0.25" />
-                <path d="M254 135 C 242 127, 232 129, 230 137 C 228 145, 240 147, 254 135 Z" fill-opacity="0.25" />
-                <path d="M270 110 C 276 98, 286 100, 288 108 C 288 116, 278 118, 270 110 Z" fill-opacity="0.35" />
-              </g>
-
-              <!-- Layer 7: Translucent Washi Tape (Top Right Corner) -->
-              <polygon points="430,12 490,20 484,46 424,38" fill="#A63820" fill-opacity="0.28" stroke="#A63820" stroke-width="0.8" />
-
-              <!-- Layer 8: Handwritten Annotations (Caveat font) -->
-              <text x="64" y="342" font-family="'Caveat', cursive" font-size="20" font-weight="600" fill="#171717" transform="rotate(-3 64 342)">the mind as territory —</text>
-              <text x="74" y="364" font-family="'Caveat', cursive" font-size="18" font-weight="600" fill="#A63820" transform="rotate(-3 74 364)">listen before the first word ✳</text>
-
-              <!-- Layer 9: Circular Editorial Stamp in Terracotta -->
-              <g transform="translate(444, 82)">
-                <circle cx="0" cy="0" r="34" fill="#FDFBF7" stroke="#A63820" stroke-width="1.6" stroke-dasharray="3 3" />
-                <circle cx="0" cy="0" r="29" fill="none" stroke="#A63820" stroke-width="0.8" opacity="0.6" />
-                <path id="stampPath" d="M -23 0 A 23 23 0 1 1 23 0 A 23 23 0 1 1 -23 0" fill="none" />
-                <text font-family="'DM Mono', monospace" font-size="6.8" font-weight="600" letter-spacing="1.2" fill="#A63820">
-                  <textPath href="#stampPath" startOffset="5%">FIELD NOTE · Nº 001 · ARCHIVE ·</textPath>
-                </text>
-                <text x="0" y="4" font-family="'Cormorant Garamond', Georgia, serif" font-size="16" font-weight="700" text-anchor="middle" fill="#A63820">01</text>
-              </g>
-            </svg>
+            <div class="nb-collage nb-photo-frame">
+              <div class="nb-collage-tape nb-collage-tape-tl" aria-hidden="true"></div>
+              <div class="nb-collage-tape nb-collage-tape-tr" aria-hidden="true"></div>
+              <img src="notebook-collage-01.jpg" alt="Handcrafted editorial collage: psychology profile, perception contour lines, torn cobalt and beige paper, pressed olive sprig, and archive stamp" class="nb-collage-img" style="width:100%; height:auto; display:block; aspect-ratio:16/10; object-fit:cover; border:1px solid rgba(23,23,23,0.16);" loading="lazy">
+            </div>
           </div>
 
           <!-- RIGHT: Editorial Title, Metadata & Story -->
           <div class="nb-content">
             <div class="nb-meta">
               <span class="nb-meta-tag">PSYCHOLOGY / PERSPECTIVE</span>
-              <span>ISSUE 01 · 2 MIN READ</span>
+              <span>ISSUE 01 · 5 MIN READ</span>
             </div>
             <h3 class="nb-article-title" id="featuredTitle">Why understanding people makes communication more meaningful</h3>
             <p class="nb-desc">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
             
-            <button type="button" class="nb-read-btn" data-target="manuscript1" data-cursor="READ" aria-expanded="false">
-              <span>Read the story ↗</span>
-            </button>
+            <div class="nb-action-row">
+              <button type="button" class="nb-read-btn" data-target="manuscript1" data-cursor="READ" aria-expanded="false">
+                <span>Read the story ↗</span>
+              </button>
+              <button type="button" class="nb-open-journal-link" data-open-spread="2" data-cursor="BOOK">
+                Open in 3D Journal ↗
+              </button>
+            </div>
 
             <!-- Expandable Reading Manuscript -->
             <div class="nb-manuscript" id="manuscript1" aria-hidden="true">
@@ -1968,64 +2215,31 @@
         <div class="nb-secondary-grid">
           <!-- ARTICLE 02: Research & Interviews -->
           <article class="nb-card" aria-labelledby="art2Title">
-            <!-- Handcrafted Artwork: Oversized Question Mark on Torn Paper -->
+            <!-- Handcrafted Artwork: Oversized Question Mark & Field Microphone Collage -->
             <div class="nb-artwork-wrap" data-cursor="VIEW">
-              <svg class="nb-collage nb-collage-question" viewBox="0 0 460 250" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Editorial collage: oversized question mark on torn paper with blue and terracotta layers">
-                <!-- Base Sheet -->
-                <path d="M12 14 C 90 8, 240 16, 444 12 C 448 80, 444 170, 448 236 C 360 240, 180 234, 14 238 C 10 160, 16 80, 12 14 Z" fill="#FDFBF7" stroke="#171717" stroke-width="1.5" />
-                
-                <!-- Dot Grid Paper Texture -->
-                <g fill="#E6D8C3" opacity="0.65">
-                  <circle cx="30" cy="36" r="1.2" /><circle cx="60" cy="36" r="1.2" /><circle cx="90" cy="36" r="1.2" /><circle cx="120" cy="36" r="1.2" />
-                  <circle cx="30" cy="66" r="1.2" /><circle cx="60" cy="66" r="1.2" /><circle cx="90" cy="66" r="1.2" /><circle cx="120" cy="66" r="1.2" />
-                  <circle cx="30" cy="96" r="1.2" /><circle cx="60" cy="96" r="1.2" /><circle cx="90" cy="96" r="1.2" /><circle cx="120" cy="96" r="1.2" />
-                </g>
-
-                <!-- Cobalt Blue Torn Paper Block (#334C68) -->
-                <path d="M28 32 C 90 28, 170 36, 240 30 C 246 90, 238 160, 244 218 C 170 224, 90 216, 32 222 C 26 160, 32 90, 28 32 Z" fill="#334C68" stroke="#171717" stroke-width="1.2" />
-                
-                <!-- Terracotta Torn Patch (#A63820) -->
-                <path d="M180 50 C 250 44, 340 52, 386 48 C 390 100, 384 150, 388 190 C 310 196, 230 188, 184 194 Z" fill="#A63820" opacity="0.9" stroke="#171717" stroke-width="1.2" />
-
-                <!-- Oversized Question Mark -->
-                <g transform="translate(196, 28)">
-                  <!-- Terracotta offset drop-shadow -->
-                  <text x="8" y="148" font-family="'Cormorant Garamond', Georgia, serif" font-size="160" font-weight="700" fill="#171717" opacity="0.18">?</text>
-                  <!-- Foreground Question Mark -->
-                  <text x="0" y="144" font-family="'Cormorant Garamond', Georgia, serif" font-size="160" font-weight="700" fill="#FDFBF7">?</text>
-                </g>
-
-                <!-- Botanical Fern Sprig peeking from torn edge -->
-                <g stroke="#FDFBF7" stroke-width="1.3" fill="#FDFBF7" opacity="0.85">
-                  <path d="M60 180 C 75 150, 95 120, 120 95" fill="none" />
-                  <path d="M72 165 C 64 160, 56 162, 56 168 C 56 174, 66 174, 72 165 Z" />
-                  <path d="M84 145 C 94 138, 102 140, 102 146 C 102 152, 92 154, 84 145 Z" />
-                  <path d="M96 125 C 88 120, 80 122, 80 128 C 80 134, 90 134, 96 125 Z" />
-                  <path d="M110 105 C 120 98, 128 100, 128 106 C 128 112, 118 114, 110 105 Z" />
-                </g>
-
-                <!-- Handwritten scrawl -->
-                <text x="280" y="218" font-family="'Caveat', cursive" font-size="20" font-weight="600" fill="#171717" transform="rotate(-4 280 218)">stay curious ✳</text>
-
-                <!-- Small Stamp -->
-                <g transform="translate(390, 50)">
-                  <rect x="-35" y="-14" width="70" height="24" rx="2" fill="#FDFBF7" stroke="#334C68" stroke-width="1.2" />
-                  <text x="0" y="2" font-family="'DM Mono', monospace" font-size="8.5" font-weight="700" text-anchor="middle" fill="#334C68">RES · Nº 02</text>
-                </g>
-              </svg>
+              <div class="nb-collage nb-photo-frame">
+                <div class="nb-collage-tape nb-collage-tape-tl" aria-hidden="true"></div>
+                <div class="nb-collage-tape nb-collage-tape-tr" aria-hidden="true"></div>
+                <img src="notebook-collage-02.jpg" alt="Editorial collage: oversized letterpress question mark over torn cobalt and terracotta paper, vintage field microphone sketch, pressed fern leaf, and Field Notes stamp" style="width:100%; height:auto; display:block; aspect-ratio:16/10; object-fit:cover; border:1px solid rgba(23,23,23,0.16);" loading="lazy">
+              </div>
             </div>
 
             <!-- Content -->
             <div class="nb-meta">
               <span class="nb-meta-tag">RESEARCH / INTERVIEWS</span>
-              <span>ISSUE 02 · 1 MIN READ</span>
+              <span>ISSUE 02 · 4 MIN READ</span>
             </div>
             <h3 class="nb-article-title" id="art2Title">The art of asking a better question</h3>
             <p class="nb-desc">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
             
-            <button type="button" class="nb-read-btn" data-target="manuscript2" data-cursor="READ" aria-expanded="false">
-              <span>Read the story ↗</span>
-            </button>
+            <div class="nb-action-row">
+              <button type="button" class="nb-read-btn" data-target="manuscript2" data-cursor="READ" aria-expanded="false">
+                <span>Read the story ↗</span>
+              </button>
+              <button type="button" class="nb-open-journal-link" data-open-spread="3" data-cursor="BOOK">
+                Open in 3D Journal ↗
+              </button>
+            </div>
 
             <!-- Expandable Reading Manuscript -->
             <div class="nb-manuscript" id="manuscript2" aria-hidden="true">
@@ -2038,80 +2252,31 @@
 
           <!-- ARTICLE 03: Writing & Storytelling -->
           <article class="nb-card" aria-labelledby="art3Title">
-            <!-- Handcrafted Artwork: Vintage Typewriter & Botanical Collage -->
+            <!-- Handcrafted Artwork: Vintage Typewriter & Proofreader Manuscript Collage -->
             <div class="nb-artwork-wrap" data-cursor="VIEW">
-              <svg class="nb-collage nb-collage-typewriter" viewBox="0 0 460 250" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Editorial collage: vintage typewriter silhouette, lined manuscript paper, washi tape, and botanical sprigs">
-                <!-- Base Sheet -->
-                <path d="M14 16 C 110 12, 260 20, 444 14 C 448 90, 442 160, 446 234 C 340 240, 190 234, 16 238 C 12 160, 18 80, 14 16 Z" fill="#FDFBF7" stroke="#171717" stroke-width="1.5" />
-                
-                <!-- Lined Manuscript Paper Cutout with Ragged Torn Edges -->
-                <path d="M36 34 C 110 30, 210 38, 290 32 C 294 90, 288 170, 292 216 C 220 220, 120 214, 40 220 C 34 160, 38 90, 36 34 Z" fill="#FAF6EE" stroke="#E6D8C3" stroke-width="1.4" />
-                <!-- Ruled lines -->
-                <g stroke="#334C68" stroke-width="0.8" opacity="0.22">
-                  <line x1="50" y1="65" x2="276" y2="65" />
-                  <line x1="50" y1="95" x2="276" y2="95" />
-                  <line x1="50" y1="125" x2="276" y2="125" />
-                  <line x1="50" y1="155" x2="276" y2="155" />
-                  <line x1="50" y1="185" x2="276" y2="185" />
-                </g>
-
-                <!-- Terracotta Geometric Strip (#A63820) -->
-                <path d="M260 48 L 420 48 L 414 115 L 264 122 Z" fill="#A63820" opacity="0.88" stroke="#171717" stroke-width="1.2" />
-                <text x="280" y="90" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" font-style="italic" fill="#FDFBF7">craft &amp; clarity</text>
-
-                <!-- Vintage Typewriter Motif in Deep Ink -->
-                <g transform="translate(110, 100)">
-                  <!-- Paper sheet feeding out -->
-                  <rect x="-30" y="-36" width="60" height="42" fill="#FDFBF7" stroke="#171717" stroke-width="1.2" />
-                  <line x1="-20" y1="-26" x2="16" y2="-26" stroke="#A63820" stroke-width="1" />
-                  <line x1="-20" y1="-18" x2="20" y2="-18" stroke="#171717" stroke-width="1" />
-                  <line x1="-20" y1="-10" x2="8" y2="-10" stroke="#171717" stroke-width="1" />
-                  <!-- Roller / Platen -->
-                  <rect x="-42" y="2" width="84" height="12" rx="3" fill="#334C68" stroke="#171717" stroke-width="1.4" />
-                  <!-- Typewriter Body -->
-                  <path d="M-52 14 L 52 14 L 62 58 L -62 58 Z" fill="#171717" />
-                  <!-- Ribbon cover plate in terracotta -->
-                  <polygon points="-28,18 28,18 36,36 -36,36" fill="#A63820" />
-                  <!-- Keyboard Key Dots -->
-                  <g fill="#FDFBF7">
-                    <circle cx="-36" cy="46" r="3.2" /><circle cx="-22" cy="46" r="3.2" /><circle cx="-8" cy="46" r="3.2" /><circle cx="6" cy="46" r="3.2" /><circle cx="20" cy="46" r="3.2" /><circle cx="34" cy="46" r="3.2" />
-                  </g>
-                </g>
-
-                <!-- Washi Tape Strip (#334C68 translucent) -->
-                <polygon points="320,18 380,24 374,42 314,36" fill="#334C68" fill-opacity="0.35" stroke="#334C68" stroke-width="0.8" />
-
-                <!-- Botanical Twig overlay -->
-                <g stroke="#334C68" stroke-width="1.4" fill="#334C68" fill-opacity="0.2">
-                  <path d="M320 220 C 340 185, 365 155, 395 130" fill="none" />
-                  <path d="M336 200 C 324 194, 318 198, 320 204 C 322 210, 332 208, 336 200 Z" />
-                  <path d="M352 180 C 362 174, 368 178, 366 184 C 364 190, 354 188, 352 180 Z" />
-                  <path d="M370 155 C 358 149, 352 153, 354 159 C 356 165, 366 163, 370 155 Z" />
-                  <path d="M388 135 C 398 129, 404 133, 402 139 C 400 145, 390 143, 388 135 Z" />
-                </g>
-
-                <!-- Handwritten scrawl -->
-                <text x="46" y="210" font-family="'Caveat', cursive" font-size="18" font-weight="600" fill="#A63820" transform="rotate(-2 46 210)">make it matter ↗</text>
-
-                <!-- Small Stamp -->
-                <g transform="translate(390, 205)">
-                  <circle cx="0" cy="0" r="18" fill="none" stroke="#A63820" stroke-width="1.2" stroke-dasharray="2 2" />
-                  <text x="0" y="3" font-family="'DM Mono', monospace" font-size="7.5" font-weight="700" text-anchor="middle" fill="#A63820">03·LAB</text>
-                </g>
-              </svg>
+              <div class="nb-collage nb-photo-frame">
+                <div class="nb-collage-tape nb-collage-tape-tl" aria-hidden="true"></div>
+                <div class="nb-collage-tape nb-collage-tape-tr" aria-hidden="true"></div>
+                <img src="notebook-collage-03.jpg" alt="Editorial collage: fine-line ink vintage mechanical typewriter with torn ruled manuscript paper, red proofreader marks, pressed fern sprig, and Archive No. 04 stamp" style="width:100%; height:auto; display:block; aspect-ratio:16/10; object-fit:cover; border:1px solid rgba(23,23,23,0.16);" loading="lazy">
+              </div>
             </div>
 
             <!-- Content -->
             <div class="nb-meta">
               <span class="nb-meta-tag">WRITING / STORYTELLING</span>
-              <span>ISSUE 03 · 1 MIN READ</span>
+              <span>ISSUE 03 · 6 MIN READ</span>
             </div>
             <h3 class="nb-article-title" id="art3Title">From a blank page to a story worth sharing</h3>
             <p class="nb-desc">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
             
-            <button type="button" class="nb-read-btn" data-target="manuscript3" data-cursor="READ" aria-expanded="false">
-              <span>Read the story ↗</span>
-            </button>
+            <div class="nb-action-row">
+              <button type="button" class="nb-read-btn" data-target="manuscript3" data-cursor="READ" aria-expanded="false">
+                <span>Read the story ↗</span>
+              </button>
+              <button type="button" class="nb-open-journal-link" data-open-spread="4" data-cursor="BOOK">
+                Open in 3D Journal ↗
+              </button>
+            </div>
 
             <!-- Expandable Reading Manuscript -->
             <div class="nb-manuscript" id="manuscript3" aria-hidden="true">
@@ -2224,10 +2389,12 @@
 
         <!-- Physical Hardcover Closed View (Spread 0) -->
         <div class="dnb-cover-view" id="dnbCoverView" tabindex="0" role="button" aria-label="Open Hardcover Notebook">
-          <div class="dnb-cover-top">
-            <div class="dnb-cover-author">DIYA DAS · WRITER &amp; RESEARCHER</div>
-            <h2 class="dnb-cover-title">THE OPEN<br>NOTEBOOK</h2>
-            <p class="dnb-cover-subtitle">Ideas, stories, observations &amp; everything in between — collected across 50+ articles, interviews and creative experiments.</p>
+          <div class="dnb-cover-plate">
+            <div class="dnb-cover-top">
+              <div class="dnb-cover-author">DIYA DAS · WRITER &amp; RESEARCHER</div>
+              <h2 class="dnb-cover-title">THE OPEN<br>NOTEBOOK</h2>
+              <p class="dnb-cover-subtitle">Ideas, stories, observations &amp; everything in between — collected across 50+ articles, interviews and creative experiments.</p>
+            </div>
           </div>
 
           <div class="dnb-cover-middle">
@@ -2245,17 +2412,22 @@
               <span>📖 Open Journal</span>
               <span>↗</span>
             </div>
-            <div class="dnb-cover-badge">HANDBOUND EDITORIAL · VOL. I</div>
+            <div class="dnb-cover-badge">QUARTER-BOUND LINEN · VOL. I</div>
           </div>
         </div>
 
         <!-- 2-Page Spreads Container -->
         <div class="dnb-spread-view" id="dnbSpreadView">
           <div class="dnb-spine-gutter" aria-hidden="true"></div>
+          <div class="dnb-ribbon-bookmark" aria-hidden="true"></div>
+
+          <!-- Underlay clones for realistic mid-flip persistence -->
+          <div class="dnb-underlay-clone dnb-underlay-left dnb-page dnb-page-left" id="dnbUnderlayLeft" aria-hidden="true"></div>
+          <div class="dnb-underlay-clone dnb-underlay-right dnb-page dnb-page-right" id="dnbUnderlayRight" aria-hidden="true"></div>
 
           <!-- Spread 1: Table of Contents -->
           <div class="dnb-spread-panel" data-spread-idx="1" style="display: contents;">
-            <!-- Left Page: Editorial Title & Polaroid -->
+            <!-- Left Page: Editorial Title, Polaroid & Archive Stamp -->
             <div class="dnb-page dnb-page-left">
               <div class="dnb-folio-head">
                 <span>05 / THE OPEN NOTEBOOK</span>
@@ -2265,19 +2437,33 @@
                 <h2 class="dnb-toc-title">A living notebook of ideas, people and <em style="font-family: var(--dnb-serif); font-style: italic; color: var(--dnb-terracotta);">stories</em>.</h2>
                 <p class="dnb-toc-copy">Thoughts, little discoveries and drafts — about communication, people, creativity and the small details that shape how we connect.</p>
                 
-                <div class="dnb-polaroid-frame">
-                  <img src="diya-das-portrait.jpeg" alt="Diya Das portrait" class="dnb-polaroid-img">
-                  <div class="dnb-polaroid-cap">diya das · on-ground archive</div>
+                <div class="dnb-toc-visual-row">
+                  <div class="dnb-polaroid-frame">
+                    <img src="sticker-paperclip.png" alt="" class="dnb-polaroid-clip" aria-hidden="true">
+                    <div class="dnb-polaroid-tape" aria-hidden="true"></div>
+                    <img src="diya-das-portrait.jpeg" alt="Diya Das portrait" class="dnb-polaroid-img">
+                    <div class="dnb-polaroid-cap">diya das · field archive</div>
+                  </div>
+                  <div class="dnb-toc-stamp-col">
+                    <div class="dnb-archive-stamp" aria-hidden="true">
+                      <small>ARCHIVE</small>
+                      <strong>VOL. I</strong>
+                      <small>50+ WORKS</small>
+                    </div>
+                    <div class="mono" style="font-size: 9px; letter-spacing: 0.1em; color: #6a6358; line-height: 1.5;">
+                      CURATED WITH<br>PSYCHOLOGY LENS
+                    </div>
+                  </div>
                 </div>
 
                 <div class="dnb-toc-scrawl">
                   “Every interview begins with a willingness to be surprised.”
                 </div>
               </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Return to Cover"></div>
+              <div class="dnb-dogear dnb-dogear-prev" title="Close Cover"></div>
             </div>
 
-            <!-- Right Page: Index List -->
+            <!-- Right Page: Index List with Editorial Thumbnails -->
             <div class="dnb-page dnb-page-right">
               <div class="dnb-folio-head">
                 <span>INDEX OF ESSAYS</span>
@@ -2288,6 +2474,7 @@
                   <!-- Item 1 -->
                   <article class="dnb-toc-item" data-goto-spread="2" tabindex="0" role="button" aria-label="Read Article 01">
                     <div class="dnb-toc-num">01</div>
+                    <img src="notebook-collage-01.jpg" alt="" class="dnb-toc-thumb">
                     <div class="dnb-toc-info">
                       <div class="dnb-toc-meta">PSYCHOLOGY / PERSPECTIVE · 5 MIN</div>
                       <h3 class="dnb-toc-item-title">Why understanding people makes communication more meaningful</h3>
@@ -2298,6 +2485,7 @@
                   <!-- Item 2 -->
                   <article class="dnb-toc-item" data-goto-spread="3" tabindex="0" role="button" aria-label="Read Article 02">
                     <div class="dnb-toc-num">02</div>
+                    <img src="notebook-collage-02.jpg" alt="" class="dnb-toc-thumb">
                     <div class="dnb-toc-info">
                       <div class="dnb-toc-meta">RESEARCH / INTERVIEWS · 4 MIN</div>
                       <h3 class="dnb-toc-item-title">The art of asking a better question</h3>
@@ -2308,6 +2496,7 @@
                   <!-- Item 3 -->
                   <article class="dnb-toc-item" data-goto-spread="4" tabindex="0" role="button" aria-label="Read Article 03">
                     <div class="dnb-toc-num">03</div>
+                    <img src="notebook-collage-03.jpg" alt="" class="dnb-toc-thumb">
                     <div class="dnb-toc-info">
                       <div class="dnb-toc-meta">WRITING / STORYTELLING · 6 MIN</div>
                       <h3 class="dnb-toc-item-title">From a blank page to a story worth sharing</h3>
@@ -2317,7 +2506,7 @@
                 </div>
                 <div class="dnb-signoff" style="margin-top: auto;">
                   <span>SELECT AN ESSAY OR FLIP CORNER</span>
-                  <span>READING ROOM</span>
+                  <button type="button" class="dnb-signoff-link" data-jump-spread="2">Start Reading →</button>
                 </div>
               </div>
               <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 01)"></div>
@@ -2337,29 +2526,11 @@
                 <h2 class="dnb-art-title">Why understanding people makes communication more meaningful</h2>
                 <p class="dnb-art-intro">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
                 
-                <svg class="dnb-art-collage" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Psychology and human perspective illustration">
-                  <rect width="400" height="220" fill="#F4ECE1"/>
-                  <!-- Torn paper collage layer -->
-                  <path d="M20 25 L380 20 L375 195 L25 200 Z" fill="#EADCC8" stroke="#D3C1A7" stroke-width="1.5"/>
-                  <!-- Profile silhouette & mental resonance wave -->
-                  <path d="M120 180 C120 130 140 110 160 100 C180 90 200 90 215 75 C230 60 235 40 250 40 C265 40 280 55 280 75 C280 95 270 105 270 120 C270 140 285 155 285 180 Z" fill="rgba(166,56,32,0.12)" stroke="var(--dnb-terracotta)" stroke-width="2"/>
-                  <!-- Mind resonance contour circles -->
-                  <circle cx="230" cy="85" r="28" stroke="var(--dnb-cobalt)" stroke-width="1.5" stroke-dasharray="3 3"/>
-                  <circle cx="230" cy="85" r="44" stroke="var(--dnb-cobalt)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
-                  <circle cx="230" cy="85" r="60" stroke="var(--dnb-terracotta)" stroke-width="1" stroke-dasharray="5 5" opacity="0.4"/>
-                  <!-- Botanical branch scrap -->
-                  <path d="M60 160 Q100 130 140 100" stroke="#4A3025" stroke-width="2" stroke-linecap="round"/>
-                  <ellipse cx="80" cy="140" rx="9" ry="5" transform="rotate(-30 80 140)" fill="rgba(80,105,75,0.35)"/>
-                  <ellipse cx="110" cy="120" rx="9" ry="5" transform="rotate(-20 110 120)" fill="rgba(80,105,75,0.35)"/>
-                  <ellipse cx="135" cy="102" rx="8" ry="4" transform="rotate(-40 135 102)" fill="rgba(80,105,75,0.35)"/>
-                  <!-- Editorial Stamp -->
-                  <g transform="translate(310, 45) rotate(12)">
-                    <circle cx="28" cy="28" r="26" stroke="#A63820" stroke-width="1.5" stroke-dasharray="3 2" fill="none"/>
-                    <text x="28" y="24" font-family="'DM Mono', monospace" font-size="7" fill="#A63820" text-anchor="middle" letter-spacing="1">ARCHIVE</text>
-                    <text x="28" y="36" font-family="'Cormorant Garamond', serif" font-weight="700" font-size="12" fill="#A63820" text-anchor="middle">01 · PSY</text>
-                  </g>
-                  <text x="35" y="185" font-family="'Caveat', cursive" font-size="18" fill="var(--dnb-cobalt)">“We listen with more than just our ears.”</text>
-                </svg>
+                <div class="dnb-art-frame">
+                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
+                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
+                  <img src="notebook-collage-01.jpg" alt="Mixed-media editorial collage: psychology profile, perception contour lines, pressed olive sprig, and archive stamp" class="dnb-art-collage">
+                </div>
 
                 <div class="dnb-art-note">
                   Field note: Empathy is an active craft of observation, not a passive reaction.
@@ -2389,8 +2560,8 @@
                   <p>True resonance isn't loud. It is the quiet feeling an audience gets when they realize: <em>“This writer actually sees the world from where I am standing.”</em></p>
                 </div>
                 <div class="dnb-signoff">
-                  <span>DIYA DAS · ESSAY 01 ARCHIVE</span>
-                  <span>END OF SPREAD</span>
+                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
+                  <button type="button" class="dnb-signoff-link" data-jump-spread="3">Next Essay: Questions →</button>
                 </div>
               </div>
               <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 02)"></div>
@@ -2410,29 +2581,11 @@
                 <h2 class="dnb-art-title">The art of asking a better question</h2>
                 <p class="dnb-art-intro">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
                 
-                <svg class="dnb-art-collage" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Question mark and interview craft illustration">
-                  <rect width="400" height="220" fill="#EAE5DC"/>
-                  <!-- Torn paper collage layers -->
-                  <path d="M15 15 L260 25 L245 205 L30 195 Z" fill="#F4ECE1" stroke="#D3C1A7" stroke-width="1.5"/>
-                  <path d="M190 35 L385 45 L370 190 L180 180 Z" fill="#334C68" opacity="0.12"/>
-                  <!-- Oversized handcrafted question mark -->
-                  <path d="M175 60 C175 40 195 30 220 30 C250 30 270 45 270 70 C270 95 245 110 230 125 C222 133 220 142 220 152 M220 172 L220 176" stroke="var(--dnb-terracotta)" stroke-width="9" stroke-linecap="round"/>
-                  <circle cx="220" cy="180" r="4.5" fill="var(--dnb-terracotta)"/>
-                  <!-- Field tape strip -->
-                  <rect x="70" y="30" width="85" height="22" fill="#E2C9A0" opacity="0.75" transform="rotate(-8 70 30)"/>
-                  <text x="80" y="45" font-family="'DM Mono', monospace" font-size="8" fill="#4A3025" letter-spacing="1">ON-GROUND</text>
-                  <!-- Interview microphone sketch -->
-                  <rect x="75" y="100" width="22" height="38" rx="11" stroke="#334C68" stroke-width="2" fill="#FAF6EE"/>
-                  <line x1="86" y1="138" x2="86" y2="160" stroke="#334C68" stroke-width="2"/>
-                  <line x1="72" y1="160" x2="100" y2="160" stroke="#334C68" stroke-width="2"/>
-                  <!-- Red stamp -->
-                  <g transform="translate(295, 115) rotate(-6)">
-                    <rect x="0" y="0" width="70" height="36" rx="4" stroke="#A63820" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
-                    <text x="35" y="16" font-family="'DM Mono', monospace" font-size="7" fill="#A63820" text-anchor="middle" letter-spacing="1">FIELDWORK</text>
-                    <text x="35" y="28" font-family="'Cormorant Garamond', serif" font-weight="700" font-size="11" fill="#A63820" text-anchor="middle">50+ SUBJECTS</text>
-                  </g>
-                  <text x="35" y="185" font-family="'Caveat', cursive" font-size="18" fill="var(--dnb-cobalt)">“The best answers live in the follow-up.”</text>
-                </svg>
+                <div class="dnb-art-frame">
+                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
+                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
+                  <img src="notebook-collage-02.jpg" alt="Mixed-media editorial collage: oversized vintage question mark, field microphone illustration, pressed fern, and Field Notes stamp" class="dnb-art-collage">
+                </div>
 
                 <div class="dnb-art-note">
                   Notebook rule: Never ask a question you can answer with a search engine.
@@ -2462,8 +2615,8 @@
                   <p>The art of the question is ultimately the art of presence: paying attention to where a person hesitates, where their voice drops, and having the courage to follow that thread into unscripted territory.</p>
                 </div>
                 <div class="dnb-signoff">
-                  <span>DIYA DAS · ESSAY 02 ARCHIVE</span>
-                  <span>END OF SPREAD</span>
+                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
+                  <button type="button" class="dnb-signoff-link" data-jump-spread="4">Next Essay: Storytelling →</button>
                 </div>
               </div>
               <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 03)"></div>
@@ -2483,31 +2636,11 @@
                 <h2 class="dnb-art-title">From a blank page to a story worth sharing</h2>
                 <p class="dnb-art-intro">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
                 
-                <svg class="dnb-art-collage" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Typewriter and story craft collage illustration">
-                  <rect width="400" height="220" fill="#F4ECE1"/>
-                  <!-- Lined manuscript scrap -->
-                  <rect x="30" y="25" width="220" height="165" fill="#FAF6EE" stroke="#D3C1A7" stroke-width="1.5"/>
-                  <line x1="45" y1="55" x2="235" y2="55" stroke="rgba(166,56,32,0.15)"/>
-                  <line x1="45" y1="80" x2="235" y2="80" stroke="rgba(166,56,32,0.15)"/>
-                  <line x1="45" y1="105" x2="235" y2="105" stroke="rgba(166,56,32,0.15)"/>
-                  <line x1="45" y1="130" x2="235" y2="130" stroke="rgba(166,56,32,0.15)"/>
-                  <line x1="45" y1="155" x2="200" y2="155" stroke="rgba(166,56,32,0.15)"/>
-                  <!-- Handwritten draft strikethroughs -->
-                  <path d="M48 76 Q120 74 195 78" stroke="#A63820" stroke-width="1.5" stroke-linecap="round"/>
-                  <text x="130" y="70" font-family="'Caveat', cursive" font-size="14" fill="#334C68">better verb!</text>
-                  <!-- Vintage typewriter silhouette -->
-                  <path d="M230 130 L360 130 L345 185 L245 185 Z" fill="#2E241E" stroke="#171717" stroke-width="2"/>
-                  <rect x="255" y="110" width="80" height="20" rx="3" fill="#D3C1A7" stroke="#171717"/>
-                  <rect x="265" y="90" width="60" height="20" fill="#FFFDF9" stroke="#171717"/>
-                  <line x1="270" y1="98" x2="315" y2="98" stroke="#171717" stroke-dasharray="2 2"/>
-                  <!-- Red stamp -->
-                  <g transform="translate(305, 30) rotate(8)">
-                    <circle cx="28" cy="28" r="26" stroke="#4A3025" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
-                    <text x="28" y="24" font-family="'DM Mono', monospace" font-size="7" fill="#4A3025" text-anchor="middle" letter-spacing="1">DRAFT 04</text>
-                    <text x="28" y="36" font-family="'Cormorant Garamond', serif" font-weight="700" font-size="12" fill="#4A3025" text-anchor="middle">APPROVED</text>
-                  </g>
-                  <text x="35" y="185" font-family="'Caveat', cursive" font-size="18" fill="var(--dnb-terracotta)">“Cut every word that doesn't breathe.”</text>
-                </svg>
+                <div class="dnb-art-frame">
+                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
+                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
+                  <img src="notebook-collage-03.jpg" alt="Mixed-media editorial collage: vintage mechanical typewriter, ruled manuscript paper with red proofreader marks, pressed fern sprig, and Archive stamp" class="dnb-art-collage">
+                </div>
 
                 <div class="dnb-art-note">
                   Craft takeaway: The first draft is telling yourself the story; the revision is telling it to the reader.
@@ -2537,8 +2670,8 @@
                   <p>When you edit without ego, ruthlessly eliminating padding and preserving only the details that ring true, a piece of writing stops feeling like homework and begins to feel alive.</p>
                 </div>
                 <div class="dnb-signoff">
-                  <span>DIYA DAS · ESSAY 03 ARCHIVE</span>
-                  <span>COMPLETE COLLECTION</span>
+                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
+                  <span>END OF VOLUME I</span>
                 </div>
               </div>
               <div class="dnb-dogear dnb-dogear-next" title="Back to Table of Contents"></div>
@@ -3146,10 +3279,15 @@
       const contentsBtn = document.getElementById('dnbContentsBtn');
       const closeBtn = document.getElementById('dnbCloseBtn');
       const flipLeaf = document.getElementById('dnbFlipLeaf');
+      const leafFront = document.getElementById('dnbLeafFront');
+      const leafBack = document.getElementById('dnbLeafBack');
       const leafShade = document.getElementById('dnbLeafShade');
+      const underlayLeft = document.getElementById('dnbUnderlayLeft');
+      const underlayRight = document.getElementById('dnbUnderlayRight');
 
       let currentSpread = 0; // 0: cover, 1: TOC, 2: art 01, 3: art 02, 4: art 03
       let isFlipping = false;
+      let openChoreoTimer = null;
 
       const spreadData = [
         { name: 'COVER · HANDBOUND VOLUME', pages: 'COVER', progress: 0 },
@@ -3196,6 +3334,12 @@
         }
       }
 
+      function showPanel(idx) {
+        spreadPanels.forEach(p => {
+          p.style.display = parseInt(p.dataset.spreadIdx, 10) === idx ? 'contents' : 'none';
+        });
+      }
+
       function updateUI() {
         const data = spreadData[currentSpread];
         if (spreadIndicator) spreadIndicator.textContent = data.name;
@@ -3230,17 +3374,16 @@
 
         playPaperSound();
 
-        // Transitioning from/to cover
+        // Transitioning from cover -> spread
         if (currentSpread === 0) {
+          showPanel(targetIdx);
           book.classList.remove('state-cover');
-          spreadPanels.forEach(p => {
-            p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
-          });
           currentSpread = targetIdx;
           updateUI();
           return;
         }
 
+        // Transitioning from spread -> closed cover
         if (targetIdx === 0) {
           book.classList.add('state-cover');
           currentSpread = 0;
@@ -3248,93 +3391,149 @@
           return;
         }
 
-        // Page flipping animation between open spreads
-        isFlipping = true;
+        // Real 3D Page Turning with Content Cloning between Open Spreads
+        const currentPanel = overlay.querySelector(`.dnb-spread-panel[data-spread-idx="${currentSpread}"]`);
+        const targetPanel = overlay.querySelector(`.dnb-spread-panel[data-spread-idx="${targetIdx}"]`);
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (typeof gsap !== 'undefined' && flipLeaf && leafShade) {
-          flipLeaf.classList.add('turning');
+        if (
+          !prefersReduced &&
+          typeof gsap !== 'undefined' &&
+          flipLeaf && leafFront && leafBack && leafShade &&
+          underlayLeft && underlayRight &&
+          currentPanel && targetPanel
+        ) {
+          isFlipping = true;
+
+          const currentLeft = currentPanel.querySelector('.dnb-page-left');
+          const currentRight = currentPanel.querySelector('.dnb-page-right');
+          const targetLeft = targetPanel.querySelector('.dnb-page-left');
+          const targetRight = targetPanel.querySelector('.dnb-page-right');
+
+          const cleanupFlip = () => {
+            flipLeaf.classList.remove('turning');
+            underlayLeft.classList.remove('active');
+            underlayRight.classList.remove('active');
+            leafFront.innerHTML = '';
+            leafBack.innerHTML = '';
+            underlayLeft.innerHTML = '';
+            underlayRight.innerHTML = '';
+            gsap.set(flipLeaf, { rotateY: 0 });
+            leafShade.style.opacity = 0;
+            currentSpread = targetIdx;
+            updateUI();
+            isFlipping = false;
+          };
 
           if (direction === 'next') {
-            gsap.fromTo(flipLeaf, 
+            // Right page lifts from right to left, revealing new Right Page underneath
+            leafFront.innerHTML = currentRight ? currentRight.innerHTML : '';
+            leafBack.innerHTML = targetLeft ? targetLeft.innerHTML : '';
+            underlayLeft.innerHTML = currentLeft ? currentLeft.innerHTML : '';
+            underlayLeft.classList.add('active');
+
+            showPanel(targetIdx);
+            flipLeaf.classList.add('turning');
+
+            gsap.fromTo(
+              flipLeaf,
               { rotateY: 0 },
-              { 
-                rotateY: -180, 
-                duration: 0.65, 
+              {
+                rotateY: -180,
+                duration: 0.75,
                 ease: 'power2.inOut',
                 onUpdate: function() {
                   const p = this.progress();
-                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.45;
+                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.52;
                 },
-                onComplete: function() {
-                  spreadPanels.forEach(p => {
-                    p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
-                  });
-                  flipLeaf.classList.remove('turning');
-                  gsap.set(flipLeaf, { rotateY: 0 });
-                  leafShade.style.opacity = 0;
-                  currentSpread = targetIdx;
-                  updateUI();
-                  isFlipping = false;
-                }
+                onComplete: cleanupFlip
               }
             );
           } else {
-            gsap.fromTo(flipLeaf, 
+            // Left page lifts from left back to right, revealing new Left Page underneath
+            leafFront.innerHTML = targetRight ? targetRight.innerHTML : '';
+            leafBack.innerHTML = currentLeft ? currentLeft.innerHTML : '';
+            underlayRight.innerHTML = currentRight ? currentRight.innerHTML : '';
+            underlayRight.classList.add('active');
+
+            showPanel(targetIdx);
+            flipLeaf.classList.add('turning');
+
+            gsap.fromTo(
+              flipLeaf,
               { rotateY: -180 },
-              { 
-                rotateY: 0, 
-                duration: 0.65, 
+              {
+                rotateY: 0,
+                duration: 0.75,
                 ease: 'power2.inOut',
                 onUpdate: function() {
                   const p = this.progress();
-                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.45;
+                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.52;
                 },
-                onComplete: function() {
-                  spreadPanels.forEach(p => {
-                    p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
-                  });
-                  flipLeaf.classList.remove('turning');
-                  leafShade.style.opacity = 0;
-                  currentSpread = targetIdx;
-                  updateUI();
-                  isFlipping = false;
-                }
+                onComplete: cleanupFlip
               }
             );
           }
         } else {
-          // Instant fallback
-          spreadPanels.forEach(p => {
-            p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetIdx ? 'contents' : 'none';
-          });
+          // Instant fallback / reduced motion
+          showPanel(targetIdx);
           currentSpread = targetIdx;
           updateUI();
-          isFlipping = false;
         }
       }
 
       function openNotebook(targetSpread = 1) {
+        if (openChoreoTimer) {
+          clearTimeout(openChoreoTimer);
+          openChoreoTimer = null;
+        }
+
+        const wasOpen = overlay.classList.contains('active');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
         if (window.location.hash !== '#notebook') {
           history.pushState(null, '', '#notebook');
         }
 
-        if (targetSpread > 0) {
-          book.classList.remove('state-cover');
-          spreadPanels.forEach(p => {
-            p.style.display = parseInt(p.dataset.spreadIdx, 10) === targetSpread ? 'contents' : 'none';
-          });
-          currentSpread = targetSpread;
-        } else {
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!wasOpen && targetSpread > 0 && !prefersReduced) {
+          // Physical Opening Choreography: Rest closed on desk briefly, then swing cover open
           book.classList.add('state-cover');
           currentSpread = 0;
+          showPanel(targetSpread);
+          updateUI();
+
+          openChoreoTimer = setTimeout(() => {
+            openChoreoTimer = null;
+            if (overlay.classList.contains('active') && currentSpread === 0) {
+              goToSpread(targetSpread, 'next');
+            }
+          }, 420);
+        } else {
+          if (targetSpread > 0) {
+            if (wasOpen && currentSpread > 0) {
+              goToSpread(targetSpread);
+            } else {
+              book.classList.remove('state-cover');
+              showPanel(targetSpread);
+              currentSpread = targetSpread;
+              updateUI();
+              playPaperSound();
+            }
+          } else {
+            book.classList.add('state-cover');
+            currentSpread = 0;
+            updateUI();
+          }
         }
-        updateUI();
-        playPaperSound();
       }
 
       function closeNotebook() {
+        if (openChoreoTimer) {
+          clearTimeout(openChoreoTimer);
+          openChoreoTimer = null;
+        }
         overlay.classList.remove('active');
         document.body.style.overflow = '';
         if (window.location.hash === '#notebook') {
@@ -3344,6 +3543,12 @@
 
       // Event Listeners
       coverView?.addEventListener('click', () => goToSpread(1, 'next'));
+      coverView?.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          goToSpread(1, 'next');
+        }
+      });
       contentsBtn?.addEventListener('click', () => goToSpread(1));
       
       prevBtn?.addEventListener('click', () => {
@@ -3366,6 +3571,14 @@
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
           const idx = parseInt(tab.dataset.tabIdx, 10);
+          goToSpread(idx);
+        });
+      });
+
+      // Signoff Inline Jump Links
+      overlay.querySelectorAll('[data-jump-spread]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.jumpSpread, 10);
           goToSpread(idx);
         });
       });
@@ -3453,6 +3666,13 @@
       if (portalBtn) {
         portalBtn.addEventListener('click', () => openNotebook(1));
       }
+
+      document.querySelectorAll('.nb-open-journal-link[data-open-spread]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = parseInt(btn.dataset.openSpread, 10);
+          openNotebook(target);
+        });
+      });
 
       // Hash routing
       function checkRoute() {
