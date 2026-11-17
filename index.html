@@ -46,7 +46,7 @@
     @media (hover:hover) and (pointer:fine) {
       body.has-cursor, body.has-cursor * { cursor: none !important; }
     }
-    .cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:180;display:none;align-items:flex-start;gap:6px}
+    .cursor{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;display:none;align-items:flex-start;gap:6px}
     body.has-cursor .cursor{display:flex}
     .cursor-pencil{width:30px;height:30px;transform-origin:top left;transition:transform .16s cubic-bezier(.22,1,.36,1);filter:drop-shadow(2px 2px 0 rgba(25,25,25,.22))}
     .cursor.active .cursor-pencil{transform:rotate(-8deg) scale(1.1)}
@@ -333,11 +333,11 @@
     }
 
     .blog {
-      background: var(--nb-bg);
+      background: var(--paper);
       color: var(--nb-ink);
       position: relative;
       overflow: hidden;
-      padding: 104px 0 96px;
+      padding: 88px 0 84px;
       border-top: 1.5px solid var(--ink);
     }
 
@@ -411,7 +411,7 @@
       width: 100%;
       height: 1.5px;
       background: rgba(23, 23, 23, 0.16);
-      margin: 36px 0 54px;
+      margin: 28px 0 28px;
     }
 
     /* Featured Article — Asymmetric 2-Column */
@@ -722,158 +722,60 @@
       --dnb-hand: "Caveat", cursive, sans-serif;
     }
 
-    /* Warm Walnut Desk Studio Viewport Overlay */
-    .dnb-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background:
-        radial-gradient(circle at 22% 18%, rgba(255, 224, 178, 0.10) 0%, transparent 48%),
-        radial-gradient(ellipse at 45% 35%, #3d2b1f 0%, #241811 55%, #120c08 100%);
-      color: var(--dnb-ink);
+    /* Inline On-Page Interactive Notebook Container */
+    .dnb-inline-wrap {
+      position: relative;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      padding: 12px 24px 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-      overflow: hidden;
+      align-items: center;
+      padding: 8px 0 12px;
       user-select: none;
-    }
-    .dnb-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Wood-grain / desk surface texture overlay */
-    .dnb-overlay::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(92deg, rgba(255, 225, 190, 0.014) 0px, rgba(255, 225, 190, 0.014) 2px, transparent 2px, transparent 18px),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Minimalist Top HUD Bar */
-    .dnb-hud-top {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding-bottom: 4px;
-      flex-shrink: 0;
-    }
-    .dnb-hud-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font: 600 11px var(--mono);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #dfd8cc;
-    }
-    .dnb-hud-brand span {
-      color: var(--dnb-terracotta);
-    }
-    .dnb-hud-leather-pill {
-      background: linear-gradient(135deg, #543729, #362219);
-      color: #efe2cf !important;
-      padding: 3px 9px;
-      border-radius: 4px;
-      border: 1px solid rgba(220, 190, 140, 0.25);
-      font-size: 9.5px;
-      letter-spacing: 0.12em;
-    }
-    .dnb-hud-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .dnb-hud-btn {
-      background: rgba(245, 239, 228, 0.08);
-      border: 1px solid rgba(245, 239, 228, 0.22);
-      color: #f5efe4;
-      border-radius: 100px;
-      padding: 6px 14px;
-      font: 600 11px var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(6px);
-    }
-    .dnb-hud-btn:hover {
-      background: var(--dnb-terracotta);
-      border-color: var(--dnb-terracotta);
-      color: #fff;
-      transform: translateY(-1px);
-    }
-    .dnb-close-btn {
-      background: rgba(255, 90, 54, 0.15);
-      border-color: rgba(255, 90, 54, 0.35);
-      color: #ff917a;
-    }
-    .dnb-close-btn:hover {
-      background: #ff5a36;
-      border-color: #ff5a36;
-      color: #171717;
     }
 
     /* 3D Physical Desk & Stage Rig */
     .dnb-stage {
       position: relative;
       z-index: 5;
-      flex: 1;
-      min-height: 0;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       perspective: 2600px;
       perspective-origin: center center;
-      padding: 4px 18px;
+      padding: 10px 36px 28px 12px;
     }
 
     /* The Notebook Object */
     .dnb-book {
       position: relative;
-      width: min(1100px, calc(100vw - 88px));
-      height: min(650px, calc(100vh - 96px));
+      width: min(1060px, 100%);
+      height: 610px;
       transform-style: preserve-3d;
       transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1), height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* Closed Quarter-Bound Cover State Rig */
     .dnb-book.state-cover {
-      width: min(460px, 88vw);
-      height: min(630px, calc(100vh - 96px));
+      width: min(460px, 92%);
+      height: 600px;
     }
 
-    /* Realistic Drop Shadow on Walnut Desk */
+    /* Warm Natural Drop Shadow on Editorial Paper Background */
     .dnb-shadow {
       position: absolute;
-      inset: 8px -18px -28px -10px;
+      inset: 10px -14px -22px -8px;
       border-radius: 18px;
-      background: rgba(0, 0, 0, 0.62);
-      filter: blur(30px);
+      background: rgba(25, 20, 15, 0.22);
+      filter: blur(22px);
       transform: translateZ(-40px);
       pointer-events: none;
       transition: all 0.55s ease;
     }
     .dnb-book.state-cover .dnb-shadow {
-      inset: 14px -16px -26px 8px;
-      filter: blur(26px);
-      background: rgba(0, 0, 0, 0.72);
+      inset: 14px -12px -20px 8px;
+      filter: blur(18px);
+      background: rgba(25, 20, 15, 0.26);
     }
 
     /* Authentic Quarter-Bound Linen & Leather Hardcover View */
@@ -898,7 +800,7 @@
         6px 6px 0 #e0d5c3,
         9px 9px 0 #f2eadb,
         12px 12px 0 #3a241b,
-        18px 24px 38px rgba(0, 0, 0, 0.65);
+        16px 20px 28px rgba(25, 20, 15, 0.22);
       transform-origin: left center;
       transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1.000), box-shadow 0.6s ease;
       backface-visibility: hidden;
@@ -1093,8 +995,8 @@
       transform-style: preserve-3d;
       box-shadow:
         inset 0 0 0 1px rgba(214, 192, 155, 0.24),
-        0 28px 65px rgba(0, 0, 0, 0.72),
-        0 10px 24px rgba(0, 0, 0, 0.45);
+        0 20px 44px rgba(25, 20, 15, 0.22),
+        0 6px 16px rgba(25, 20, 15, 0.14);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.45s ease 0.2s;
@@ -1114,7 +1016,7 @@
       transform: translateX(-50%);
       background: linear-gradient(90deg, #7e2112 0%, #a83320 45%, #751e10 100%);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 5px 10px rgba(25, 20, 15, 0.26);
       z-index: 32;
       pointer-events: none;
     }
@@ -1626,6 +1528,16 @@
       transform: translateX(7px);
       box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.42);
     }
+    .dnb-tab[data-tab-idx="0"] {
+      background: #4A3025;
+      color: #f5efe4;
+      border-color: #2d1d16;
+    }
+    .dnb-tab[data-tab-idx="0"]:hover,
+    .dnb-tab[data-tab-idx="0"].active {
+      background: #2b1a12;
+      color: #fff;
+    }
     .dnb-tab[data-tab-idx="1"] { border-color: #2d1d16; }
     .dnb-tab[data-tab-idx="2"] { border-color: var(--dnb-terracotta); }
     .dnb-tab[data-tab-idx="3"] { border-color: var(--dnb-cobalt); }
@@ -1707,27 +1619,26 @@
       transform: translateZ(1px);
     }
 
-    /* Minimalist Bottom HUD Bar */
+    /* Subtle Inline Folio Footer Beneath Book */
     .dnb-hud-bottom {
       position: relative;
       z-index: 10;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
+      width: min(1060px, 100%);
+      margin: 4px auto 0;
       padding-top: 6px;
       flex-shrink: 0;
       font: 600 10.5px var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #a69e92;
+      color: var(--muted);
     }
     .dnb-hud-progress-wrap {
       width: min(280px, 40vw);
       height: 3px;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(25, 25, 25, 0.12);
       border-radius: 3px;
       overflow: hidden;
       margin: 0 16px;
@@ -1740,124 +1651,17 @@
       transition: width 0.4s ease;
     }
 
-    /* Portal CTA & Article Action Row in Main Page Notebook Section */
-    .nb-portal-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      background: #FAF6EE;
-      border: 1.5px solid var(--ink);
-      box-shadow: 5px 5px 0 var(--ink);
-      padding: 22px 28px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-    .nb-portal-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .nb-portal-icon {
-      font-size: 28px;
-    }
-    .nb-portal-title {
-      font: 700 20px var(--dnb-serif);
-      margin: 0 0 4px;
-    }
-    .nb-portal-desc {
-      font-size: 13.5px;
-      color: #554f46;
-      margin: 0;
-    }
-    .nb-portal-btn,
-    .nb-portal-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--dnb-terracotta);
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 100px;
-      font: 700 12px var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1.5px solid var(--ink);
-      box-shadow: 3px 3px 0 var(--ink);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-    }
-    .nb-portal-btn:hover,
-    .nb-portal-cta:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--ink);
-      background: #8c2e19;
-    }
-    .nb-action-row {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .nb-open-journal-link {
-      background: #F5EFE4;
-      border: 1.2px solid var(--ink);
-      border-radius: 100px;
-      padding: 6px 14px;
-      font: 700 10.5px var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink);
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s, transform 0.2s;
-    }
-    .nb-open-journal-link:hover {
-      background: var(--dnb-terracotta);
-      border-color: var(--dnb-terracotta);
-      color: #fff;
-      transform: translateY(-1px);
-    }
-
-    /* Framed Mixed-Media Collages in Main Page Notebook Section */
-    .nb-photo-frame {
-      position: relative;
-      background: #FFFDF9;
-      padding: 12px;
-      border: 1.5px solid var(--ink);
-      box-shadow: 4px 4px 0 rgba(23, 23, 23, 0.14);
-      transform-style: preserve-3d;
-    }
-    .nb-photo-frame .nb-collage {
-      border: 1px solid rgba(23, 23, 23, 0.15);
-      box-shadow: none;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-    }
-    .nb-collage-tape {
-      position: absolute;
-      width: 68px;
-      height: 18px;
-      background: rgba(224, 198, 152, 0.72);
-      border: 1px solid rgba(120, 95, 60, 0.25);
-      z-index: 3;
-      pointer-events: none;
-    }
-    .nb-collage-tape-tl {
-      top: -8px;
-      left: 18px;
-      transform: rotate(-10deg);
-    }
-    .nb-collage-tape-tr {
-      top: -8px;
-      right: 18px;
-      transform: rotate(9deg);
-    }
-
     /* Responsive Adaptation for Tablets and Mobiles */
     @media (max-width: 960px) {
+      .dnb-stage {
+        padding: 10px 32px 24px 6px;
+      }
       .dnb-book {
-        width: calc(100vw - 68px);
-        height: min(620px, calc(100vh - 90px));
+        width: 100%;
+        height: 560px;
+      }
+      .dnb-book.state-cover {
+        height: 550px;
       }
       .dnb-page {
         padding: 18px 20px 20px;
@@ -1882,20 +1686,21 @@
     }
 
     @media (max-width: 680px) {
-      .dnb-overlay {
-        padding: 10px 12px;
-      }
-      .dnb-hud-brand span {
-        display: none;
+      .dnb-inline-wrap {
+        padding: 4px 0 8px;
       }
       .dnb-stage {
         align-items: stretch;
-        padding: 4px 0;
+        padding: 4px 0 16px;
       }
-      .dnb-book,
+      .dnb-book {
+        width: 100%;
+        height: auto;
+        min-height: 520px;
+      }
       .dnb-book.state-cover {
         width: 100%;
-        height: 100%;
+        height: 520px;
       }
       .dnb-cover-view {
         padding: 24px 20px 22px 44px;
@@ -1907,10 +1712,13 @@
         left: 33px;
       }
       .dnb-spread-view {
+        position: relative;
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
-        overflow-y: auto;
         padding: 8px;
+      }
+      .dnb-book.state-cover .dnb-spread-view {
+        display: none;
       }
       .dnb-page {
         height: auto;
@@ -2185,133 +1993,331 @@
           <div class="nb-divider" aria-hidden="true"></div>
         </header>
 
-        <!-- Interactive 3D Digital Notebook Desk Portal -->
-        <aside class="nb-portal-banner" style="margin-bottom: 34px;">
-          <div class="nb-portal-info">
-            <div class="mono" style="font-size: 10px; color: var(--dnb-terracotta); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 4px;">IMMERSIVE READING ROOM</div>
-            <h3 class="nb-portal-title">Experience the Complete Bound Journal</h3>
-            <p class="nb-portal-desc">Step into the 3D desk view to browse leather binding, tactile page turns, handwritten notes, and full essay reading spreads.</p>
+        <!-- Interactive 3D Digital Notebook (Inline On-Page) -->
+        <div id="digitalNotebookOverlay" class="dnb-inline-wrap" aria-label="Diya Das Interactive Digital Notebook">
+          <!-- 3D Physical Desk & Book Stage -->
+          <div class="dnb-stage">
+            <div class="dnb-book state-cover" id="dnbBook">
+              <div class="dnb-shadow" aria-hidden="true"></div>
+
+              <!-- Physical Hardcover Closed View (Spread 0) -->
+              <div class="dnb-cover-view" id="dnbCoverView" data-cursor="OPEN" tabindex="0" role="button" aria-label="Open Hardcover Notebook">
+                <div class="dnb-cover-plate">
+                  <div class="dnb-cover-top">
+                    <div class="dnb-cover-author">DIYA DAS · WRITER &amp; RESEARCHER</div>
+                    <h2 class="dnb-cover-title">THE OPEN<br>NOTEBOOK</h2>
+                    <p class="dnb-cover-subtitle">Ideas, stories, observations &amp; everything in between — collected across 50+ articles, interviews and creative experiments.</p>
+                  </div>
+                </div>
+
+                <div class="dnb-cover-middle">
+                  <div class="dnb-wax-seal" aria-hidden="true">
+                    <span>DD</span>
+                    ISSUE 01
+                  </div>
+                  <div class="dnb-cover-annotation">
+                    “Collected along the way.”
+                  </div>
+                </div>
+
+                <div class="dnb-cover-bottom">
+                  <div class="dnb-open-cta">
+                    <span>📖 Open Journal</span>
+                    <span>↗</span>
+                  </div>
+                  <div class="dnb-cover-badge">QUARTER-BOUND LINEN · VOL. I</div>
+                </div>
+              </div>
+
+              <!-- 2-Page Spreads Container -->
+              <div class="dnb-spread-view" id="dnbSpreadView">
+                <div class="dnb-spine-gutter" aria-hidden="true"></div>
+                <div class="dnb-ribbon-bookmark" aria-hidden="true"></div>
+
+                <!-- Underlay clones for realistic mid-flip persistence -->
+                <div class="dnb-underlay-clone dnb-underlay-left dnb-page dnb-page-left" id="dnbUnderlayLeft" aria-hidden="true"></div>
+                <div class="dnb-underlay-clone dnb-underlay-right dnb-page dnb-page-right" id="dnbUnderlayRight" aria-hidden="true"></div>
+
+                <!-- Spread 1: Table of Contents -->
+                <div class="dnb-spread-panel" data-spread-idx="1" style="display: contents;">
+                  <!-- Left Page: Editorial Title, Polaroid & Archive Stamp -->
+                  <div class="dnb-page dnb-page-left">
+                    <div class="dnb-folio-head">
+                      <span>05 / THE OPEN NOTEBOOK</span>
+                      <span>VOL. I · 2026</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <h2 class="dnb-toc-title">A living notebook of ideas, people and <em style="font-family: var(--dnb-serif); font-style: italic; color: var(--dnb-terracotta);">stories</em>.</h2>
+                      <p class="dnb-toc-copy">Thoughts, little discoveries and drafts — about communication, people, creativity and the small details that shape how we connect.</p>
+                      
+                      <div class="dnb-toc-visual-row">
+                        <div class="dnb-polaroid-frame">
+                          <img src="sticker-paperclip.png" alt="" class="dnb-polaroid-clip" aria-hidden="true">
+                          <div class="dnb-polaroid-tape" aria-hidden="true"></div>
+                          <img src="diya-das-portrait.jpeg" alt="Diya Das portrait" class="dnb-polaroid-img">
+                          <div class="dnb-polaroid-cap">diya das · field archive</div>
+                        </div>
+                        <div class="dnb-toc-stamp-col">
+                          <div class="dnb-archive-stamp" aria-hidden="true">
+                            <small>ARCHIVE</small>
+                            <strong>VOL. I</strong>
+                            <small>50+ WORKS</small>
+                          </div>
+                          <div class="mono" style="font-size: 9px; letter-spacing: 0.1em; color: #6a6358; line-height: 1.5;">
+                            CURATED WITH<br>PSYCHOLOGY LENS
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="dnb-toc-scrawl">
+                        “Every interview begins with a willingness to be surprised.”
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-prev" data-cursor="PREV" title="Close Cover"></div>
+                  </div>
+
+                  <!-- Right Page: Index List with Editorial Thumbnails -->
+                  <div class="dnb-page dnb-page-right">
+                    <div class="dnb-folio-head">
+                      <span>INDEX OF ESSAYS</span>
+                      <span>PAGE 01</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <div class="dnb-toc-list">
+                        <!-- Item 1 -->
+                        <article class="dnb-toc-item" data-goto-spread="2" data-cursor="READ" tabindex="0" role="button" aria-label="Read Article 01">
+                          <div class="dnb-toc-num">01</div>
+                          <img src="notebook-collage-01.jpg" alt="" class="dnb-toc-thumb">
+                          <div class="dnb-toc-info">
+                            <div class="dnb-toc-meta">PSYCHOLOGY / PERSPECTIVE · 5 MIN</div>
+                            <h3 class="dnb-toc-item-title">Why understanding people makes communication more meaningful</h3>
+                          </div>
+                          <div class="dnb-toc-arrow">↗</div>
+                        </article>
+
+                        <!-- Item 2 -->
+                        <article class="dnb-toc-item" data-goto-spread="3" data-cursor="READ" tabindex="0" role="button" aria-label="Read Article 02">
+                          <div class="dnb-toc-num">02</div>
+                          <img src="notebook-collage-02.jpg" alt="" class="dnb-toc-thumb">
+                          <div class="dnb-toc-info">
+                            <div class="dnb-toc-meta">RESEARCH / INTERVIEWS · 4 MIN</div>
+                            <h3 class="dnb-toc-item-title">The art of asking a better question</h3>
+                          </div>
+                          <div class="dnb-toc-arrow">↗</div>
+                        </article>
+
+                        <!-- Item 3 -->
+                        <article class="dnb-toc-item" data-goto-spread="4" data-cursor="READ" tabindex="0" role="button" aria-label="Read Article 03">
+                          <div class="dnb-toc-num">03</div>
+                          <img src="notebook-collage-03.jpg" alt="" class="dnb-toc-thumb">
+                          <div class="dnb-toc-info">
+                            <div class="dnb-toc-meta">WRITING / STORYTELLING · 6 MIN</div>
+                            <h3 class="dnb-toc-item-title">From a blank page to a story worth sharing</h3>
+                          </div>
+                          <div class="dnb-toc-arrow">↗</div>
+                        </article>
+                      </div>
+                      <div class="dnb-signoff" style="margin-top: auto;">
+                        <span>SELECT AN ESSAY OR FLIP CORNER</span>
+                        <button type="button" class="dnb-signoff-link" data-jump-spread="2" data-cursor="FLIP">Start Reading →</button>
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-next" data-cursor="NEXT" title="Next Spread (Article 01)"></div>
+                  </div>
+                </div>
+
+                <!-- Spread 2: Article 01 -->
+                <div class="dnb-spread-panel" data-spread-idx="2" style="display: none;">
+                  <!-- Left Page: Artwork & Intro -->
+                  <div class="dnb-page dnb-page-left">
+                    <div class="dnb-folio-head">
+                      <span>ARTICLE 01 · PSYCHOLOGY &amp; PERSPECTIVE</span>
+                      <span>PAGE 02</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <div class="dnb-toc-meta" style="color: var(--dnb-terracotta);">FEATURED ESSAY · 5 MIN READ</div>
+                      <h2 class="dnb-art-title">Why understanding people makes communication more meaningful</h2>
+                      <p class="dnb-art-intro">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
+                      
+                      <div class="dnb-art-frame">
+                        <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
+                        <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
+                        <img src="notebook-collage-01.jpg" alt="Mixed-media editorial collage: psychology profile, perception contour lines, pressed olive sprig, and archive stamp" class="dnb-art-collage">
+                      </div>
+
+                      <div class="dnb-art-note">
+                        Field note: Empathy is an active craft of observation, not a passive reaction.
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-prev" data-cursor="PREV" title="Previous Spread (TOC)"></div>
+                  </div>
+
+                  <!-- Right Page: Prose Reading -->
+                  <div class="dnb-page dnb-page-right">
+                    <div class="dnb-folio-head">
+                      <span>READING ESSAY</span>
+                      <span>PAGE 03</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <div class="dnb-prose">
+                        <p class="dnb-dropcap">Most communication failures are rarely about vocabulary; they are almost always failures of perception. In corporate meetings, brand campaigns, and casual conversations alike, we tend to fixate on <em>what we want to deliver</em> rather than <em>what the other person is equipped to receive</em>.</p>
+                        
+                        <p>During my academic background in psychology, one principle continually resurfaced: people do not process language in a vacuum. Every phrase lands against a backdrop of personal fatigue, unspoken insecurities, cognitive load, and silent motivations.</p>
+
+                        <blockquote class="dnb-pullquote">
+                          “When you understand who someone is defending themselves against, your words stop triggering resistance and start building bridges.”
+                        </blockquote>
+
+                        <p>When you shift the foundation of communication from <span class="dnb-highlight">persuasion to comprehension</span>, the tone changes completely. You stop speaking to impress and start speaking to connect. Sentences become shorter, metaphors become more vivid, and listening becomes an active investigation rather than a pause before your next turn to speak.</p>
+
+                        <p>True resonance isn't loud. It is the quiet feeling an audience gets when they realize: <em>“This writer actually sees the world from where I am standing.”</em></p>
+                      </div>
+                      <div class="dnb-signoff">
+                        <button type="button" class="dnb-signoff-link" data-jump-spread="1" data-cursor="FLIP">← Back to Contents</button>
+                        <button type="button" class="dnb-signoff-link" data-jump-spread="3" data-cursor="FLIP">Next Essay: Questions →</button>
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-next" data-cursor="NEXT" title="Next Spread (Article 02)"></div>
+                  </div>
+                </div>
+
+                <!-- Spread 3: Article 02 -->
+                <div class="dnb-spread-panel" data-spread-idx="3" style="display: none;">
+                  <!-- Left Page: Artwork & Intro -->
+                  <div class="dnb-page dnb-page-left">
+                    <div class="dnb-folio-head">
+                      <span>ARTICLE 02 · RESEARCH &amp; INTERVIEWS</span>
+                      <span>PAGE 04</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <div class="dnb-toc-meta" style="color: var(--dnb-cobalt);">FIELD REPORT · 4 MIN READ</div>
+                      <h2 class="dnb-art-title">The art of asking a better question</h2>
+                      <p class="dnb-art-intro">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
+                      
+                      <div class="dnb-art-frame">
+                        <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
+                        <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
+                        <img src="notebook-collage-02.jpg" alt="Mixed-media editorial collage: oversized vintage question mark, field microphone illustration, pressed fern, and Field Notes stamp" class="dnb-art-collage">
+                      </div>
+
+                      <div class="dnb-art-note">
+                        Notebook rule: Never ask a question you can answer with a search engine.
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-prev" data-cursor="PREV" title="Previous Spread (Article 01)"></div>
+                  </div>
+
+                  <!-- Right Page: Prose Reading -->
+                  <div class="dnb-page dnb-page-right">
+                    <div class="dnb-folio-head">
+                      <span>READING ESSAY</span>
+                      <span>PAGE 05</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <div class="dnb-prose">
+                        <p class="dnb-dropcap">Across more than fifty live, on-ground interviews with university chancellors, visiting dignitaries, student founders, and artists, I learned that people arrive with an invisible script. They know their accomplishments, their soundbites, and the safe answers they’ve repeated a dozen times before.</p>
+
+                        <p>If you ask conventional questions, you receive conventional press releases. The breakthrough happens when you step off the planned script and ask about the emotional turning point.</p>
+
+                        <blockquote class="dnb-pullquote">
+                          “Ask not what they did, but what surprised them most when the original plan collapsed.”
+                        </blockquote>
+
+                        <p>A great interviewer doesn’t focus on sounding intelligent. A great interviewer creates an atmosphere of <span class="dnb-highlight">unhurried psychological safety</span>. When someone feels that you are genuinely tracking the nuances of their story rather than checking off questions on a clipboard, their posture relaxes and genuine honesty emerges.</p>
+
+                        <p>The art of the question is ultimately the art of presence: paying attention to where a person hesitates, where their voice drops, and having the courage to follow that thread into unscripted territory.</p>
+                      </div>
+                      <div class="dnb-signoff">
+                        <button type="button" class="dnb-signoff-link" data-jump-spread="1" data-cursor="FLIP">← Back to Contents</button>
+                        <button type="button" class="dnb-signoff-link" data-jump-spread="4" data-cursor="FLIP">Next Essay: Storytelling →</button>
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-next" data-cursor="NEXT" title="Next Spread (Article 03)"></div>
+                  </div>
+                </div>
+
+                <!-- Spread 4: Article 03 -->
+                <div class="dnb-spread-panel" data-spread-idx="4" style="display: none;">
+                  <!-- Left Page: Artwork & Intro -->
+                  <div class="dnb-page dnb-page-left">
+                    <div class="dnb-folio-head">
+                      <span>ARTICLE 03 · WRITING &amp; STORYTELLING</span>
+                      <span>PAGE 06</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <div class="dnb-toc-meta" style="color: var(--dnb-leather);">CRAFT ESSAY · 6 MIN READ</div>
+                      <h2 class="dnb-art-title">From a blank page to a story worth sharing</h2>
+                      <p class="dnb-art-intro">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
+                      
+                      <div class="dnb-art-frame">
+                        <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
+                        <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
+                        <img src="notebook-collage-03.jpg" alt="Mixed-media editorial collage: vintage mechanical typewriter, ruled manuscript paper with red proofreader marks, pressed fern sprig, and Archive stamp" class="dnb-art-collage">
+                      </div>
+
+                      <div class="dnb-art-note">
+                        Craft takeaway: The first draft is telling yourself the story; the revision is telling it to the reader.
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-prev" data-cursor="PREV" title="Previous Spread (Article 02)"></div>
+                  </div>
+
+                  <!-- Right Page: Prose Reading -->
+                  <div class="dnb-page dnb-page-right">
+                    <div class="dnb-folio-head">
+                      <span>READING ESSAY</span>
+                      <span>PAGE 07</span>
+                    </div>
+                    <div class="dnb-page-content">
+                      <div class="dnb-prose">
+                        <p class="dnb-dropcap">The most intimidating sight for any writer is not a difficult brief or a looming deadline; it is the blinding white glare of an empty page. We look at great writing and imagine it arrived as a continuous, effortless stream of genius. In reality, writing is an act of patient archaeology.</p>
+
+                        <p>You begin with scattered fragments: an overheard remark in a corridor, a psychological quirk observed during an interview, three contradictory sentences in a voice memo recorded at midnight.</p>
+
+                        <blockquote class="dnb-pullquote">
+                          “Good editing is not polite pruning; it is stripping away everything ornamental until only the pulse remains.”
+                        </blockquote>
+
+                        <p>The secret to finding momentum is giving yourself permission to <span class="dnb-highlight">write badly first</span>. Clear thinking is not the prerequisite for writing — writing is the process through which thinking becomes clear.</p>
+
+                        <p>When you edit without ego, ruthlessly eliminating padding and preserving only the details that ring true, a piece of writing stops feeling like homework and begins to feel alive.</p>
+                      </div>
+                      <div class="dnb-signoff">
+                        <button type="button" class="dnb-signoff-link" data-jump-spread="1" data-cursor="FLIP">← Back to Contents</button>
+                        <span>END OF VOLUME I</span>
+                      </div>
+                    </div>
+                    <div class="dnb-dogear dnb-dogear-next" data-cursor="NEXT" title="Back to Table of Contents"></div>
+                  </div>
+                </div>
+
+                <!-- Edge Bookmarks / Tabs -->
+                <nav class="dnb-tabs" aria-label="Notebook edge bookmark tabs">
+                  <button type="button" class="dnb-tab" data-tab-idx="0" data-cursor="TAB" title="Close Cover">COVER</button>
+                  <button type="button" class="dnb-tab active" data-tab-idx="1" data-cursor="TAB" title="Table of Contents">TOC</button>
+                  <button type="button" class="dnb-tab" data-tab-idx="2" data-cursor="TAB" title="Article 01">01</button>
+                  <button type="button" class="dnb-tab" data-tab-idx="3" data-cursor="TAB" title="Article 02">02</button>
+                  <button type="button" class="dnb-tab" data-tab-idx="4" data-cursor="TAB" title="Article 03">03</button>
+                </nav>
+
+                <!-- 3D Page Turn Leaf Rig -->
+                <div class="dnb-flip-leaf" id="dnbFlipLeaf" aria-hidden="true">
+                  <div class="dnb-leaf-face dnb-leaf-front" id="dnbLeafFront"></div>
+                  <div class="dnb-leaf-face dnb-leaf-back" id="dnbLeafBack"></div>
+                  <div class="dnb-leaf-shade" id="dnbLeafShade"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <button type="button" class="nb-portal-cta" id="openNotebookPortalBtn" data-cursor="BOOK">
-            <span>📖 Open Interactive Journal</span>
-            <span>↗</span>
-          </button>
-        </aside>
 
-        <!-- Featured Article — Asymmetric 2-Column Editorial Spread -->
-        <article class="nb-featured" aria-labelledby="featuredTitle">
-          <!-- LEFT: Handcrafted Mixed-Media Editorial Collage Artwork -->
-          <div class="nb-artwork-wrap" data-cursor="VIEW">
-            <div class="nb-collage nb-photo-frame">
-              <div class="nb-collage-tape nb-collage-tape-tl" aria-hidden="true"></div>
-              <div class="nb-collage-tape nb-collage-tape-tr" aria-hidden="true"></div>
-              <img src="notebook-collage-01.jpg" alt="Handcrafted editorial collage: psychology profile, perception contour lines, torn cobalt and beige paper, pressed olive sprig, and archive stamp" class="nb-collage-img" style="width:100%; height:auto; display:block; aspect-ratio:16/10; object-fit:cover; border:1px solid rgba(23,23,23,0.16);" loading="lazy">
+          <!-- Subtle Inline Folio Indicator Beneath Book -->
+          <div class="dnb-hud-bottom">
+            <div class="mono" id="dnbSpreadIndicator">SPREAD: 01 · TABLE OF CONTENTS</div>
+            <div class="dnb-hud-progress-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
+              <div class="dnb-hud-progress-bar" id="dnbProgressBar"></div>
             </div>
+            <div class="mono" id="dnbPageCounter">PAGE 01 OF 07</div>
           </div>
-
-          <!-- RIGHT: Editorial Title, Metadata & Story -->
-          <div class="nb-content">
-            <div class="nb-meta">
-              <span class="nb-meta-tag">PSYCHOLOGY / PERSPECTIVE</span>
-              <span>ISSUE 01 · 5 MIN READ</span>
-            </div>
-            <h3 class="nb-article-title" id="featuredTitle">Why understanding people makes communication more meaningful</h3>
-            <p class="nb-desc">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
-            
-            <div class="nb-action-row">
-              <button type="button" class="nb-read-btn" data-target="manuscript1" data-cursor="READ" aria-expanded="false">
-                <span>Read the story ↗</span>
-              </button>
-              <button type="button" class="nb-open-journal-link" data-open-spread="2" data-cursor="BOOK">
-                Open in 3D Journal ↗
-              </button>
-            </div>
-
-            <!-- Expandable Reading Manuscript -->
-            <div class="nb-manuscript" id="manuscript1" aria-hidden="true">
-              <div class="nb-manuscript-inner">
-                Good communication starts before the first word is written. It starts with curiosity: Who am I speaking to? What might they need? What experiences shape the way they interpret a message? Studying psychology has made me more attentive to those questions. It reminds me that people are not just audiences or numbers — they bring emotions, context and different ways of seeing the world. For me, the best stories and campaigns begin by making room for that human complexity.
-              </div>
-              <button type="button" class="nb-close-btn" data-close="manuscript1">Close reading —</button>
-            </div>
-          </div>
-        </article>
-
-        <!-- Secondary Article Grid — 2 Horizontally Arranged Columns -->
-        <div class="nb-secondary-grid">
-          <!-- ARTICLE 02: Research & Interviews -->
-          <article class="nb-card" aria-labelledby="art2Title">
-            <!-- Handcrafted Artwork: Oversized Question Mark & Field Microphone Collage -->
-            <div class="nb-artwork-wrap" data-cursor="VIEW">
-              <div class="nb-collage nb-photo-frame">
-                <div class="nb-collage-tape nb-collage-tape-tl" aria-hidden="true"></div>
-                <div class="nb-collage-tape nb-collage-tape-tr" aria-hidden="true"></div>
-                <img src="notebook-collage-02.jpg" alt="Editorial collage: oversized letterpress question mark over torn cobalt and terracotta paper, vintage field microphone sketch, pressed fern leaf, and Field Notes stamp" style="width:100%; height:auto; display:block; aspect-ratio:16/10; object-fit:cover; border:1px solid rgba(23,23,23,0.16);" loading="lazy">
-              </div>
-            </div>
-
-            <!-- Content -->
-            <div class="nb-meta">
-              <span class="nb-meta-tag">RESEARCH / INTERVIEWS</span>
-              <span>ISSUE 02 · 4 MIN READ</span>
-            </div>
-            <h3 class="nb-article-title" id="art2Title">The art of asking a better question</h3>
-            <p class="nb-desc">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
-            
-            <div class="nb-action-row">
-              <button type="button" class="nb-read-btn" data-target="manuscript2" data-cursor="READ" aria-expanded="false">
-                <span>Read the story ↗</span>
-              </button>
-              <button type="button" class="nb-open-journal-link" data-open-spread="3" data-cursor="BOOK">
-                Open in 3D Journal ↗
-              </button>
-            </div>
-
-            <!-- Expandable Reading Manuscript -->
-            <div class="nb-manuscript" id="manuscript2" aria-hidden="true">
-              <div class="nb-manuscript-inner">
-                A thoughtful interview is not a checklist of questions. Preparation gives a conversation direction, but listening gives it life. The most memorable moments often arrive after a follow-up question, a pause or an unexpected detail. I have learned to stay present, ask with intention and leave enough room for a real answer.
-              </div>
-              <button type="button" class="nb-close-btn" data-close="manuscript2">Close reading —</button>
-            </div>
-          </article>
-
-          <!-- ARTICLE 03: Writing & Storytelling -->
-          <article class="nb-card" aria-labelledby="art3Title">
-            <!-- Handcrafted Artwork: Vintage Typewriter & Proofreader Manuscript Collage -->
-            <div class="nb-artwork-wrap" data-cursor="VIEW">
-              <div class="nb-collage nb-photo-frame">
-                <div class="nb-collage-tape nb-collage-tape-tl" aria-hidden="true"></div>
-                <div class="nb-collage-tape nb-collage-tape-tr" aria-hidden="true"></div>
-                <img src="notebook-collage-03.jpg" alt="Editorial collage: fine-line ink vintage mechanical typewriter with torn ruled manuscript paper, red proofreader marks, pressed fern sprig, and Archive No. 04 stamp" style="width:100%; height:auto; display:block; aspect-ratio:16/10; object-fit:cover; border:1px solid rgba(23,23,23,0.16);" loading="lazy">
-              </div>
-            </div>
-
-            <!-- Content -->
-            <div class="nb-meta">
-              <span class="nb-meta-tag">WRITING / STORYTELLING</span>
-              <span>ISSUE 03 · 6 MIN READ</span>
-            </div>
-            <h3 class="nb-article-title" id="art3Title">From a blank page to a story worth sharing</h3>
-            <p class="nb-desc">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
-            
-            <div class="nb-action-row">
-              <button type="button" class="nb-read-btn" data-target="manuscript3" data-cursor="READ" aria-expanded="false">
-                <span>Read the story ↗</span>
-              </button>
-              <button type="button" class="nb-open-journal-link" data-open-spread="4" data-cursor="BOOK">
-                Open in 3D Journal ↗
-              </button>
-            </div>
-
-            <!-- Expandable Reading Manuscript -->
-            <div class="nb-manuscript" id="manuscript3" aria-hidden="true">
-              <div class="nb-manuscript-inner">
-                I like to begin with a question, not a headline. I gather context, look for reliable details and search for the angle that makes the subject matter to someone. Then comes the edit: remove what distracts, clarify what feels vague and keep the language honest. Strong writing is not about making everything sound complicated. It is about making the important thing easier to understand.
-              </div>
-              <button type="button" class="nb-close-btn" data-close="manuscript3">Close reading —</button>
-            </div>
-          </article>
         </div>
 
         <!-- Section Footer Message with Decorative Terracotta Symbols -->
@@ -2379,358 +2385,6 @@
       <button class="drawer-close" id="drawerNext">Next Spread →</button>
     </div>
   </aside>
-
-  <!-- =========================================================
-       06. IMMERSIVE 3D DIGITAL NOTEBOOK EXPERIENCE MODAL
-       ========================================================= -->
-  <div id="digitalNotebookOverlay" class="dnb-overlay" role="dialog" aria-modal="true" aria-label="Diya Das Interactive Digital Notebook">
-    <!-- Top HUD Bar -->
-    <header class="dnb-hud-top">
-      <div class="dnb-hud-brand">
-        <span class="dnb-hud-leather-pill">ARCHIVE</span>
-        <strong>DIYA DAS</strong>
-        <span>/</span>
-        <small>THE OPEN NOTEBOOK</small>
-      </div>
-      <div class="dnb-hud-actions">
-        <button type="button" class="dnb-hud-btn" id="dnbContentsBtn" aria-label="Go to Table of Contents">
-          <span>☰</span> <span>Contents</span>
-        </button>
-        <button type="button" class="dnb-hud-btn" id="dnbPrevBtn" aria-label="Previous Page Spread">
-          <span>←</span> <span>Prev</span>
-        </button>
-        <button type="button" class="dnb-hud-btn" id="dnbNextBtn" aria-label="Next Page Spread">
-          <span>Next</span> <span>→</span>
-        </button>
-        <button type="button" class="dnb-hud-btn dnb-close-btn" id="dnbCloseBtn" aria-label="Close Notebook">
-          <span>✕</span> <span>Close [ESC]</span>
-        </button>
-      </div>
-    </header>
-
-    <!-- 3D Physical Desk & Book Stage -->
-    <div class="dnb-stage">
-      <div class="dnb-book state-cover" id="dnbBook">
-        <div class="dnb-shadow" aria-hidden="true"></div>
-
-        <!-- Physical Hardcover Closed View (Spread 0) -->
-        <div class="dnb-cover-view" id="dnbCoverView" tabindex="0" role="button" aria-label="Open Hardcover Notebook">
-          <div class="dnb-cover-plate">
-            <div class="dnb-cover-top">
-              <div class="dnb-cover-author">DIYA DAS · WRITER &amp; RESEARCHER</div>
-              <h2 class="dnb-cover-title">THE OPEN<br>NOTEBOOK</h2>
-              <p class="dnb-cover-subtitle">Ideas, stories, observations &amp; everything in between — collected across 50+ articles, interviews and creative experiments.</p>
-            </div>
-          </div>
-
-          <div class="dnb-cover-middle">
-            <div class="dnb-wax-seal" aria-hidden="true">
-              <span>DD</span>
-              ISSUE 01
-            </div>
-            <div class="dnb-cover-annotation">
-              “Collected along the way.”
-            </div>
-          </div>
-
-          <div class="dnb-cover-bottom">
-            <div class="dnb-open-cta">
-              <span>📖 Open Journal</span>
-              <span>↗</span>
-            </div>
-            <div class="dnb-cover-badge">QUARTER-BOUND LINEN · VOL. I</div>
-          </div>
-        </div>
-
-        <!-- 2-Page Spreads Container -->
-        <div class="dnb-spread-view" id="dnbSpreadView">
-          <div class="dnb-spine-gutter" aria-hidden="true"></div>
-          <div class="dnb-ribbon-bookmark" aria-hidden="true"></div>
-
-          <!-- Underlay clones for realistic mid-flip persistence -->
-          <div class="dnb-underlay-clone dnb-underlay-left dnb-page dnb-page-left" id="dnbUnderlayLeft" aria-hidden="true"></div>
-          <div class="dnb-underlay-clone dnb-underlay-right dnb-page dnb-page-right" id="dnbUnderlayRight" aria-hidden="true"></div>
-
-          <!-- Spread 1: Table of Contents -->
-          <div class="dnb-spread-panel" data-spread-idx="1" style="display: contents;">
-            <!-- Left Page: Editorial Title, Polaroid & Archive Stamp -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>05 / THE OPEN NOTEBOOK</span>
-                <span>VOL. I · 2026</span>
-              </div>
-              <div class="dnb-page-content">
-                <h2 class="dnb-toc-title">A living notebook of ideas, people and <em style="font-family: var(--dnb-serif); font-style: italic; color: var(--dnb-terracotta);">stories</em>.</h2>
-                <p class="dnb-toc-copy">Thoughts, little discoveries and drafts — about communication, people, creativity and the small details that shape how we connect.</p>
-                
-                <div class="dnb-toc-visual-row">
-                  <div class="dnb-polaroid-frame">
-                    <img src="sticker-paperclip.png" alt="" class="dnb-polaroid-clip" aria-hidden="true">
-                    <div class="dnb-polaroid-tape" aria-hidden="true"></div>
-                    <img src="diya-das-portrait.jpeg" alt="Diya Das portrait" class="dnb-polaroid-img">
-                    <div class="dnb-polaroid-cap">diya das · field archive</div>
-                  </div>
-                  <div class="dnb-toc-stamp-col">
-                    <div class="dnb-archive-stamp" aria-hidden="true">
-                      <small>ARCHIVE</small>
-                      <strong>VOL. I</strong>
-                      <small>50+ WORKS</small>
-                    </div>
-                    <div class="mono" style="font-size: 9px; letter-spacing: 0.1em; color: #6a6358; line-height: 1.5;">
-                      CURATED WITH<br>PSYCHOLOGY LENS
-                    </div>
-                  </div>
-                </div>
-
-                <div class="dnb-toc-scrawl">
-                  “Every interview begins with a willingness to be surprised.”
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Close Cover"></div>
-            </div>
-
-            <!-- Right Page: Index List with Editorial Thumbnails -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>INDEX OF ESSAYS</span>
-                <span>PAGE 01</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-list">
-                  <!-- Item 1 -->
-                  <article class="dnb-toc-item" data-goto-spread="2" tabindex="0" role="button" aria-label="Read Article 01">
-                    <div class="dnb-toc-num">01</div>
-                    <img src="notebook-collage-01.jpg" alt="" class="dnb-toc-thumb">
-                    <div class="dnb-toc-info">
-                      <div class="dnb-toc-meta">PSYCHOLOGY / PERSPECTIVE · 5 MIN</div>
-                      <h3 class="dnb-toc-item-title">Why understanding people makes communication more meaningful</h3>
-                    </div>
-                    <div class="dnb-toc-arrow">↗</div>
-                  </article>
-
-                  <!-- Item 2 -->
-                  <article class="dnb-toc-item" data-goto-spread="3" tabindex="0" role="button" aria-label="Read Article 02">
-                    <div class="dnb-toc-num">02</div>
-                    <img src="notebook-collage-02.jpg" alt="" class="dnb-toc-thumb">
-                    <div class="dnb-toc-info">
-                      <div class="dnb-toc-meta">RESEARCH / INTERVIEWS · 4 MIN</div>
-                      <h3 class="dnb-toc-item-title">The art of asking a better question</h3>
-                    </div>
-                    <div class="dnb-toc-arrow">↗</div>
-                  </article>
-
-                  <!-- Item 3 -->
-                  <article class="dnb-toc-item" data-goto-spread="4" tabindex="0" role="button" aria-label="Read Article 03">
-                    <div class="dnb-toc-num">03</div>
-                    <img src="notebook-collage-03.jpg" alt="" class="dnb-toc-thumb">
-                    <div class="dnb-toc-info">
-                      <div class="dnb-toc-meta">WRITING / STORYTELLING · 6 MIN</div>
-                      <h3 class="dnb-toc-item-title">From a blank page to a story worth sharing</h3>
-                    </div>
-                    <div class="dnb-toc-arrow">↗</div>
-                  </article>
-                </div>
-                <div class="dnb-signoff" style="margin-top: auto;">
-                  <span>SELECT AN ESSAY OR FLIP CORNER</span>
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="2">Start Reading →</button>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 01)"></div>
-            </div>
-          </div>
-
-          <!-- Spread 2: Article 01 -->
-          <div class="dnb-spread-panel" data-spread-idx="2" style="display: none;">
-            <!-- Left Page: Artwork & Intro -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>ARTICLE 01 · PSYCHOLOGY &amp; PERSPECTIVE</span>
-                <span>PAGE 02</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-meta" style="color: var(--dnb-terracotta);">FEATURED ESSAY · 5 MIN READ</div>
-                <h2 class="dnb-art-title">Why understanding people makes communication more meaningful</h2>
-                <p class="dnb-art-intro">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
-                
-                <div class="dnb-art-frame">
-                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
-                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
-                  <img src="notebook-collage-01.jpg" alt="Mixed-media editorial collage: psychology profile, perception contour lines, pressed olive sprig, and archive stamp" class="dnb-art-collage">
-                </div>
-
-                <div class="dnb-art-note">
-                  Field note: Empathy is an active craft of observation, not a passive reaction.
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (TOC)"></div>
-            </div>
-
-            <!-- Right Page: Prose Reading -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>READING ESSAY</span>
-                <span>PAGE 03</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-prose">
-                  <p class="dnb-dropcap">Most communication failures are rarely about vocabulary; they are almost always failures of perception. In corporate meetings, brand campaigns, and casual conversations alike, we tend to fixate on <em>what we want to deliver</em> rather than <em>what the other person is equipped to receive</em>.</p>
-                  
-                  <p>During my academic background in psychology, one principle continually resurfaced: people do not process language in a vacuum. Every phrase lands against a backdrop of personal fatigue, unspoken insecurities, cognitive load, and silent motivations.</p>
-
-                  <blockquote class="dnb-pullquote">
-                    “When you understand who someone is defending themselves against, your words stop triggering resistance and start building bridges.”
-                  </blockquote>
-
-                  <p>When you shift the foundation of communication from <span class="dnb-highlight">persuasion to comprehension</span>, the tone changes completely. You stop speaking to impress and start speaking to connect. Sentences become shorter, metaphors become more vivid, and listening becomes an active investigation rather than a pause before your next turn to speak.</p>
-
-                  <p>True resonance isn't loud. It is the quiet feeling an audience gets when they realize: <em>“This writer actually sees the world from where I am standing.”</em></p>
-                </div>
-                <div class="dnb-signoff">
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="3">Next Essay: Questions →</button>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 02)"></div>
-            </div>
-          </div>
-
-          <!-- Spread 3: Article 02 -->
-          <div class="dnb-spread-panel" data-spread-idx="3" style="display: none;">
-            <!-- Left Page: Artwork & Intro -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>ARTICLE 02 · RESEARCH &amp; INTERVIEWS</span>
-                <span>PAGE 04</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-meta" style="color: var(--dnb-cobalt);">FIELD REPORT · 4 MIN READ</div>
-                <h2 class="dnb-art-title">The art of asking a better question</h2>
-                <p class="dnb-art-intro">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
-                
-                <div class="dnb-art-frame">
-                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
-                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
-                  <img src="notebook-collage-02.jpg" alt="Mixed-media editorial collage: oversized vintage question mark, field microphone illustration, pressed fern, and Field Notes stamp" class="dnb-art-collage">
-                </div>
-
-                <div class="dnb-art-note">
-                  Notebook rule: Never ask a question you can answer with a search engine.
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (Article 01)"></div>
-            </div>
-
-            <!-- Right Page: Prose Reading -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>READING ESSAY</span>
-                <span>PAGE 05</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-prose">
-                  <p class="dnb-dropcap">Across more than fifty live, on-ground interviews with university chancellors, visiting dignitaries, student founders, and artists, I learned that people arrive with an invisible script. They know their accomplishments, their soundbites, and the safe answers they’ve repeated a dozen times before.</p>
-
-                  <p>If you ask conventional questions, you receive conventional press releases. The breakthrough happens when you step off the planned script and ask about the emotional turning point.</p>
-
-                  <blockquote class="dnb-pullquote">
-                    “Ask not what they did, but what surprised them most when the original plan collapsed.”
-                  </blockquote>
-
-                  <p>A great interviewer doesn’t focus on sounding intelligent. A great interviewer creates an atmosphere of <span class="dnb-highlight">unhurried psychological safety</span>. When someone feels that you are genuinely tracking the nuances of their story rather than checking off questions on a clipboard, their posture relaxes and genuine honesty emerges.</p>
-
-                  <p>The art of the question is ultimately the art of presence: paying attention to where a person hesitates, where their voice drops, and having the courage to follow that thread into unscripted territory.</p>
-                </div>
-                <div class="dnb-signoff">
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="4">Next Essay: Storytelling →</button>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 03)"></div>
-            </div>
-          </div>
-
-          <!-- Spread 4: Article 03 -->
-          <div class="dnb-spread-panel" data-spread-idx="4" style="display: none;">
-            <!-- Left Page: Artwork & Intro -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>ARTICLE 03 · WRITING &amp; STORYTELLING</span>
-                <span>PAGE 06</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-meta" style="color: var(--dnb-leather);">CRAFT ESSAY · 6 MIN READ</div>
-                <h2 class="dnb-art-title">From a blank page to a story worth sharing</h2>
-                <p class="dnb-art-intro">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
-                
-                <div class="dnb-art-frame">
-                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
-                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
-                  <img src="notebook-collage-03.jpg" alt="Mixed-media editorial collage: vintage mechanical typewriter, ruled manuscript paper with red proofreader marks, pressed fern sprig, and Archive stamp" class="dnb-art-collage">
-                </div>
-
-                <div class="dnb-art-note">
-                  Craft takeaway: The first draft is telling yourself the story; the revision is telling it to the reader.
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (Article 02)"></div>
-            </div>
-
-            <!-- Right Page: Prose Reading -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>READING ESSAY</span>
-                <span>PAGE 07</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-prose">
-                  <p class="dnb-dropcap">The most intimidating sight for any writer is not a difficult brief or a looming deadline; it is the blinding white glare of an empty page. We look at great writing and imagine it arrived as a continuous, effortless stream of genius. In reality, writing is an act of patient archaeology.</p>
-
-                  <p>You begin with scattered fragments: an overheard remark in a corridor, a psychological quirk observed during an interview, three contradictory sentences in a voice memo recorded at midnight.</p>
-
-                  <blockquote class="dnb-pullquote">
-                    “Good editing is not polite pruning; it is stripping away everything ornamental until only the pulse remains.”
-                  </blockquote>
-
-                  <p>The secret to finding momentum is giving yourself permission to <span class="dnb-highlight">write badly first</span>. Clear thinking is not the prerequisite for writing — writing is the process through which thinking becomes clear.</p>
-
-                  <p>When you edit without ego, ruthlessly eliminating padding and preserving only the details that ring true, a piece of writing stops feeling like homework and begins to feel alive.</p>
-                </div>
-                <div class="dnb-signoff">
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
-                  <span>END OF VOLUME I</span>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Back to Table of Contents"></div>
-            </div>
-          </div>
-
-          <!-- Edge Bookmarks / Tabs -->
-          <nav class="dnb-tabs" aria-label="Notebook edge bookmark tabs">
-            <button type="button" class="dnb-tab active" data-tab-idx="1" title="Table of Contents">TOC</button>
-            <button type="button" class="dnb-tab" data-tab-idx="2" title="Article 01">01</button>
-            <button type="button" class="dnb-tab" data-tab-idx="3" title="Article 02">02</button>
-            <button type="button" class="dnb-tab" data-tab-idx="4" title="Article 03">03</button>
-          </nav>
-
-          <!-- 3D Page Turn Leaf Rig -->
-          <div class="dnb-flip-leaf" id="dnbFlipLeaf" aria-hidden="true">
-            <div class="dnb-leaf-face dnb-leaf-front" id="dnbLeafFront"></div>
-            <div class="dnb-leaf-face dnb-leaf-back" id="dnbLeafBack"></div>
-            <div class="dnb-leaf-shade" id="dnbLeafShade"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom HUD Bar -->
-    <footer class="dnb-hud-bottom">
-      <div class="mono" id="dnbSpreadIndicator">SPREAD: 01 · TABLE OF CONTENTS</div>
-      <div class="dnb-hud-progress-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
-        <div class="dnb-hud-progress-bar" id="dnbProgressBar"></div>
-      </div>
-      <div class="mono" id="dnbPageCounter">PAGE 01 OF 07</div>
-    </footer>
-  </div>
 
   <script>
     // 1. Preloader Curtain + Handwritten Logo Signature
@@ -2810,17 +2464,21 @@
         requestAnimationFrame(loop);
       };
       loop();
-      document.querySelectorAll('[data-cursor]').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          const label = el.dataset.cursor;
+      document.addEventListener('mouseover', e => {
+        const target = e.target.closest('[data-cursor]');
+        if (target) {
+          const label = target.dataset.cursor;
           cursor.classList.add('active');
-          if (label === 'DRAG') cursor.classList.add('drag');
+          cursor.classList.toggle('drag', label === 'DRAG');
           cursorTag.textContent = label;
-        });
-        el.addEventListener('mouseleave', () => {
+        } else {
           cursor.classList.remove('active', 'drag');
           cursorTag.textContent = '';
-        });
+        }
+      });
+      document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active', 'drag');
+        cursorTag.textContent = '';
       });
 
       document.querySelectorAll('.exp[data-stat]').forEach(row => {
@@ -3215,84 +2873,26 @@
           ease: 'power2.out'
         });
 
-        // Featured collage soft reveal
-        gsap.from('.nb-featured .nb-artwork-wrap', {
+        // Inline 3D Notebook stage gentle reveal
+        gsap.from('#digitalNotebookOverlay', {
           scrollTrigger: {
-            trigger: '.nb-featured',
-            start: 'top 78%',
+            trigger: '#blog',
+            start: 'top 76%',
           },
-          scale: 0.96,
+          y: 26,
           opacity: 0,
-          duration: 1.0,
+          duration: 0.9,
           ease: 'power2.out'
-        });
-
-        // Featured content reveal
-        gsap.from('.nb-featured .nb-content', {
-          scrollTrigger: {
-            trigger: '.nb-featured',
-            start: 'top 75%',
-          },
-          y: 24,
-          opacity: 0,
-          duration: 0.85,
-          delay: 0.15,
-          ease: 'power2.out'
-        });
-
-        // Secondary cards reveal progressively
-        gsap.from('.nb-card', {
-          scrollTrigger: {
-            trigger: '.nb-secondary-grid',
-            start: 'top 78%',
-          },
-          y: 28,
-          opacity: 0,
-          duration: 0.85,
-          stagger: 0.18,
-          ease: 'power2.out'
-        });
-
-        // Subtle 3–5px mouse parallax on collage artwork
-        document.querySelectorAll('.nb-artwork-wrap').forEach(wrap => {
-          wrap.addEventListener('mousemove', e => {
-            const rect = wrap.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            const collage = wrap.querySelector('.nb-collage');
-            if (collage) {
-              gsap.to(collage, {
-                x: x * 8,
-                y: y * 8,
-                rotateX: -y * 3.5,
-                rotateY: x * 3.5,
-                duration: 0.35,
-                ease: 'power1.out'
-              });
-            }
-          });
-          wrap.addEventListener('mouseleave', () => {
-            const collage = wrap.querySelector('.nb-collage');
-            if (collage) {
-              gsap.to(collage, {
-                x: 0,
-                y: 0,
-                rotateX: 0,
-                rotateY: 0,
-                duration: 0.6,
-                ease: 'power2.out'
-              });
-            }
-          });
         });
       }
     }
 
-    // 18. IMMERSIVE 3D DIGITAL NOTEBOOK CONTROLLER & AUDIO RIG
+    // 18. IMMERSIVE INLINE 3D DIGITAL NOTEBOOK CONTROLLER & AUDIO RIG
     (function initDigitalNotebook() {
       const overlay = document.getElementById('digitalNotebookOverlay');
       if (!overlay) return;
 
+      const blogSection = document.getElementById('blog');
       const book = document.getElementById('dnbBook');
       const coverView = document.getElementById('dnbCoverView');
       const spreadPanels = document.querySelectorAll('.dnb-spread-panel');
@@ -3300,10 +2900,6 @@
       const spreadIndicator = document.getElementById('dnbSpreadIndicator');
       const progressBar = document.getElementById('dnbProgressBar');
       const pageCounter = document.getElementById('dnbPageCounter');
-      const prevBtn = document.getElementById('dnbPrevBtn');
-      const nextBtn = document.getElementById('dnbNextBtn');
-      const contentsBtn = document.getElementById('dnbContentsBtn');
-      const closeBtn = document.getElementById('dnbCloseBtn');
       const flipLeaf = document.getElementById('dnbFlipLeaf');
       const leafFront = document.getElementById('dnbLeafFront');
       const leafBack = document.getElementById('dnbLeafBack');
@@ -3314,6 +2910,7 @@
       let currentSpread = 0; // 0: cover, 1: TOC, 2: art 01, 3: art 02, 4: art 03
       let isFlipping = false;
       let openChoreoTimer = null;
+      let hasAutoOpened = false;
 
       const spreadData = [
         { name: 'COVER · HANDBOUND VOLUME', pages: 'COVER', progress: 0 },
@@ -3372,21 +2969,10 @@
         if (pageCounter) pageCounter.textContent = data.pages;
         if (progressBar) progressBar.style.width = data.progress + '%';
 
-        // Update side tabs
         tabs.forEach(tab => {
           const idx = parseInt(tab.dataset.tabIdx, 10);
           tab.classList.toggle('active', idx === currentSpread);
         });
-
-        // Prev/Next buttons
-        if (prevBtn) {
-          prevBtn.style.opacity = currentSpread === 0 ? '0.4' : '1';
-          prevBtn.style.pointerEvents = currentSpread === 0 ? 'none' : 'auto';
-        }
-        if (nextBtn) {
-          nextBtn.style.opacity = currentSpread === 4 ? '0.4' : '1';
-          nextBtn.style.pointerEvents = currentSpread === 4 ? 'none' : 'auto';
-        }
       }
 
       function goToSpread(targetIdx, direction = 'auto') {
@@ -3452,7 +3038,6 @@
           };
 
           if (direction === 'next') {
-            // Right page lifts from right to left, revealing new Right Page underneath
             leafFront.innerHTML = currentRight ? currentRight.innerHTML : '';
             leafBack.innerHTML = targetLeft ? targetLeft.innerHTML : '';
             underlayLeft.innerHTML = currentLeft ? currentLeft.innerHTML : '';
@@ -3476,7 +3061,6 @@
               }
             );
           } else {
-            // Left page lifts from left back to right, revealing new Left Page underneath
             leafFront.innerHTML = targetRight ? targetRight.innerHTML : '';
             leafBack.innerHTML = currentLeft ? currentLeft.innerHTML : '';
             underlayRight.innerHTML = currentRight ? currentRight.innerHTML : '';
@@ -3501,7 +3085,6 @@
             );
           }
         } else {
-          // Instant fallback / reduced motion
           showPanel(targetIdx);
           currentSpread = targetIdx;
           updateUI();
@@ -3514,60 +3097,42 @@
           openChoreoTimer = null;
         }
 
-        const wasOpen = overlay.classList.contains('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (window.location.hash !== '#notebook') {
-          history.pushState(null, '', '#notebook');
-        }
-
+        hasAutoOpened = true;
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (!wasOpen && targetSpread > 0 && !prefersReduced) {
-          // Physical Opening Choreography: Rest closed on desk briefly, then swing cover open
+        if (currentSpread === 0 && targetSpread > 0 && !prefersReduced) {
           book.classList.add('state-cover');
-          currentSpread = 0;
           showPanel(targetSpread);
           updateUI();
 
           openChoreoTimer = setTimeout(() => {
             openChoreoTimer = null;
-            if (overlay.classList.contains('active') && currentSpread === 0) {
+            if (currentSpread === 0) {
               goToSpread(targetSpread, 'next');
             }
           }, 420);
-        } else {
-          if (targetSpread > 0) {
-            if (wasOpen && currentSpread > 0) {
-              goToSpread(targetSpread);
-            } else {
-              book.classList.remove('state-cover');
-              showPanel(targetSpread);
-              currentSpread = targetSpread;
-              updateUI();
-              playPaperSound();
+        } else if (targetSpread !== currentSpread) {
+          goToSpread(targetSpread);
+        }
+      }
+
+      // Auto-open journal smoothly when #blog section first scrolls into view
+      if (blogSection && 'IntersectionObserver' in window) {
+        const nbObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAutoOpened) {
+              hasAutoOpened = true;
+              openNotebook(1);
+              nbObserver.unobserve(entry.target);
             }
-          } else {
-            book.classList.add('state-cover');
-            currentSpread = 0;
-            updateUI();
-          }
-        }
+          });
+        }, { threshold: 0.25 });
+        nbObserver.observe(blogSection);
+      } else {
+        openNotebook(1);
       }
 
-      function closeNotebook() {
-        if (openChoreoTimer) {
-          clearTimeout(openChoreoTimer);
-          openChoreoTimer = null;
-        }
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-        if (window.location.hash === '#notebook') {
-          history.pushState(null, '', window.location.pathname + window.location.search);
-        }
-      }
-
-      // Event Listeners
+      // Cover click opens Table of Contents
       coverView?.addEventListener('click', () => goToSpread(1, 'next'));
       coverView?.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -3575,23 +3140,6 @@
           goToSpread(1, 'next');
         }
       });
-      contentsBtn?.addEventListener('click', () => goToSpread(1));
-      
-      prevBtn?.addEventListener('click', () => {
-        if (currentSpread > 1) {
-          goToSpread(currentSpread - 1, 'prev');
-        } else if (currentSpread === 1) {
-          goToSpread(0, 'prev');
-        }
-      });
-
-      nextBtn?.addEventListener('click', () => {
-        if (currentSpread < 4) {
-          goToSpread(currentSpread + 1, 'next');
-        }
-      });
-
-      closeBtn?.addEventListener('click', closeNotebook);
 
       // Edge Bookmark Tabs
       tabs.forEach(tab => {
@@ -3616,7 +3164,7 @@
           if (currentSpread < 4) {
             goToSpread(currentSpread + 1, 'next');
           } else {
-            goToSpread(1, 'prev'); // Loop back to TOC
+            goToSpread(1, 'prev');
           }
         });
       });
@@ -3647,20 +3195,24 @@
         });
       });
 
-      // Keyboard Navigation
+      // Keyboard Navigation (only when #blog section is visible in viewport)
+      function isNotebookVisible() {
+        if (!blogSection) return false;
+        const rect = blogSection.getBoundingClientRect();
+        return rect.top < window.innerHeight * 0.85 && rect.bottom > window.innerHeight * 0.15;
+      }
+
       window.addEventListener('keydown', e => {
-        if (!overlay.classList.contains('active')) return;
-        if (e.key === 'Escape') {
-          closeNotebook();
-        } else if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        if (!isNotebookVisible()) return;
+        if (e.key === 'ArrowRight') {
           if (currentSpread < 4) goToSpread(currentSpread + 1, 'next');
-        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        } else if (e.key === 'ArrowLeft') {
           if (currentSpread > 1) goToSpread(currentSpread - 1, 'prev');
           else if (currentSpread === 1) goToSpread(0, 'prev');
         }
       });
 
-      // Mobile Touch Gesture Support (Swipe left/right)
+      // Mobile Touch Gesture Support (Swipe left/right inside notebook)
       let touchStartX = 0;
       let touchEndX = 0;
       overlay.addEventListener('touchstart', e => {
@@ -3672,47 +3224,40 @@
         const diffX = touchEndX - touchStartX;
         if (Math.abs(diffX) > 55) {
           if (diffX < 0 && currentSpread < 4) {
-            goToSpread(currentSpread + 1, 'next'); // Swipe left -> next
+            goToSpread(currentSpread + 1, 'next');
           } else if (diffX > 0 && currentSpread > 0) {
-            goToSpread(currentSpread - 1, 'prev'); // Swipe right -> prev
+            goToSpread(currentSpread - 1, 'prev');
           }
         }
       }, { passive: true });
 
-      // Portfolio page triggers
+      // Navbar "Notebook" link smoothly scrolls to #blog & opens journal
       const navNotebook = document.getElementById('navNotebookLink');
       if (navNotebook) {
         navNotebook.addEventListener('click', e => {
           e.preventDefault();
-          openNotebook(1);
+          blogSection?.scrollIntoView({ behavior: 'smooth' });
+          history.replaceState(null, '', '#notebook');
+          if (currentSpread === 0) openNotebook(1);
         });
       }
 
-      const portalBtn = document.getElementById('openNotebookPortalBtn');
-      if (portalBtn) {
-        portalBtn.addEventListener('click', () => openNotebook(1));
-      }
-
-      document.querySelectorAll('.nb-open-journal-link[data-open-spread]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const target = parseInt(btn.dataset.openSpread, 10);
-          openNotebook(target);
-        });
-      });
-
-      // Hash routing
+      // Hash / /notebook routing
       function checkRoute() {
         if (window.location.hash === '#notebook' || window.location.pathname.endsWith('/notebook')) {
-          openNotebook(1);
+          setTimeout(() => {
+            blogSection?.scrollIntoView({ behavior: 'smooth' });
+            openNotebook(1);
+          }, 180);
         }
       }
       window.addEventListener('hashchange', checkRoute);
-      window.addEventListener('popstate', checkRoute);
       checkRoute();
+
+      updateUI();
 
       // Export functions for debugging / external triggers if needed
       window.openDigitalNotebook = openNotebook;
-      window.closeDigitalNotebook = closeNotebook;
       window.goToNotebookSpread = goToSpread;
     })();
 
