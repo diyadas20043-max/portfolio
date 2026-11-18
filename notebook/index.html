@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Open Notebook — Ideas, essays, and observations by Diya Das." />
+  <meta name="theme-color" content="#f7f2e9" />
+  <title>The Open Notebook — Diya Das</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f2e9;
+      --paper-warm: #faf6ee;
+      --paper-card: #fdfbf7;
+      --ink: #171717;
+      --ink-muted: #57524a;
+      --terracotta: #A63820;
+      --terracotta-bright: #ff5a36;
+      --cobalt: #334C68;
+      --lime: #d9f06b;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --serif-display: "Instrument Serif", Georgia, serif;
+      --serif-reading: "Newsreader", "Cormorant Garamond", Georgia, serif;
+      --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "JetBrains Mono", monospace;
+      --hand: "Caveat", cursive;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Grain */
+    .grain {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Custom Editorial Pencil Cursor */
+    @media (hover:hover) and (pointer:fine) {
+      body.has-cursor, body.has-cursor * { cursor: none !important; }
+    }
+    .cursor { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; display: none; align-items: flex-start; gap: 6px; }
+    body.has-cursor .cursor { display: flex; }
+    .cursor-pencil { width: 30px; height: 30px; transform-origin: top left; transition: transform .16s cubic-bezier(.22,1,.36,1); filter: drop-shadow(2px 2px 0 rgba(25,25,25,.22)); }
+    .cursor.active .cursor-pencil { transform: rotate(-8deg) scale(1.1); }
+    .cursor.pressing .cursor-pencil { transform: rotate(-18deg) scale(.92); }
+    .cursor-tag { margin-top: 20px; padding: 4px 9px; background: var(--terracotta-bright); color: var(--ink); border: 1.5px solid var(--ink); border-radius: 100px; box-shadow: 2px 2px 0 var(--ink); font: 600 9px var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; opacity: 0; transform: scale(.85); transition: opacity .16s ease, transform .16s ease; }
+    .cursor.active .cursor-tag { opacity: 1; transform: scale(1); }
+
+    .wrap { width: min(1180px, calc(100% - 48px)); margin: auto; }
+    .mono { font-family: var(--mono); }
+
+    /* Site Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(247, 242, 233, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1.5px solid var(--ink);
+      z-index: 50;
+    }
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .brand-name {
+      font-family: var(--serif-display);
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+    .brand-pill {
+      background: var(--terracotta);
+      color: #fff;
+      font: 600 10px var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--terracotta);
+    }
+    .nav-links a.active {
+      font-weight: 700;
+      color: var(--terracotta);
+    }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 9px 18px;
+      border-radius: 100px;
+      font: 600 11.5px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-cta:hover {
+      background: var(--terracotta);
+      color: #fff;
+    }
+
+    /* Page Intro */
+    .nb-hero {
+      padding: 70px 0 40px;
+      border-bottom: 1.5px solid var(--ink);
+    }
+    .nb-kicker {
+      font: 600 11px var(--mono);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nb-hero-title {
+      font-family: var(--serif-display);
+      font-size: clamp(44px, 6.5vw, 82px);
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      max-width: 860px;
+    }
+    .nb-hero-title em {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--terracotta);
+    }
+    .nb-hero-lead {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink-muted);
+      max-width: 640px;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.15);
+    }
+    .filter-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--ink);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--ink);
+      transition: all 0.2s;
+    }
+    .filter-btn:hover {
+      background: rgba(23, 23, 23, 0.06);
+    }
+    .filter-btn.active {
+      background: var(--terracotta);
+      color: #fff;
+      border-color: var(--terracotta);
+    }
+    .filter-count {
+      font: 500 11.5px var(--mono);
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* Articles Layout */
+    .articles-section {
+      padding: 48px 0 80px;
+    }
+
+    /* Featured Hero Article */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 52px;
+      align-items: center;
+      background: var(--paper-warm);
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      box-shadow: 6px 6px 0 var(--ink);
+      padding: 40px;
+      margin-bottom: 50px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .featured-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 9px 9px 0 var(--ink);
+    }
+    .art-img-frame {
+      position: relative;
+      background: #fdfbf7;
+      border: 1px solid var(--ink);
+      box-shadow: 3px 4px 10px rgba(0,0,0,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .art-img-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+    }
+    .tape-corner {
+      position: absolute;
+      top: -8px;
+      left: 18px;
+      width: 55px;
+      height: 18px;
+      background: rgba(230, 216, 195, 0.85);
+      border: 1px dashed rgba(23, 23, 23, 0.3);
+      transform: rotate(-3deg);
+      z-index: 2;
+    }
+    .art-meta {
+      font: 600 11px var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cobalt);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .art-meta-pill {
+      color: var(--terracotta);
+    }
+    .art-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .art-desc {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+    }
+    .art-read-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 11px 22px;
+      border-radius: 100px;
+      font: 600 11.5px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1.5px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--terracotta);
+      transition: all 0.2s;
+    }
+    .art-read-cta:hover {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: #fff;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    /* Grid for other articles */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 36px;
+    }
+    .art-card {
+      background: var(--paper-warm);
+      border: 1.5px solid var(--ink);
+      border-radius: 4px;
+      box-shadow: 4px 4px 0 var(--ink);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .art-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 7px 7px 0 var(--ink);
+    }
+    .art-card .art-img-frame {
+      margin-bottom: 22px;
+    }
+    .art-card .art-title {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+    .art-card .art-desc {
+      font-size: 14.5px;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+    .art-card .art-read-cta {
+      align-self: flex-start;
+      background: transparent;
+      color: var(--terracotta);
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      font-size: 12.5px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .art-card .art-read-cta:hover {
+      background: transparent;
+      color: var(--ink);
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Distraction-Free Slide-Over Reader Suite */
+    .reader-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(23, 23, 23, 0.65);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reader-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .reader-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(780px, 100vw);
+      background: #FDFBF7;
+      border-left: 2px solid var(--ink);
+      z-index: 1010;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -12px 0 45px rgba(0, 0, 0, 0.25);
+    }
+    .reader-drawer.open {
+      transform: translateX(0);
+    }
+    .reader-head {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(253, 251, 247, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1.5px solid var(--ink);
+      padding: 18px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .reader-kicker {
+      font: 600 11px var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+    .reader-close {
+      background: var(--lime);
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .reader-close:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .reader-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px 42px 70px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(166, 56, 32, 0.3) transparent;
+    }
+    .reader-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px dashed rgba(23, 23, 23, 0.2);
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cobalt);
+    }
+    .reader-title {
+      font-family: var(--serif);
+      font-size: clamp(34px, 4.5vw, 50px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .reader-hero-art {
+      width: 100%;
+      border: 1.5px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 34px;
+      background: #F5EFE4;
+    }
+    .reader-hero-art img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 420px;
+      object-fit: cover;
+    }
+    .reader-prose {
+      font-family: var(--sans);
+      font-size: 16.5px;
+      line-height: 1.85;
+      color: #2e2a25;
+    }
+    .reader-prose p {
+      margin-bottom: 22px;
+    }
+    .reader-prose p.lead {
+      font-family: var(--serif-reading);
+      font-size: 22px;
+      line-height: 1.6;
+      color: var(--ink);
+      font-style: italic;
+      border-left: 3px solid var(--terracotta);
+      padding-left: 20px;
+      margin-bottom: 30px;
+    }
+    .reader-prose p.lead::first-letter {
+      font-size: 56px;
+      line-height: 0.8;
+      font-style: normal;
+      float: left;
+      padding: 4px 12px 0 0;
+      color: var(--terracotta);
+      font-family: var(--serif);
+      font-weight: 700;
+    }
+    .reader-pullquote {
+      margin: 36px 0;
+      padding: 26px 32px;
+      background: var(--paper);
+      border-top: 1.5px solid var(--ink);
+      border-bottom: 1.5px solid var(--ink);
+      font-family: var(--serif);
+      font-size: 23px;
+      line-height: 1.45;
+      color: var(--ink);
+      font-style: italic;
+      text-align: center;
+    }
+    .reader-foot {
+      padding: 20px 36px;
+      border-top: 1.5px solid var(--ink);
+      background: var(--paper-warm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .reader-nav-btn {
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font: 600 11.5px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--ink);
+      transition: all 0.2s;
+    }
+    .reader-nav-btn:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1.5px solid var(--ink);
+      padding: 36px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font: 500 12px var(--mono);
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+    }
+    .site-footer a {
+      color: var(--ink);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 860px) {
+      .featured-card { grid-template-columns: 1fr; gap: 32px; padding: 26px; }
+      .reader-body { padding: 24px 20px 50px; }
+      .reader-head { padding: 14px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Custom Pencil Cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <svg class="cursor-pencil" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2L5.5 11.5L11.5 5.5L2 2Z" fill="#191919"/>
+      <path d="M5.5 11.5L11.5 5.5L13.8 7.8L7.8 13.8L5.5 11.5Z" fill="#f7f2e9" stroke="#191919" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M7.8 13.8L13.8 7.8L25.5 19.5L19.5 25.5L7.8 13.8Z" fill="#ff5a36" stroke="#191919" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M19.5 25.5L25.5 19.5L27.5 21.5L21.5 27.5L19.5 25.5Z" fill="#d9f06b" stroke="#191919" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M21.5 27.5L27.5 21.5L29.5 23.5C30.3 24.3 30.3 25.7 29.5 26.5L26.5 29.5C25.7 30.3 24.3 30.3 23.5 29.5L21.5 27.5Z" fill="#f2a7b8" stroke="#191919" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+    <span class="cursor-tag" id="cursorTag"></span>
+  </div>
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="/" data-cursor="HOME">
+        <span class="brand-name">Diya Das</span>
+        <span class="brand-pill">Notebook</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="/#about" data-cursor="LINK">About</a>
+        <a href="/#work" data-cursor="LINK">Selected Work</a>
+        <a href="/#experience" data-cursor="LINK">Experience</a>
+        <a href="/#skills" data-cursor="LINK">Skills</a>
+        <a href="/notebook" class="active" data-cursor="READ">The Open Notebook</a>
+      </nav>
+
+      <a class="nav-cta" href="/#contact" data-cursor="HELLO">Let's talk ↗</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Hero -->
+    <section class="nb-hero">
+      <div class="wrap">
+        <div class="nb-kicker">
+          <span>05 / THE OPEN NOTEBOOK</span>
+          <span>·</span>
+          <span>EDITORIAL ESSAYS &amp; DRAFTS</span>
+        </div>
+        <h1 class="nb-hero-title">
+          Thoughts, field research &amp; <em>stories.</em>
+        </h1>
+        <p class="nb-hero-lead">
+          A living publication for the questions I keep returning to — about human psychology, storytelling, digital platforms, and the nuances that shape how we connect.
+        </p>
+      </div>
+    </section>
+
+    <!-- Articles Feed -->
+    <section class="articles-section">
+      <div class="wrap">
+        <!-- Filter Tabs -->
+        <div class="filter-bar">
+          <div class="filter-pills">
+            <button class="filter-btn active" data-filter="all">All Articles</button>
+            <button class="filter-btn" data-filter="strategy">Strategy</button>
+            <button class="filter-btn" data-filter="psychology">Psychology</button>
+            <button class="filter-btn" data-filter="research">Research</button>
+            <button class="filter-btn" data-filter="writing">Writing</button>
+          </div>
+          <div class="filter-count">4 ESSAYS PUBLISHED</div>
+        </div>
+
+        <div style="margin-top: 40px;">
+          <!-- FEATURED / LATEST ARTICLE: Beyond Freelancing Platforms -->
+          <article class="featured-card" data-category="strategy" aria-labelledby="featArtTitle">
+            <div class="art-img-frame" data-cursor="VIEW">
+              <div class="tape-corner"></div>
+              <img src="/notebook-collage-04.jpg" alt="Beyond Freelancing Platforms article collage: fountain pen nib drawing growth trajectory, torn cobalt and terracotta parchment" loading="lazy">
+            </div>
+
+            <div class="art-content">
+              <div class="art-meta">
+                <span class="art-meta-pill">★ LATEST STORY · ISSUE 04</span>
+                <span>·</span>
+                <span>STRATEGY / FREELANCING</span>
+              </div>
+              <h2 class="art-title" id="featArtTitle">
+                Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer
+              </h2>
+              <p class="art-desc">
+                What happens when a prospective client Googles your name? Why owning your independent digital domain builds unshakeable authority, establishes social proof, and helps you command higher rates.
+              </p>
+              <button type="button" class="art-read-cta" data-story="story4" data-cursor="READ">
+                <span>Read Full Essay</span>
+                <span>→</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- 3-COLUMN SECONDARY ARTICLE GRID -->
+          <div class="articles-grid">
+            <!-- Article 01 -->
+            <article class="art-card" data-category="psychology">
+              <div class="art-img-frame" data-cursor="VIEW">
+                <img src="/notebook-collage-01.jpg" alt="Psychology profile collage" loading="lazy">
+              </div>
+              <div class="art-meta">
+                <span>PSYCHOLOGY / PERSPECTIVE</span>
+                <span>·</span>
+                <span>5 MIN</span>
+              </div>
+              <h3 class="art-title">Why understanding people makes communication more meaningful</h3>
+              <p class="art-desc">
+                A look at how listening closely, noticing behavior, and showing empathy turn everyday communication into something more honest, effective, and human.
+              </p>
+              <button type="button" class="art-read-cta" data-story="story1" data-cursor="READ">
+                Read the story →
+              </button>
+            </article>
+
+            <!-- Article 02 -->
+            <article class="art-card" data-category="research">
+              <div class="art-img-frame" data-cursor="VIEW">
+                <img src="/notebook-collage-02.jpg" alt="Research & Interviews collage" loading="lazy">
+              </div>
+              <div class="art-meta">
+                <span>RESEARCH / INTERVIEWS</span>
+                <span>·</span>
+                <span>4 MIN</span>
+              </div>
+              <h3 class="art-title">The art of asking a better question</h3>
+              <p class="art-desc">
+                How a more curious, open, and thoughtful question can lead to richer conversations, sharper insights, and more honest stories across 50+ interviews.
+              </p>
+              <button type="button" class="art-read-cta" data-story="story2" data-cursor="READ">
+                Read the story →
+              </button>
+            </article>
+
+            <!-- Article 03 -->
+            <article class="art-card" data-category="writing">
+              <div class="art-img-frame" data-cursor="VIEW">
+                <img src="/notebook-collage-03.jpg" alt="Writing & Storytelling collage" loading="lazy">
+              </div>
+              <div class="art-meta">
+                <span>WRITING / STORYTELLING</span>
+                <span>·</span>
+                <span>6 MIN</span>
+              </div>
+              <h3 class="art-title">From a blank page to a story worth sharing</h3>
+              <p class="art-desc">
+                A personal take on the messy, exciting process of turning scattered notes, instincts, and fragments into a story that feels real and worth reading.
+              </p>
+              <button type="button" class="art-read-cta" data-story="story3" data-cursor="READ">
+                Read the story →
+              </button>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Distraction-Free Article Reader Suite -->
+  <div class="reader-backdrop" id="readerBackdrop" aria-hidden="true"></div>
+  <aside class="reader-drawer" id="readerDrawer" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+    <div class="reader-head">
+      <div class="reader-kicker" id="readerKicker">
+        <span>05 / THE OPEN NOTEBOOK</span>
+      </div>
+      <button class="reader-close" id="readerClose" data-cursor="CLOSE">Close [ESC] ✕</button>
+    </div>
+
+    <div class="reader-body">
+      <div class="reader-meta-bar">
+        <span id="readerTag">CATEGORY</span>
+        <span id="readerTime">5 MIN READ</span>
+      </div>
+
+      <h2 class="reader-title" id="readerTitle">Article Title</h2>
+
+      <div class="reader-hero-art">
+        <img id="readerImg" src="" alt="Article Artwork">
+      </div>
+
+      <div class="reader-prose" id="readerContent">
+        <!-- Article prose dynamically injected -->
+      </div>
+    </div>
+
+    <div class="reader-foot">
+      <button class="reader-nav-btn" id="readerPrev">← Previous Story</button>
+      <div class="mono" style="font-size: 11px;" id="readerCounter">1 of 4</div>
+      <button class="reader-nav-btn" id="readerNext">Next Story →</button>
+    </div>
+  </aside>
+
+  <!-- Site Footer -->
+  <footer class="wrap site-footer">
+    <span>© <span id="year"></span> Diya Das — All essays written with curiosity.</span>
+    <a href="/" data-cursor="TOP">← Back to Main Portfolio</a>
+  </footer>
+
+  <script>
+    // Full Article Content Repository
+    const articles = {
+      story4: {
+        num: '04',
+        tag: 'STRATEGY / FREELANCING',
+        time: '4 MIN READ',
+        title: 'Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer',
+        img: '/notebook-collage-04.jpg',
+        lead: 'What happens when a prospective client gets your resume and Googles your name? What do they find? A neglected profile, or an authoritative home base that speaks for itself?',
+        body: `
+          <p>Oops, wait — readers, just pause for a second and think about what happens when a client gets your resume in their mail inbox. They might probably Google your name. What do they find in general? A LinkedIn profile maybe which you haven’t touched in a year, a couple of Instagram posts, and of course a byline or two which has already been buried on someone else’s site.</p>
+
+          <p>Now just take a moment to visualize a different scenario: a simple website with your best samples, a short note on who you write for, and a button that says <em>“HIRE ME”</em>. Which writer would you pick? A website is the one place online that's completely and fully yours. Social media apps change their rules all the time, and due to increasing cyber crime rates in today’s fast-paced digital world, social media accounts can easily get hacked or banned. But your own domain stays put, and everything you build on it keeps adding up over the years.</p>
+
+          <div class="reader-pullquote">
+            “A website does the selling for you while you are asleep. Proof beats promises every time.”
+          </div>
+
+          <p>Do you know the best part? A website does a lot of the selling for you. Every writer says they are absolutely great with words and storytelling, but at the end of the day, a wise client wants proof. A dedicated portfolio page lets them read your work in seconds and thoroughly analyze whether you are the right fit. Writers can organize their samples by topic — health, travel, tech — and even add a line about what the piece achieved, like more traffic or higher shares.</p>
+
+          <p>If you start a blog on your site, it can show up on Google, which means clients may discover you organically without you cold-pitching anyone. That’s also a quiet way of showing you understand SEO, which is exactly what many clients are paying for. Add a few testimonials, a clear services page, and an About section that sounds genuinely like you, and a stranger can become a client while you’re asleep or busy with another deadline.</p>
+
+          <p>The best part is what a website lets you do down the road. It becomes your home base, where you can try out your own voice, start a newsletter, share free guides, or one day sell a course or ebook. Writers with a proper site also tend to look more established, and that often means they can charge higher rates. Building one also makes you decide who you write for and what makes your style different, which helps your whole career feel clearer. And it doesn’t have to be expensive or hard. If you’ve been putting it off, this is your sign to start. You already have the words, so now give them somewhere to live.</p>
+        `
+      },
+      story1: {
+        num: '01',
+        tag: 'PSYCHOLOGY / PERSPECTIVE',
+        time: '5 MIN READ',
+        title: 'Why understanding people makes communication more meaningful',
+        img: '/notebook-collage-01.jpg',
+        lead: 'Good communication starts before the first word is written. It starts with curiosity: Who am I speaking to? What might they need? What experiences shape the way they interpret a message?',
+        body: `
+          <p>Studying psychology has made me attentive to the invisible currents running beneath everyday language. People do not arrive at messages as blank slates or sterile audience segments. They carry unspoken assumptions, defensive reflexes, quiet fatigue, and an innate craving to feel understood rather than sold to.</p>
+
+          <div class="reader-pullquote">
+            “When you respect a reader’s intelligence, you stop performing for them and start conversing with them.”
+          </div>
+
+          <p>In marketing and content strategy, we are frequently incentivized to chase algorithms, optimize keywords, and compress ideas into punchy bite-sized slogans. While clarity matters, reducing communication strictly to persuasion often produces work that feels hollow and forgettable.</p>
+
+          <p>True communication begins with active noticing: listening to what people hesitate to say, observing the emotions behind their complaints, and leaving enough breathing room for nuance. When you build stories around real human complexity, you don't have to shout to be remembered.</p>
+        `
+      },
+      story2: {
+        num: '02',
+        tag: 'RESEARCH / INTERVIEWS',
+        time: '4 MIN READ',
+        title: 'The art of asking a better question',
+        img: '/notebook-collage-02.jpg',
+        lead: 'A thoughtful interview is not a checklist of questions. Preparation gives a conversation direction, but listening gives it life.',
+        body: `
+          <p>Across more than 50 on-ground and long-form interviews, the most valuable revelations never arrived from the scripted questions I spent hours refining. They arrived in the unscripted pauses — when a subject finished their rehearsed answer, looked away, and said something candid that surprised both of us.</p>
+
+          <div class="reader-pullquote">
+            “The most transformative questions are rarely complicated. They are open, attentive, and quiet enough to let the truth breathe.”
+          </div>
+
+          <p>Most interviewers listen with the intent to reply, mentally queuing up their next bullet point while the interviewee is still speaking. This telegraphs impatience and keeps conversations on the surface.</p>
+
+          <p>Instead, ask questions that invite reflection: <em>“What did everyone misunderstand about that moment?”</em> or <em>“When did you realize things had fundamentally shifted?”</em> When you hold space without rushing to fill the silence, people offer their most honest stories.</p>
+        `
+      },
+      story3: {
+        num: '03',
+        tag: 'WRITING / STORYTELLING',
+        time: '6 MIN READ',
+        title: 'From a blank page to a story worth sharing',
+        img: '/notebook-collage-03.jpg',
+        lead: 'I like to begin with a question, not a headline. I gather context, search for reliable details, and find the angle that makes the subject matter to someone.',
+        body: `
+          <p>Every piece of writing begins with scattered chaos: an overheard conversation in transit, an odd psychological contradiction noted in a margin, or a voice memo whispered at midnight. Staring at an empty document with the expectation of writing something brilliant immediately induces paralysis.</p>
+
+          <div class="reader-pullquote">
+            “The first draft is telling yourself what you think; the revision is making sure the reader feels it too.”
+          </div>
+
+          <p>The solution is granting yourself unconditional permission to write poorly at first. Clear thinking is not the prerequisite for writing — writing is the physical crucible in which thinking becomes clear.</p>
+
+          <p>Then comes the edit: ruthlessly deleting the decorative padding, clarifying what feels murky, and choosing the honest word over the impressive one. Strong writing is not about making simple ideas sound complex; it is about making vital truths impossible to misunderstand.</p>
+        `
+      }
+    };
+
+    const storyOrder = ['story4', 'story1', 'story2', 'story3'];
+    let currentStoryIdx = 0;
+
+    const drawer = document.getElementById('readerDrawer');
+    const backdrop = document.getElementById('readerBackdrop');
+    const rKicker = document.getElementById('readerKicker');
+    const rTag = document.getElementById('readerTag');
+    const rTime = document.getElementById('readerTime');
+    const rTitle = document.getElementById('readerTitle');
+    const rImg = document.getElementById('readerImg');
+    const rContent = document.getElementById('readerContent');
+    const rCounter = document.getElementById('readerCounter');
+
+    function openReader(key) {
+      currentStoryIdx = storyOrder.indexOf(key);
+      if (currentStoryIdx === -1) currentStoryIdx = 0;
+      const data = articles[key] || articles[storyOrder[currentStoryIdx]];
+
+      rKicker.innerHTML = \`<span>05 / THE OPEN NOTEBOOK</span> · <span>ARTICLE \${data.num}</span>\`;
+      rTag.textContent = data.tag;
+      rTime.textContent = data.time;
+      rTitle.textContent = data.title;
+      rImg.src = data.img;
+      rImg.alt = data.title;
+      rContent.innerHTML = \`<p class="lead">\${data.lead}</p>\${data.body}\`;
+      rCounter.textContent = \`\${currentStoryIdx + 1} of \${storyOrder.length}\`;
+
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      const bodyEl = drawer.querySelector('.reader-body');
+      if (bodyEl) bodyEl.scrollTop = 0;
+
+      if (window.location.hash !== '#' + key) {
+        history.pushState(null, '', '#' + key);
+      }
+    }
+
+    function closeReader() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+      if (window.location.hash.startsWith('#story')) {
+        history.pushState(null, '', window.location.pathname);
+      }
+    }
+
+    document.querySelectorAll('[data-story]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        openReader(btn.dataset.story);
+      });
+    });
+
+    document.getElementById('readerClose').addEventListener('click', closeReader);
+    backdrop.addEventListener('click', closeReader);
+
+    document.getElementById('readerPrev').addEventListener('click', () => {
+      currentStoryIdx = (currentStoryIdx - 1 + storyOrder.length) % storyOrder.length;
+      openReader(storyOrder[currentStoryIdx]);
+    });
+
+    document.getElementById('readerNext').addEventListener('click', () => {
+      currentStoryIdx = (currentStoryIdx + 1) % storyOrder.length;
+      openReader(storyOrder[currentStoryIdx]);
+    });
+
+    window.addEventListener('keydown', e => {
+      if (!drawer.classList.contains('open')) return;
+      if (e.key === 'Escape') closeReader();
+      if (e.key === 'ArrowRight') document.getElementById('readerNext').click();
+      if (e.key === 'ArrowLeft') document.getElementById('readerPrev').click();
+    });
+
+    // Hash direct router
+    function checkHash() {
+      const h = window.location.hash.replace('#', '');
+      if (h && articles[h]) {
+        openReader(h);
+      }
+    }
+    window.addEventListener('hashchange', checkHash);
+    checkHash();
+
+    // Category Filter Buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+
+        document.querySelectorAll('.featured-card, .art-card').forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Custom Cursor tracking
+    const cursor = document.getElementById('cursor');
+    const cursorTag = document.getElementById('cursorTag');
+    if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      document.body.classList.add('has-cursor');
+      let mx = -100, my = -100, cx = -100, cy = -100;
+      window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+      window.addEventListener('mousedown', () => cursor.classList.add('pressing'));
+      window.addEventListener('mouseup', () => cursor.classList.remove('pressing'));
+      const loop = () => {
+        cx += (mx - cx) * 0.35;
+        cy += (my - cy) * 0.35;
+        cursor.style.left = (cx - 2) + 'px';
+        cursor.style.top = (cy - 2) + 'px';
+        requestAnimationFrame(loop);
+      };
+      loop();
+      document.addEventListener('mouseover', e => {
+        const target = e.target.closest('[data-cursor]');
+        if (target) {
+          cursor.classList.add('active');
+          cursorTag.textContent = target.dataset.cursor;
+        } else {
+          cursor.classList.remove('active');
+          cursorTag.textContent = '';
+        }
+      });
+      document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+        cursorTag.textContent = '';
+      });
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

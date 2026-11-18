@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirecting — Diya Das</title>
   <script>
-    // GitHub Pages SPA router for /notebook
     (function() {
       const path = window.location.pathname;
-      if (path.endsWith('/notebook') || path.endsWith('/notebook/')) {
-        window.location.replace('/#notebook');
+      if (path.startsWith('/notebook')) {
+        window.location.replace('/notebook/');
       } else {
         window.location.replace('/');
       }
@@ -17,7 +16,6 @@
   </script>
 </head>
 <body style="background:#F5EFE4; color:#171717; font-family:serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0;">
-  <p>Loading Diya Das Portfolio &amp; Notebook...</p>
+  <p>Loading The Open Notebook by Diya Das...</p>
 </body>
 </html>
-
