@@ -872,14 +872,14 @@
       if (currentStoryIdx === -1) currentStoryIdx = 0;
       const data = articles[key] || articles[storyOrder[currentStoryIdx]];
 
-      rKicker.innerHTML = \`<span>05 / THE OPEN NOTEBOOK</span> · <span>ARTICLE \${data.num}</span>\`;
+      rKicker.innerHTML = `<span>05 / THE OPEN NOTEBOOK</span> · <span>ARTICLE ${data.num}</span>`;
       rTag.textContent = data.tag;
       rTime.textContent = data.time;
       rTitle.textContent = data.title;
       rImg.src = data.img;
       rImg.alt = data.title;
-      rContent.innerHTML = \`<p class="lead">\${data.lead}</p>\${data.body}\`;
-      rCounter.textContent = \`\${currentStoryIdx + 1} of \${storyOrder.length}\`;
+      rContent.innerHTML = `<p class="lead">${data.lead}</p>${data.body}`;
+      rCounter.textContent = `${currentStoryIdx + 1} of ${storyOrder.length}`;
 
       drawer.classList.add('open');
       backdrop.classList.add('open');
@@ -993,3 +993,4 @@
   </script>
 </body>
 </html>
+
