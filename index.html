@@ -714,1144 +714,239 @@
     /* =========================================================
        06. IMMERSIVE 3D DIGITAL NOTEBOOK EXPERIENCE
        ========================================================= */
-    :root {
-      --dnb-paper: #F5EFE4;
-      --dnb-paper-alt: #FAF6EE;
-      --dnb-paper-shadow: #E3D5C1;
-      --dnb-ink: #171717;
-      --dnb-terracotta: #A63820;
-      --dnb-cobalt: #334C68;
-      --dnb-leather: #4A3025;
-      --dnb-leather-dark: #291811;
-      --dnb-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
-      --dnb-hand: "Caveat", cursive, sans-serif;
-    }
+    
 
     /* Warm Walnut Desk Studio Viewport Overlay */
-    .dnb-overlay {
+    /* Responsive Adaptation for Tablets and Mobiles */
+    @media (max-width: 960px) {
+      
+      
+      
+      
+      
+      
+      
+    }
+
+    @media (max-width: 680px) {
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    }
+  
+    /* =========================================================
+       EDITORIAL ARTICLE READING DRAWER (SLIDE-OVER READING SUITE)
+       ========================================================= */
+    .art-drawer-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 9999;
-      background: var(--paper);
-      color: var(--dnb-ink);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 18px 24px 18px;
+      background: rgba(23, 23, 23, 0.6);
+      backdrop-filter: blur(6px);
+      z-index: 180;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-      overflow-y: auto;
-      overflow-x: hidden;
-      user-select: none;
     }
-    .dnb-overlay.active {
+    .art-drawer-backdrop.open {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* Wood-grain / desk surface texture overlay */
-    .dnb-overlay::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(247, 242, 233, 0.95);
-      pointer-events: none;
-      z-index: 1;
+    .art-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(740px, 100vw);
+      background: #FDFBF7;
+      border-left: 2px solid var(--ink);
+      z-index: 190;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -12px 0 40px rgba(0, 0, 0, 0.22);
+    }
+    .art-drawer.open {
+      transform: translateX(0);
     }
 
-    /* Minimalist Top HUD Bar */
-    .dnb-hud-top {
-      position: relative;
+    .art-drawer-head {
+      position: sticky;
+      top: 0;
       z-index: 10;
+      background: rgba(253, 251, 247, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1.5px solid var(--ink);
+      padding: 18px 32px;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding-bottom: 4px;
-      flex-shrink: 0;
+      gap: 16px;
     }
-    .dnb-hud-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+    .art-drawer-kicker {
       font: 600 11px var(--mono);
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #dfd8cc;
-    }
-    .dnb-hud-brand span {
-      color: var(--dnb-terracotta);
-    }
-    .dnb-hud-leather-pill {
-      background: linear-gradient(135deg, #543729, #362219);
-      color: #efe2cf !important;
-      padding: 3px 9px;
-      border-radius: 4px;
-      border: 1px solid rgba(220, 190, 140, 0.25);
-      font-size: 9.5px;
-      letter-spacing: 0.12em;
-    }
-    .dnb-hud-actions {
+      color: var(--nb-terracotta);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
-    .dnb-close-btn {
+    .art-drawer-close {
+      background: var(--lime);
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .art-drawer-close:hover {
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-1px);
+    }
+
+    .art-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 36px 36px 60px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(166, 56, 32, 0.3) transparent;
+    }
+
+    .art-drawer-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 1px dashed rgba(23, 23, 23, 0.2);
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      font: 600 11px var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--nb-cobalt);
+    }
+    .art-drawer-pill {
+      background: var(--paper);
+      border: 1px solid var(--ink);
+      padding: 3px 10px;
+      border-radius: 100px;
+      color: var(--ink);
+    }
+
+    .art-drawer-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4.2vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .art-drawer-hero-img-wrap {
+      width: 100%;
+      margin: 24px 0 32px;
+      border: 1.5px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #F5EFE4;
+    }
+    .art-drawer-hero-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 380px;
+      object-fit: cover;
+    }
+
+    .art-drawer-prose {
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.85;
+      color: #2e2a25;
+    }
+    .art-drawer-prose p {
+      margin-bottom: 20px;
+    }
+    .art-drawer-prose p.lead {
+      font-family: var(--serif);
+      font-size: 21px;
+      line-height: 1.6;
+      color: var(--ink);
+      font-style: italic;
+      border-left: 3px solid var(--nb-terracotta);
+      padding-left: 18px;
+      margin-bottom: 28px;
+    }
+    .art-drawer-prose p.lead::first-letter {
+      font-size: 52px;
+      line-height: 0.8;
+      font-style: normal;
+      float: left;
+      padding: 4px 10px 0 0;
+      color: var(--nb-terracotta);
+      font-family: var(--serif);
+      font-weight: 700;
+    }
+
+    .art-drawer-pullquote {
+      margin: 32px 0;
+      padding: 24px 28px;
+      background: #FAF6EE;
+      border-top: 1.5px solid var(--ink);
+      border-bottom: 1.5px solid var(--ink);
+      font-family: var(--serif);
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--ink);
+      font-style: italic;
+      text-align: center;
+    }
+
+    .art-drawer-foot {
+      padding: 20px 32px;
+      border-top: 1.5px solid var(--ink);
+      background: #FAF6EE;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .art-drawer-nav-btn {
       background: transparent;
       border: 1.5px solid var(--ink);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font: 600 11.5px var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
       color: var(--ink);
       transition: all 0.2s;
     }
-    .dnb-close-btn:hover {
+    .art-drawer-nav-btn:hover {
       background: var(--ink);
       color: var(--paper);
     }
 
-    /* 3D Physical Desk & Stage Rig */
-    .dnb-stage {
-      position: relative;
-      z-index: 5;
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      perspective: 2600px;
-      perspective-origin: center center;
-      padding: 4px 18px;
-    }
-
-    /* The Notebook Object */
-    .dnb-book {
-      position: relative;
-      width: min(1080px, calc(100vw - 72px));
-      height: min(640px, calc(100vh - 90px));
-      transform-style: preserve-3d;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), width 0.6s cubic-bezier(0.22, 1, 0.36, 1), height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .dnb-book.state-cover {
-      width: min(440px, 88vw);
-      height: min(610px, calc(100vh - 90px));
-    }
-
-    /* Realistic Drop Shadow on Walnut Desk */
-    .dnb-shadow {
-      position: absolute;
-      inset: 12px 0 -18px 0;
-      border-radius: 6px;
-      background: rgba(23, 23, 23, 0.10);
-      filter: blur(20px);
-      transform: translateZ(-30px);
-      pointer-events: none;
-      transition: all 0.4s ease;
-    }
-    .dnb-book.state-cover .dnb-shadow {
-      inset: 16px -8px -20px 8px;
-      filter: blur(16px);
-      background: rgba(23, 23, 23, 0.14);
-    }
-
-    /* Authentic Quarter-Bound Linen & Leather Hardcover View */
-    .dnb-cover-view {
-      position: absolute;
-      inset: 0;
-      box-sizing: border-box;
-      background: #F5EFE4;
-      border: 1.5px solid var(--ink);
-      border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: clamp(24px, 3.5vh, 40px) clamp(24px, 3vw, 42px) clamp(20px, 3vh, 32px) clamp(44px, 4.5vw, 56px);
-      box-shadow:
-        4px 4px 0 var(--ink),
-        0 14px 28px rgba(0, 0, 0, 0.08);
-      transform-origin: left center;
-      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000), box-shadow 0.4s ease;
-      backface-visibility: hidden;
-      z-index: 50;
-      cursor: pointer;
-    }
-    .dnb-book:not(.state-cover) .dnb-cover-view {
-      transform: rotateY(-180deg);
-      pointer-events: none;
-    }
-
-    /* Espresso Leather Spine on Cover with Raised Hubs & Gold Rules */
-    .dnb-cover-view::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 26px;
-      background: var(--ink);
-      z-index: 2;
-    }
-
-    /* Gold foil stitch line bordering leather joint */
-    .dnb-cover-view::after {
-      content: "";
-      position: absolute;
-      left: 32px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: rgba(23, 23, 23, 0.12);
-      pointer-events: none;
-    }
-
-    /* Recessed Cream Letterpress Title Plate on Hardcover */
-    .dnb-cover-plate {
-      position: relative;
-      z-index: 3;
-      background: #FAF6EE;
-      border: 1.5px solid var(--ink);
-      box-shadow: 3px 3px 0 var(--ink);
-      padding: clamp(16px, 2.4vh, 26px) clamp(16px, 2vw, 24px);
-      border-radius: 2px;
-    }
-    .dnb-cover-plate::after {
-      content: "✦";
-      position: absolute;
-      right: 14px;
-      bottom: 12px;
-      font-size: 14px;
-      color: var(--dnb-terracotta);
-      opacity: 0.7;
-    }
-    .dnb-cover-top {
-      position: relative;
-      z-index: 3;
-    }
-    .dnb-cover-author {
-      font: 700 10px var(--mono);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--dnb-terracotta);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .dnb-cover-author::before {
-      content: "";
-      width: 16px;
-      height: 1.5px;
-      background: var(--dnb-terracotta);
-    }
-    .dnb-cover-title {
-      font: 700 clamp(28px, 3.6vw, 44px)/0.98 var(--dnb-serif);
-      letter-spacing: -0.04em;
-      margin: 0 0 10px;
-      color: var(--dnb-ink);
-    }
-    .dnb-cover-subtitle {
-      font-size: clamp(12px, 1.15vw, 13.5px);
-      line-height: 1.5;
-      color: #524c44;
-      margin: 0;
-    }
-
-    .dnb-cover-middle {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 4px 0;
-    }
-    .dnb-wax-seal {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 38% 35%, #c7472a 15%, #9c331b 65%, #73200f 100%);
-      box-shadow: 2px 5px 12px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.35), inset 1px 1px 2px rgba(255,255,255,0.4);
-      border: 2px solid #6b1d0d;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font: 700 7.5px var(--mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transform: rotate(-8deg);
-      text-align: center;
-      line-height: 1.2;
-      flex-shrink: 0;
-    }
-    .dnb-wax-seal span {
-      font: 700 16px/1 var(--dnb-serif);
-      color: #ffeae3;
-    }
-    .dnb-cover-annotation {
-      font: 600 clamp(18px, 2vw, 21px)/1.25 var(--dnb-hand);
-      color: var(--dnb-cobalt);
-      transform: rotate(2.5deg);
-    }
-
-    .dnb-cover-bottom {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .dnb-open-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--dnb-ink);
-      color: #f5efe4;
-      padding: 10px 18px;
-      border-radius: 100px;
-      font: 700 11px var(--mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      box-shadow: 4px 4px 0 var(--dnb-terracotta);
-      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-    }
-    .dnb-cover-view:hover .dnb-open-cta {
-      background: var(--dnb-terracotta);
-      box-shadow: 6px 6px 0 var(--dnb-ink);
-      transform: translate(-2px, -2px);
-    }
-    .dnb-cover-badge {
-      font: 600 9.5px var(--mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #696257;
-    }
-
-    /* =========================================================
-       Open 2-Page Physical Hardcover Casing + Paper Stack
-       ========================================================= */
-    .dnb-spread-view {
-      position: absolute;
-      inset: 0;
-      box-sizing: border-box;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      grid-template-rows: minmax(0, 1fr);
-      background: #F5EFE4;
-      padding: 0;
-      border-radius: 3px;
-      border: 1.5px solid var(--ink);
-      transform-style: preserve-3d;
-      box-shadow:
-        6px 6px 0 var(--ink),
-        0 18px 36px rgba(0, 0, 0, 0.08);
-      overflow: visible;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease 0.15s;
-    }
-    .dnb-book:not(.state-cover) .dnb-spread-view {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Crimson Silk Ribbon Bookmark Hanging Below Spine */
-    .dnb-ribbon-bookmark {
-      display: none !important;
-    }
-
-    /* Realistic Central Spine Gutter & Natural Page Curvature */
-    .dnb-spine-gutter {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 1px;
-      transform: translateX(-50%);
-      background: rgba(23, 23, 23, 0.15);
-      box-shadow: 0 0 16px rgba(23, 23, 23, 0.08);
-      z-index: 26;
-      pointer-events: none;
-    }
-    /* Delicate Linen Binding Stitches Down Center Crease */
-    .dnb-spine-gutter::after {
-      display: none;
-    }
-
-    /* Page Halves with Stacked Paper Block Edges */
-    .dnb-page {
-      position: relative;
-      box-sizing: border-box;
-      min-height: 0;
-      max-height: 100%;
-      height: 100%;
-      padding: clamp(18px, 2.5vh, 28px) clamp(22px, 2.6vw, 36px);
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      background: var(--dnb-paper);
-      scrollbar-width: thin;
-      scrollbar-color: rgba(166, 56, 32, 0.25) transparent;
-    }
-    .dnb-page-left {
-      padding-right: clamp(24px, 2.8vw, 38px);
-      background: #FAF6EE;
-      border-right: 1px solid rgba(23, 23, 23, 0.12);
-    }
-    .dnb-page-right {
-      padding-left: clamp(24px, 2.8vw, 38px);
-      background: #FAF6EE;
-    }
-
-    /* Fine Horizontal Notebook Ruling & Paper Grain */
-    .dnb-page::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: repeating-linear-gradient(
-        to bottom,
-        transparent,
-        transparent 30px,
-        rgba(51, 76, 104, 0.055) 31px
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Faint Vertical Margin Rule */
-    .dnb-page-left::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 28px;
-      width: 1px;
-      background: rgba(166, 56, 32, 0.14);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .dnb-page-right::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 28px;
-      width: 1px;
-      background: rgba(166, 56, 32, 0.12);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .dnb-page-content {
-      position: relative;
-      z-index: 2;
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Running Header on Spread */
-    .dnb-folio-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font: 600 9.5px var(--mono);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #6a6358;
-      padding-bottom: 7px;
-      margin-bottom: clamp(10px, 1.4vh, 14px);
-      flex-shrink: 0;
-      border-bottom: 1px solid rgba(23, 23, 23, 0.14);
-      position: relative;
-      z-index: 2;
-    }
-    .dnb-folio-head span:first-child {
-      color: var(--dnb-terracotta);
-    }
-
-    /* Spread 1: Table of Contents Left Page */
-    .dnb-toc-title {
-      font: 600 clamp(22px, 2.4vw, 34px)/1.08 var(--dnb-serif);
-      letter-spacing: -0.035em;
-      margin: 0 0 8px;
-      color: var(--dnb-ink);
-    }
-    .dnb-toc-copy {
-      font-size: clamp(12.5px, 1.15vw, 13.5px);
-      line-height: 1.52;
-      color: #4a443c;
-      margin: 0 0 10px;
-    }
-    .dnb-toc-visual-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 2px 0 8px;
-    }
-    .dnb-polaroid-frame {
-      position: relative;
-      width: clamp(128px, 13vw, 154px);
-      background: #FFFDF9;
-      padding: 7px 7px 10px;
-      border: 1px solid rgba(23, 23, 23, 0.22);
-      box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.18);
-      transform: rotate(-3deg);
-      transition: transform 0.3s ease;
-      flex-shrink: 0;
-    }
-    .dnb-polaroid-frame:hover {
-      transform: rotate(0deg) scale(1.03);
-    }
-    .dnb-polaroid-clip {
-      position: absolute;
-      top: -14px;
-      left: 12px;
-      width: 24px;
-      height: auto;
-      transform: rotate(12deg);
-      pointer-events: none;
-      filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.22));
-    }
-    .dnb-polaroid-tape {
-      position: absolute;
-      top: -7px;
-      right: 12px;
-      width: 42px;
-      height: 14px;
-      background: rgba(226, 201, 160, 0.72);
-      border: 1px solid rgba(130, 105, 70, 0.25);
-      transform: rotate(14deg);
-      pointer-events: none;
-    }
-    .dnb-polaroid-img {
-      width: 100%;
-      height: clamp(88px, 12.5vh, 114px);
-      object-fit: cover;
-      object-position: center 20%;
-      filter: saturate(1.04) contrast(1.02);
-      display: block;
-    }
-    .dnb-polaroid-cap {
-      font: 600 13px/1 var(--dnb-hand);
-      color: var(--dnb-terracotta);
-      text-align: center;
-      margin-top: 6px;
-    }
-    .dnb-toc-stamp-col {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .dnb-archive-stamp {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      border: 1.5px dashed rgba(166, 56, 32, 0.65);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: var(--dnb-terracotta);
-      transform: rotate(-10deg);
-      background: rgba(250, 246, 238, 0.6);
-    }
-    .dnb-archive-stamp small {
-      font: 700 7px var(--mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-    .dnb-archive-stamp strong {
-      font: 700 14px/1.1 var(--dnb-serif);
-    }
-    .dnb-toc-scrawl {
-      font: 600 clamp(15.5px, 1.6vw, 18px)/1.25 var(--dnb-hand);
-      color: var(--dnb-cobalt);
-      margin-top: auto;
-      transform: rotate(-1deg);
-    }
-
-    /* Spread 1: Table of Contents Right Page (Article Entries with Thumbnails) */
-    .dnb-toc-list {
-      display: flex;
-      flex-direction: column;
-      gap: clamp(8px, 1.2vh, 12px);
-      margin-top: 2px;
-    }
-    .dnb-toc-item {
-      background: #FAF6EE;
-      border: 1.5px solid rgba(23, 23, 23, 0.85);
-      border-radius: 6px;
-      padding: clamp(8px, 1.2vh, 12px) 13px;
-      box-shadow: 3px 3px 0 var(--dnb-ink);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s, background-color 0.2s;
-    }
-    .dnb-toc-item:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 6px 6px 0 var(--dnb-terracotta);
-      background: #FFFDF9;
-    }
-    .dnb-toc-thumb {
-      width: 58px;
-      height: 44px;
-      object-fit: cover;
-      border: 1px solid #171717;
-      border-radius: 3px;
-      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.14);
-      flex-shrink: 0;
-      transition: transform 0.25s ease;
-    }
-    .dnb-toc-item:hover .dnb-toc-thumb {
-      transform: scale(1.06) rotate(-2deg);
-    }
-    .dnb-toc-num {
-      font: 700 20px/1 var(--dnb-serif);
-      color: var(--dnb-terracotta);
-      min-width: 22px;
-    }
-    .dnb-toc-info {
-      flex: 1;
-    }
-    .dnb-toc-meta {
-      font: 600 8.5px var(--mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--dnb-cobalt);
-      margin-bottom: 2px;
-    }
-    .dnb-toc-item-title {
-      font: 600 clamp(14.5px, 1.35vw, 16.5px)/1.16 var(--dnb-serif);
-      letter-spacing: -0.02em;
-      color: var(--dnb-ink);
-      margin: 0;
-    }
-    .dnb-toc-arrow {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1.5px solid var(--dnb-ink);
-      background: var(--dnb-paper);
-      display: grid;
-      place-items: center;
-      font-size: 12px;
-      flex-shrink: 0;
-      transition: transform 0.2s, background-color 0.2s, color 0.2s;
-    }
-    .dnb-toc-item:hover .dnb-toc-arrow {
-      background: var(--dnb-terracotta);
-      border-color: var(--dnb-terracotta);
-      color: #fff;
-      transform: translateX(3px);
-    }
-
-    /* Article Spreads Artwork Frame & Presentation */
-    .dnb-art-title {
-      font: 600 clamp(20px, 2.1vw, 28px)/1.12 var(--dnb-serif);
-      letter-spacing: -0.03em;
-      margin: 0 0 6px;
-      color: var(--dnb-ink);
-    }
-    .dnb-art-intro {
-      font-size: clamp(12.2px, 1.1vw, 13.2px);
-      line-height: 1.48;
-      color: #524c43;
-      margin: 0 0 10px;
-    }
-    .dnb-art-frame {
-      position: relative;
-      background: #FFFDF9;
-      padding: 6px;
-      border: 1.5px solid var(--dnb-ink);
-      box-shadow: 4px 5px 0 rgba(23, 23, 23, 0.14);
-      margin-bottom: 8px;
-      transform: rotate(-0.6deg);
-      transition: transform 0.3s ease;
-    }
-    .dnb-art-frame:hover {
-      transform: rotate(0deg) scale(1.01);
-    }
-    .dnb-tape {
-      position: absolute;
-      width: 50px;
-      height: 14px;
-      background: rgba(224, 198, 152, 0.72);
-      border: 1px solid rgba(120, 95, 60, 0.22);
-      z-index: 4;
-      pointer-events: none;
-    }
-    .dnb-tape-tl {
-      top: -6px;
-      left: 14px;
-      transform: rotate(-12deg);
-    }
-    .dnb-tape-tr {
-      top: -6px;
-      right: 14px;
-      transform: rotate(10deg);
-    }
-    .dnb-art-collage {
-      width: 100%;
-      height: clamp(120px, 20vh, 185px);
-      max-height: 185px;
-      object-fit: cover;
-      display: block;
-      border: 1px solid rgba(23, 23, 23, 0.16);
-      background: #FDFBF7;
-    }
-    .dnb-art-note {
-      font: 600 clamp(14.5px, 1.4vw, 16px)/1.2 var(--dnb-hand);
-      color: var(--dnb-terracotta);
-      margin-top: auto;
-      transform: rotate(-1deg);
-    }
-
-    /* Right Page Article Reading Text */
-    .dnb-prose {
-      font-size: clamp(12.4px, 1.15vw, 13.6px);
-      line-height: 1.58;
-      color: #38342e;
-    }
-    .dnb-prose p {
-      margin: 0 0 clamp(7px, 1.1vh, 11px);
-    }
-    .dnb-dropcap::first-letter {
-      float: left;
-      font: 700 clamp(38px, 3.8vw, 44px)/0.82 var(--dnb-serif);
-      padding: 4px 9px 0 0;
-      color: var(--dnb-terracotta);
-    }
-    .dnb-pullquote {
-      margin: clamp(8px, 1.2vh, 12px) 0;
-      padding: clamp(8px, 1.1vh, 11px) 14px;
-      background: rgba(166, 56, 32, 0.06);
-      border-left: 3px solid var(--dnb-terracotta);
-      font: italic 600 clamp(13.8px, 1.35vw, 15.5px)/1.35 var(--dnb-serif);
-      color: var(--dnb-ink);
-    }
-    .dnb-highlight {
-      background: linear-gradient(120deg, rgba(166, 56, 32, 0.16) 0%, rgba(166, 56, 32, 0.16) 100%);
-      padding: 2px 4px;
-      border-radius: 2px;
-      font-weight: 600;
-    }
-    .dnb-signoff {
-      margin-top: auto;
-      padding-top: 8px;
-      flex-shrink: 0;
-      border-top: 1px dashed rgba(23, 23, 23, 0.18);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font: 600 9.5px var(--mono);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #696257;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .dnb-signoff-link {
-      background: none;
-      border: none;
-      padding: 0;
-      font: 700 9.5px var(--mono);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--dnb-terracotta);
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    .dnb-signoff-link:hover {
-      color: var(--dnb-ink);
-    }
-
-    /* Dog-Ear Interactive Page Corners */
-    .dnb-dogear {
-      position: absolute;
-      width: 42px;
-      height: 42px;
-      cursor: pointer;
-      z-index: 25;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .dnb-dogear-next {
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(135deg, transparent 50%, rgba(215, 198, 172, 0.96) 50%, #cbb48e 100%);
-      border-top-left-radius: 6px;
-      box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.14);
-    }
-    .dnb-dogear-next:hover {
-      transform: scale(1.28) translate(-3px, -3px);
-    }
-    .dnb-dogear-prev {
-      bottom: 0;
-      left: 0;
-      background: linear-gradient(225deg, transparent 50%, rgba(215, 198, 172, 0.96) 50%, #cbb48e 100%);
-      border-top-right-radius: 6px;
-      box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.14);
-    }
-    .dnb-dogear-prev:hover {
-      transform: scale(1.28) translate(3px, -3px);
-    }
-
-    /* Edge Bookmarks / Side Tabs (Unclipped Outside Casing) */
-    .dnb-tabs {
-      position: absolute;
-      right: -36px;
-      top: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      z-index: 45;
-    }
-    .dnb-tab {
-      background: #FAF6EE;
-      color: var(--ink);
-      border: 1px solid var(--ink);
-      border-left: none;
-      border-radius: 0 4px 4px 0;
-      padding: 9px 8px;
-      font: 600 10px var(--mono);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 2px 2px 0 rgba(23, 23, 23, 0.15);
-      transition: all 0.2s ease;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-    }
-    .dnb-tab:hover {
-      transform: translateX(3px);
-      background: #FFF;
-    }
-    .dnb-tab.active {
-      background: var(--terracotta);
-      border-color: var(--terracotta);
-      color: #FFF;
-      transform: translateX(5px);
-      box-shadow: 2px 2px 0 var(--ink);
-    }
-    .dnb-tab[data-tab-idx="1"] { border-color: #2d1d16; }
-    .dnb-tab[data-tab-idx="2"] { border-color: var(--dnb-terracotta); }
-    .dnb-tab[data-tab-idx="3"] { border-color: var(--dnb-cobalt); }
-    .dnb-tab[data-tab-idx="4"] { border-color: var(--dnb-leather); }
-    .dnb-tab[data-tab-idx="5"] { border-color: var(--dnb-terracotta); }
-
-    /* Temporary Underlay Clones for Seamless 3D Page Turn */
-    .dnb-underlay-clone {
-      position: absolute;
-      top: 10px;
-      bottom: 12px;
-      box-sizing: border-box;
-      overflow: hidden;
-      padding: clamp(18px, 2.5vh, 28px) clamp(22px, 2.6vw, 36px);
-      z-index: 22;
-      pointer-events: none;
-      display: none;
-    }
-    .dnb-underlay-left {
-      left: 14px;
-      width: calc(50% - 14px);
-      padding-right: clamp(26px, 3vw, 40px);
-    }
-    .dnb-underlay-right {
-      left: 50%;
-      width: calc(50% - 14px);
-      padding-left: clamp(26px, 3vw, 40px);
-    }
-    .dnb-underlay-clone.active {
-      display: flex;
-    }
-
-    /* 3D Animated Page Turn Leaf Rig */
-    .dnb-flip-leaf {
-      position: absolute;
-      top: 10px;
-      bottom: 12px;
-      left: 50%;
-      width: calc(50% - 14px);
-      transform-origin: left center;
-      transform-style: preserve-3d;
-      z-index: 40;
-      pointer-events: none;
-      display: none;
-    }
-    .dnb-flip-leaf.turning {
-      display: block;
-    }
-    .dnb-leaf-face {
-      position: absolute;
-      inset: 0;
-      box-sizing: border-box;
-      backface-visibility: hidden;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      padding: clamp(18px, 2.5vh, 28px) clamp(22px, 2.6vw, 36px);
-    }
-    .dnb-leaf-front {
-      transform: rotateY(0deg);
-      padding-left: clamp(26px, 3vw, 40px);
-      border-radius: 0 4px 4px 0;
-      background: linear-gradient(to left, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #B8A790 100%);
-      box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.25);
-    }
-    .dnb-leaf-back {
-      transform: rotateY(180deg);
-      padding-right: clamp(26px, 3vw, 40px);
-      border-radius: 4px 0 0 4px;
-      background: linear-gradient(to right, #FAF5EC 0%, #F5EFE4 80%, #ECE2D0 93%, #DDD0BC 98%, #C4B49E 100%);
-      border-right: 1px solid rgba(55, 38, 25, 0.14);
-      box-shadow: -2px 2px 14px rgba(0, 0, 0, 0.25);
-    }
-    .dnb-leaf-shade {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(to right, rgba(20, 12, 6, 0.42) 0%, rgba(20, 12, 6, 0.12) 45%, transparent 100%);
-      opacity: 0;
-      transform: translateZ(1px);
-    }
-
-    /* Minimalist Bottom HUD Bar */
-    .dnb-hud-bottom {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding-top: 6px;
-      flex-shrink: 0;
-      font: 600 10.5px var(--mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #a69e92;
-    }
-    .dnb-hud-progress-wrap {
-      width: min(280px, 40vw);
-      height: 3px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 3px;
-      overflow: hidden;
-      margin: 0 16px;
-    }
-    .dnb-hud-progress-bar {
-      height: 100%;
-      width: 25%;
-      background: var(--dnb-terracotta);
-      border-radius: 3px;
-      transition: width 0.4s ease;
-    }
-
-    /* Portal CTA & Article Action Row in Main Page Notebook Section */
-    .nb-portal-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      background: #FAF6EE;
-      border: 1.5px solid var(--ink);
-      box-shadow: 5px 5px 0 var(--ink);
-      padding: 22px 28px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-    .nb-portal-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .nb-portal-icon {
-      font-size: 28px;
-    }
-    .nb-portal-title {
-      font: 700 20px var(--dnb-serif);
-      margin: 0 0 4px;
-    }
-    .nb-portal-desc {
-      font-size: 13.5px;
-      color: #554f46;
-      margin: 0;
-    }
-    .nb-portal-btn,
-    .nb-portal-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--dnb-terracotta);
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 100px;
-      font: 700 12px var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1.5px solid var(--ink);
-      box-shadow: 3px 3px 0 var(--ink);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-    }
-    .nb-portal-btn:hover,
-    .nb-portal-cta:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--ink);
-      background: #8c2e19;
-    }
-    .nb-action-row {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .nb-open-journal-link {
-      background: #F5EFE4;
-      border: 1.2px solid var(--ink);
-      border-radius: 100px;
-      padding: 6px 14px;
-      font: 700 10.5px var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink);
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s, transform 0.2s;
-    }
-    .nb-open-journal-link:hover {
-      background: var(--dnb-terracotta);
-      border-color: var(--dnb-terracotta);
-      color: #fff;
-      transform: translateY(-1px);
-    }
-
-    /* Framed Mixed-Media Collages in Main Page Notebook Section */
-    .nb-photo-frame {
-      position: relative;
-      background: #FFFDF9;
-      padding: 12px;
-      border: 1.5px solid var(--ink);
-      box-shadow: 4px 4px 0 rgba(23, 23, 23, 0.14);
-      transform-style: preserve-3d;
-    }
-    .nb-photo-frame .nb-collage {
-      border: 1px solid rgba(23, 23, 23, 0.15);
-      box-shadow: none;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-    }
-    .nb-collage-tape {
-      position: absolute;
-      width: 68px;
-      height: 18px;
-      background: rgba(224, 198, 152, 0.72);
-      border: 1px solid rgba(120, 95, 60, 0.25);
-      z-index: 3;
-      pointer-events: none;
-    }
-    .nb-collage-tape-tl {
-      top: -8px;
-      left: 18px;
-      transform: rotate(-10deg);
-    }
-    .nb-collage-tape-tr {
-      top: -8px;
-      right: 18px;
-      transform: rotate(9deg);
-    }
-
-    /* Responsive Adaptation for Tablets and Mobiles */
-    @media (max-width: 960px) {
-      .dnb-book {
-        width: calc(100vw - 68px);
-        height: min(620px, calc(100vh - 90px));
-      }
-      .dnb-page {
-        padding: 18px 20px 20px;
-      }
-      .dnb-page-left {
-        padding-right: 22px;
-      }
-      .dnb-page-right {
-        padding-left: 22px;
-      }
-      .dnb-art-collage {
-        height: clamp(110px, 16vh, 150px);
-        max-height: 150px;
-      }
-      .dnb-tabs {
-        right: -28px;
-      }
-      .dnb-tab {
-        padding: 8px 6px;
-        font-size: 8px;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .dnb-overlay {
-        padding: 10px 12px;
-      }
-      .dnb-hud-brand span {
-        display: none;
-      }
-      .dnb-stage {
-        align-items: stretch;
-        padding: 4px 0;
-      }
-      .dnb-book,
-      .dnb-book.state-cover {
-        width: 100%;
-        height: 100%;
-      }
-      .dnb-cover-view {
-        padding: 24px 20px 22px 44px;
-      }
-      .dnb-cover-view::before {
-        width: 28px;
-      }
-      .dnb-cover-view::after {
-        left: 33px;
-      }
-      .dnb-spread-view {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        overflow-y: auto;
-        padding: 8px;
-      }
-      .dnb-page {
-        height: auto;
-        max-height: none;
-        overflow-y: visible;
-      }
-      .dnb-page-left {
-        border-right: none;
-        border-bottom: 2px dashed rgba(35, 25, 18, 0.25);
-        padding: 20px 16px;
-        box-shadow: none;
-      }
-      .dnb-page-right {
-        padding: 20px 16px;
-        box-shadow: none;
-      }
-      .dnb-spine-gutter,
-      .dnb-ribbon-bookmark,
-      .dnb-tabs,
-      .dnb-hud-progress-wrap {
-        display: none;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1916,7 +1011,7 @@
       </a>
       <button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
       <nav class="navlinks" aria-label="Main navigation">
-        <a href="#about">About</a><a href="#work">Selected work</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#notebook" id="navNotebookLink" data-cursor="BOOK">Notebook</a>
+        <a href="#about">About</a><a href="#work">Selected work</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#notebook" data-cursor="READ">Notebook</a>
         <a class="nav-cta" href="#contact" data-cursor="HELLO">Let's talk ↗</a>
       </nav>
     </div>
@@ -2089,7 +1184,7 @@
       </div>
     </section>
 
-    <section class="blog" id="blog">
+    <section class="blog" id="notebook">
       <div class="wrap nb-wrap">
         <!-- Section Header -->
         <header class="nb-header">
@@ -2126,20 +1221,13 @@
             <p class="nb-desc">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
             
             <div class="nb-action-row">
-              <button type="button" class="nb-read-btn" data-target="manuscript1" data-cursor="READ" aria-expanded="false">
+              <button type="button" class="nb-read-btn" data-open-story="story1" data-cursor="READ">
                 <span>Read the story ↗</span>
               </button>
               
             </div>
 
-            <!-- Expandable Reading Manuscript -->
-            <div class="nb-manuscript" id="manuscript1" aria-hidden="true">
-              <div class="nb-manuscript-inner">
-                Good communication starts before the first word is written. It starts with curiosity: Who am I speaking to? What might they need? What experiences shape the way they interpret a message? Studying psychology has made me more attentive to those questions. It reminds me that people are not just audiences or numbers — they bring emotions, context and different ways of seeing the world. For me, the best stories and campaigns begin by making room for that human complexity.
-              </div>
-              <button type="button" class="nb-close-btn" data-close="manuscript1">Close reading —</button>
             </div>
-          </div>
         </article>
 
         <!-- Secondary Article Grid — 2 Horizontally Arranged Columns -->
@@ -2164,20 +1252,13 @@
             <p class="nb-desc">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
             
             <div class="nb-action-row">
-              <button type="button" class="nb-read-btn" data-target="manuscript2" data-cursor="READ" aria-expanded="false">
+              <button type="button" class="nb-read-btn" data-open-story="story2" data-cursor="READ">
                 <span>Read the story ↗</span>
               </button>
               
             </div>
 
-            <!-- Expandable Reading Manuscript -->
-            <div class="nb-manuscript" id="manuscript2" aria-hidden="true">
-              <div class="nb-manuscript-inner">
-                A thoughtful interview is not a checklist of questions. Preparation gives a conversation direction, but listening gives it life. The most memorable moments often arrive after a follow-up question, a pause or an unexpected detail. I have learned to stay present, ask with intention and leave enough room for a real answer.
-              </div>
-              <button type="button" class="nb-close-btn" data-close="manuscript2">Close reading —</button>
-            </div>
-          </article>
+            </article>
 
           <!-- ARTICLE 03: Writing & Storytelling -->
           <article class="nb-card" aria-labelledby="art3Title">
@@ -2199,20 +1280,13 @@
             <p class="nb-desc">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
             
             <div class="nb-action-row">
-              <button type="button" class="nb-read-btn" data-target="manuscript3" data-cursor="READ" aria-expanded="false">
+              <button type="button" class="nb-read-btn" data-open-story="story3" data-cursor="READ">
                 <span>Read the story ↗</span>
               </button>
               
             </div>
 
-            <!-- Expandable Reading Manuscript -->
-            <div class="nb-manuscript" id="manuscript3" aria-hidden="true">
-              <div class="nb-manuscript-inner">
-                I like to begin with a question, not a headline. I gather context, look for reliable details and search for the angle that makes the subject matter to someone. Then comes the edit: remove what distracts, clarify what feels vague and keep the language honest. Strong writing is not about making everything sound complicated. It is about making the important thing easier to understand.
-              </div>
-              <button type="button" class="nb-close-btn" data-close="manuscript3">Close reading —</button>
-            </div>
-          </article>
+            </article>
         
           <!-- ARTICLE 04: Freelance Writing & Career Strategy (New Google Doc Article) -->
           <article class="nb-card" aria-labelledby="art4Title">
@@ -2234,27 +1308,12 @@
             <p class="nb-desc">What happens when a client Googles your name? Why owning your independent digital domain builds authority, establishes proof, and helps you earn more.</p>
             
             <div class="nb-action-row">
-              <button type="button" class="nb-read-btn" data-target="manuscript4" data-cursor="READ" aria-expanded="false">
+              <button type="button" class="nb-read-btn" data-open-story="story4" data-cursor="READ">
                 <span>Read the story ↗</span>
               </button>
             </div>
 
-            <!-- Expandable Reading Manuscript -->
-            <div class="nb-manuscript" id="manuscript4" aria-hidden="true">
-              <div class="nb-manuscript-inner">
-                <p style="margin-bottom: 14px;">Oops, wait — readers, just pause for a second and think about what happens when a client gets your resume in their mail inbox. They might probably Google your name. What do they find in general? A LinkedIn profile maybe which you haven’t touched in a year, a couple of Instagram posts, and of course a byline or two which has already been buried on someone else’s site.</p>
-
-                <p style="margin-bottom: 14px;">Now just take a moment to visualize a different scenario: a simple website with your best samples, a short note on who you write for, and a button that says <em>“HIRE ME”</em>. Which writer would you pick? A website is the one place online that's completely and fully yours. Social media apps change their rules all the time, and due to increasing cyber crime rates in today’s fast-paced digital world, social media accounts can easily get hacked or banned. But your own domain stays put, and everything you build on it keeps adding up over the years.</p>
-
-                <p style="margin-bottom: 14px;">Do you know the best part? A website does a lot of the selling for you. Every writer says they are absolutely great with words and storytelling, but at the end of the day, a wise client wants proof. A dedicated portfolio page lets them read your work in seconds and thoroughly analyze whether you are the right fit. Writers can organize their samples by topic — health, travel, tech — and even add a line about what the piece achieved, like more traffic or higher shares.</p>
-
-                <p style="margin-bottom: 14px;">If you start a blog on your site, it can show up on Google, which means clients may discover you organically without you cold-pitching anyone. That’s also a quiet way of showing you understand SEO, which is exactly what many clients are paying for. Add a few testimonials, a clear services page, and an About section that sounds genuinely like you, and a stranger can become a client while you’re asleep or busy with another deadline.</p>
-
-                <p>The best part is what a website lets you do down the road. It becomes your home base, where you can try out your own voice, start a newsletter, share free guides, or one day sell a course or ebook. Writers with a proper site also tend to look more established, and that often means they can charge higher rates. Building one also makes you decide who you write for and what makes your style different, which helps your whole career feel clearer. And it doesn’t have to be expensive or hard. If you’ve been putting it off, this is your sign to start. You already have the words, so now give them somewhere to live.</p>
-              </div>
-              <button type="button" class="nb-close-btn" data-close="manuscript4">Close reading —</button>
-            </div>
-          </article>
+            </article>
 </div>
 
         <!-- Section Footer Message with Decorative Terracotta Symbols -->
@@ -2322,418 +1381,45 @@
   </aside>
 
   <!-- =========================================================
-       06. IMMERSIVE 3D DIGITAL NOTEBOOK EXPERIENCE MODAL
+       EDITORIAL ARTICLE READING DRAWER (DISTRACTION-FREE)
        ========================================================= -->
-  <div id="digitalNotebookOverlay" class="dnb-overlay" role="dialog" aria-modal="true" aria-label="Diya Das Interactive Digital Notebook">
-    <!-- Top HUD Bar -->
-    <header class="dnb-hud-top" style="width: 100%; max-width: 1160px; display: flex; justify-content: space-between; align-items: center; z-index: 10; margin-bottom: 8px;">
-      <div class="mono" style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dnb-terracotta);">
-        05 / THE OPEN NOTEBOOK · INTERACTIVE JOURNAL
+  <div class="art-drawer-backdrop" id="artDrawerBackdrop" aria-hidden="true"></div>
+  <aside class="art-drawer" id="artDrawer" role="dialog" aria-modal="true" aria-labelledby="artDrawerTitle">
+    <div class="art-drawer-head">
+      <div class="art-drawer-kicker">
+        <span>05 / THE OPEN NOTEBOOK</span>
+        <span>·</span>
+        <span id="artDrawerKicker">ESSAY</span>
       </div>
-      <button type="button" class="dnb-hud-btn dnb-close-btn" id="dnbCloseBtn" data-cursor="CLOSE" style="background: transparent; border: 1.5px solid var(--ink); border-radius: 100px; padding: 6px 14px; font: 600 11px var(--mono); text-transform: uppercase; cursor: pointer; color: var(--ink);">
-        Close [ESC] ✕
-      </button>
-    </header>
+      <button class="art-drawer-close" id="artDrawerClose" data-cursor="CLOSE">Close [ESC] ✕</button>
+    </div>
 
-    <!-- 3D Physical Desk & Book Stage -->
-    <div class="dnb-stage">
-      <div class="dnb-book state-cover" id="dnbBook">
-        <div class="dnb-shadow" aria-hidden="true"></div>
+    <div class="art-drawer-body">
+      <div class="art-drawer-meta-row">
+        <span class="art-drawer-pill" id="artDrawerTag">CATEGORY</span>
+        <span id="artDrawerReadTime">5 MIN READ</span>
+      </div>
 
-        <!-- Physical Hardcover Closed View (Spread 0) -->
-        <div class="dnb-cover-view" id="dnbCoverView" tabindex="0" role="button" aria-label="Open Hardcover Notebook">
-          <div class="dnb-cover-plate">
-            <div class="dnb-cover-top">
-              <div class="dnb-cover-author">DIYA DAS · WRITER &amp; RESEARCHER</div>
-              <h2 class="dnb-cover-title">THE OPEN<br>NOTEBOOK</h2>
-              <p class="dnb-cover-subtitle">Ideas, stories, observations &amp; everything in between — collected across 50+ articles, interviews and creative experiments.</p>
-            </div>
-          </div>
+      <h2 class="art-drawer-title" id="artDrawerTitle">Article Title</h2>
 
-          <div class="dnb-cover-middle">
-            <div class="dnb-wax-seal" aria-hidden="true">
-              <span>DD</span>
-              ISSUE 01
-            </div>
-            <div class="dnb-cover-annotation">
-              “Collected along the way.”
-            </div>
-          </div>
+      <div class="art-drawer-hero-img-wrap" id="artDrawerImgWrap">
+        <img id="artDrawerImg" src="" alt="Article Artwork">
+      </div>
 
-          <div class="dnb-cover-bottom">
-            <div class="dnb-open-cta">
-              <span>📖 Open Journal</span>
-              <span>↗</span>
-            </div>
-            <div class="dnb-cover-badge">QUARTER-BOUND LINEN · VOL. I</div>
-          </div>
-        </div>
-
-        <!-- 2-Page Spreads Container -->
-        <div class="dnb-spread-view" id="dnbSpreadView">
-          <div class="dnb-spine-gutter" aria-hidden="true"></div>
-          <div class="dnb-ribbon-bookmark" aria-hidden="true"></div>
-
-          <!-- Underlay clones for realistic mid-flip persistence -->
-          <div class="dnb-underlay-clone dnb-underlay-left dnb-page dnb-page-left" id="dnbUnderlayLeft" aria-hidden="true"></div>
-          <div class="dnb-underlay-clone dnb-underlay-right dnb-page dnb-page-right" id="dnbUnderlayRight" aria-hidden="true"></div>
-
-          <!-- Spread 1: Table of Contents -->
-          <div class="dnb-spread-panel" data-spread-idx="1" style="display: contents;">
-            <!-- Left Page: Editorial Title, Polaroid & Archive Stamp -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>05 / THE OPEN NOTEBOOK</span>
-                <span>VOL. I · 2026</span>
-              </div>
-              <div class="dnb-page-content">
-                <h2 class="dnb-toc-title">A living notebook of ideas, people and <em style="font-family: var(--dnb-serif); font-style: italic; color: var(--dnb-terracotta);">stories</em>.</h2>
-                <p class="dnb-toc-copy">Thoughts, little discoveries and drafts — about communication, people, creativity and the small details that shape how we connect.</p>
-                
-                <div class="dnb-toc-visual-row">
-                  <div class="dnb-polaroid-frame">
-                    <img src="sticker-paperclip.png" alt="" class="dnb-polaroid-clip" aria-hidden="true">
-                    <div class="dnb-polaroid-tape" aria-hidden="true"></div>
-                    <img src="diya-das-portrait.jpeg" alt="Diya Das portrait" class="dnb-polaroid-img">
-                    <div class="dnb-polaroid-cap">diya das · field archive</div>
-                  </div>
-                  <div class="dnb-toc-stamp-col">
-                    <div class="dnb-archive-stamp" aria-hidden="true">
-                      <small>ARCHIVE</small>
-                      <strong>VOL. I</strong>
-                      <small>50+ WORKS</small>
-                    </div>
-                    <div class="mono" style="font-size: 9px; letter-spacing: 0.1em; color: #6a6358; line-height: 1.5;">
-                      CURATED WITH<br>PSYCHOLOGY LENS
-                    </div>
-                  </div>
-                </div>
-
-                <div class="dnb-toc-scrawl">
-                  “Every interview begins with a willingness to be surprised.”
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Close Cover"></div>
-            </div>
-
-            <!-- Right Page: Index List with Editorial Thumbnails -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>INDEX OF ESSAYS</span>
-                <span>PAGE 01</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-list">
-                  <!-- Item 1 -->
-                  <article class="dnb-toc-item" data-goto-spread="2" tabindex="0" role="button" aria-label="Read Article 01">
-                    <div class="dnb-toc-num">01</div>
-                    <img src="notebook-collage-01.jpg" alt="" class="dnb-toc-thumb">
-                    <div class="dnb-toc-info">
-                      <div class="dnb-toc-meta">PSYCHOLOGY / PERSPECTIVE · 5 MIN</div>
-                      <h3 class="dnb-toc-item-title">Why understanding people makes communication more meaningful</h3>
-                    </div>
-                    <div class="dnb-toc-arrow">↗</div>
-                  </article>
-
-                  <!-- Item 2 -->
-                  <article class="dnb-toc-item" data-goto-spread="3" tabindex="0" role="button" aria-label="Read Article 02">
-                    <div class="dnb-toc-num">02</div>
-                    <img src="notebook-collage-02.jpg" alt="" class="dnb-toc-thumb">
-                    <div class="dnb-toc-info">
-                      <div class="dnb-toc-meta">RESEARCH / INTERVIEWS · 4 MIN</div>
-                      <h3 class="dnb-toc-item-title">The art of asking a better question</h3>
-                    </div>
-                    <div class="dnb-toc-arrow">↗</div>
-                  </article>
-
-                  <!-- Item 3 -->
-                  <article class="dnb-toc-item" data-goto-spread="4" tabindex="0" role="button" aria-label="Read Article 03">
-                    <div class="dnb-toc-num">03</div>
-                    <img src="notebook-collage-03.jpg" alt="" class="dnb-toc-thumb">
-                    <div class="dnb-toc-info">
-                      <div class="dnb-toc-meta">WRITING / STORYTELLING · 6 MIN</div>
-                      <h3 class="dnb-toc-item-title">From a blank page to a story worth sharing</h3>
-                    </div>
-                    <div class="dnb-toc-arrow">↗</div>
-                  </article>
-                
-                  <!-- Item 4 (New) -->
-                  <article class="dnb-toc-item" data-goto-spread="5" tabindex="0" role="button" aria-label="Read Article 04">
-                    <div class="dnb-toc-num">04</div>
-                    <img src="notebook-collage-04.jpg" alt="" class="dnb-toc-thumb">
-                    <div class="dnb-toc-info">
-                      <div class="dnb-toc-meta">STRATEGY / FREELANCING · 4 MIN</div>
-                      <h3 class="dnb-toc-item-title">Beyond Freelancing Platforms: How Your Website Can Help You Earn More</h3>
-                    </div>
-                    <div class="dnb-toc-arrow">↗</div>
-                  </article>
-</div>
-                <div class="dnb-signoff" style="margin-top: auto;">
-                  <span>SELECT AN ESSAY OR FLIP CORNER</span>
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="2">Start Reading →</button>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 01)"></div>
-            </div>
-          </div>
-
-          <!-- Spread 2: Article 01 -->
-          <div class="dnb-spread-panel" data-spread-idx="2" style="display: none;">
-            <!-- Left Page: Artwork & Intro -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>ARTICLE 01 · PSYCHOLOGY &amp; PERSPECTIVE</span>
-                <span>PAGE 02</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-meta" style="color: var(--dnb-terracotta);">FEATURED ESSAY · 5 MIN READ</div>
-                <h2 class="dnb-art-title">Why understanding people makes communication more meaningful</h2>
-                <p class="dnb-art-intro">A look at how listening closely, noticing behaviour and showing empathy can turn everyday communication into something more honest, effective and human.</p>
-                
-                <div class="dnb-art-frame">
-                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
-                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
-                  <img src="notebook-collage-01.jpg" alt="Mixed-media editorial collage: psychology profile, perception contour lines, pressed olive sprig, and archive stamp" class="dnb-art-collage">
-                </div>
-
-                <div class="dnb-art-note">
-                  Field note: Empathy is an active craft of observation, not a passive reaction.
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (TOC)"></div>
-            </div>
-
-            <!-- Right Page: Prose Reading -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>READING ESSAY</span>
-                <span>PAGE 03</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-prose">
-                  <p class="dnb-dropcap">Most communication failures are rarely about vocabulary; they are almost always failures of perception. In corporate meetings, brand campaigns, and casual conversations alike, we tend to fixate on <em>what we want to deliver</em> rather than <em>what the other person is equipped to receive</em>.</p>
-                  
-                  <p>During my academic background in psychology, one principle continually resurfaced: people do not process language in a vacuum. Every phrase lands against a backdrop of personal fatigue, unspoken insecurities, cognitive load, and silent motivations.</p>
-
-                  <blockquote class="dnb-pullquote">
-                    “When you understand who someone is defending themselves against, your words stop triggering resistance and start building bridges.”
-                  </blockquote>
-
-                  <p>When you shift the foundation of communication from <span class="dnb-highlight">persuasion to comprehension</span>, the tone changes completely. You stop speaking to impress and start speaking to connect. Sentences become shorter, metaphors become more vivid, and listening becomes an active investigation rather than a pause before your next turn to speak.</p>
-
-                  <p>True resonance isn't loud. It is the quiet feeling an audience gets when they realize: <em>“This writer actually sees the world from where I am standing.”</em></p>
-                </div>
-                <div class="dnb-signoff">
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="3">Next Essay: Questions →</button>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 02)"></div>
-            </div>
-          </div>
-
-          <!-- Spread 3: Article 02 -->
-          <div class="dnb-spread-panel" data-spread-idx="3" style="display: none;">
-            <!-- Left Page: Artwork & Intro -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>ARTICLE 02 · RESEARCH &amp; INTERVIEWS</span>
-                <span>PAGE 04</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-meta" style="color: var(--dnb-cobalt);">FIELD REPORT · 4 MIN READ</div>
-                <h2 class="dnb-art-title">The art of asking a better question</h2>
-                <p class="dnb-art-intro">How a more curious, open and thoughtful question can lead to richer conversations, sharper insights and more honest stories.</p>
-                
-                <div class="dnb-art-frame">
-                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
-                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
-                  <img src="notebook-collage-02.jpg" alt="Mixed-media editorial collage: oversized vintage question mark, field microphone illustration, pressed fern, and Field Notes stamp" class="dnb-art-collage">
-                </div>
-
-                <div class="dnb-art-note">
-                  Notebook rule: Never ask a question you can answer with a search engine.
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (Article 01)"></div>
-            </div>
-
-            <!-- Right Page: Prose Reading -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>READING ESSAY</span>
-                <span>PAGE 05</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-prose">
-                  <p class="dnb-dropcap">Across more than fifty live, on-ground interviews with university chancellors, visiting dignitaries, student founders, and artists, I learned that people arrive with an invisible script. They know their accomplishments, their soundbites, and the safe answers they’ve repeated a dozen times before.</p>
-
-                  <p>If you ask conventional questions, you receive conventional press releases. The breakthrough happens when you step off the planned script and ask about the emotional turning point.</p>
-
-                  <blockquote class="dnb-pullquote">
-                    “Ask not what they did, but what surprised them most when the original plan collapsed.”
-                  </blockquote>
-
-                  <p>A great interviewer doesn’t focus on sounding intelligent. A great interviewer creates an atmosphere of <span class="dnb-highlight">unhurried psychological safety</span>. When someone feels that you are genuinely tracking the nuances of their story rather than checking off questions on a clipboard, their posture relaxes and genuine honesty emerges.</p>
-
-                  <p>The art of the question is ultimately the art of presence: paying attention to where a person hesitates, where their voice drops, and having the courage to follow that thread into unscripted territory.</p>
-                </div>
-                <div class="dnb-signoff">
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="4">Next Essay: Storytelling →</button>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Next Spread (Article 03)"></div>
-            </div>
-          </div>
-
-          <!-- Spread 4: Article 03 -->
-          <div class="dnb-spread-panel" data-spread-idx="4" style="display: none;">
-            <!-- Left Page: Artwork & Intro -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>ARTICLE 03 · WRITING &amp; STORYTELLING</span>
-                <span>PAGE 06</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-meta" style="color: var(--dnb-leather);">CRAFT ESSAY · 6 MIN READ</div>
-                <h2 class="dnb-art-title">From a blank page to a story worth sharing</h2>
-                <p class="dnb-art-intro">A personal take on the messy, exciting process of turning ideas, notes and scattered thoughts into a story that feels real and worth reading.</p>
-                
-                <div class="dnb-art-frame">
-                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
-                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
-                  <img src="notebook-collage-03.jpg" alt="Mixed-media editorial collage: vintage mechanical typewriter, ruled manuscript paper with red proofreader marks, pressed fern sprig, and Archive stamp" class="dnb-art-collage">
-                </div>
-
-                <div class="dnb-art-note">
-                  Craft takeaway: The first draft is telling yourself the story; the revision is telling it to the reader.
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (Article 02)"></div>
-            </div>
-
-            <!-- Right Page: Prose Reading -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>READING ESSAY</span>
-                <span>PAGE 07</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-prose">
-                  <p class="dnb-dropcap">The most intimidating sight for any writer is not a difficult brief or a looming deadline; it is the blinding white glare of an empty page. We look at great writing and imagine it arrived as a continuous, effortless stream of genius. In reality, writing is an act of patient archaeology.</p>
-
-                  <p>You begin with scattered fragments: an overheard remark in a corridor, a psychological quirk observed during an interview, three contradictory sentences in a voice memo recorded at midnight.</p>
-
-                  <blockquote class="dnb-pullquote">
-                    “Good editing is not polite pruning; it is stripping away everything ornamental until only the pulse remains.”
-                  </blockquote>
-
-                  <p>The secret to finding momentum is giving yourself permission to <span class="dnb-highlight">write badly first</span>. Clear thinking is not the prerequisite for writing — writing is the process through which thinking becomes clear.</p>
-
-                  <p>When you edit without ego, ruthlessly eliminating padding and preserving only the details that ring true, a piece of writing stops feeling like homework and begins to feel alive.</p>
-                </div>
-                <div class="dnb-signoff">
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
-                  <span>END OF VOLUME I</span>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Back to Table of Contents"></div>
-            </div>
-          </div>
-
-          <!-- Spread 5: Article 04 (Beyond Freelancing Platforms) -->
-          <div class="dnb-spread-panel" data-spread-idx="5" style="display: none;">
-            <!-- Left Page: Artwork & Intro -->
-            <div class="dnb-page dnb-page-left">
-              <div class="dnb-folio-head">
-                <span>ARTICLE 04 · STRATEGY &amp; FREELANCING</span>
-                <span>PAGE 08</span>
-              </div>
-              <div class="dnb-page-content">
-                <div class="dnb-toc-meta" style="color: var(--dnb-terracotta);">CAREER STRATEGY · 4 MIN READ</div>
-                <h2 class="dnb-art-title">Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer</h2>
-                <p class="dnb-art-intro">A client Googles your name after seeing your resume. What do they find? Why owning your independent digital domain builds authority, establishes proof, and turns casual visitors into clients.</p>
-                
-                <div class="dnb-art-frame">
-                  <div class="dnb-tape dnb-tape-tl" aria-hidden="true"></div>
-                  <div class="dnb-tape dnb-tape-tr" aria-hidden="true"></div>
-                  <img src="notebook-collage-04.jpg" alt="Mixed-media editorial collage: vintage fountain pen nib drawing growth trajectory lines on torn parchment, muted cobalt and terracotta paper layers, and Inscribe Issue 04 stamp" class="dnb-art-collage">
-                </div>
-
-                <div class="dnb-art-note">
-                  Key takeaway: Social platforms change their algorithms and rules constantly. Your own domain is your unshakeable home base.
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-prev" title="Previous Spread (Article 03)"></div>
-            </div>
-
-            <!-- Right Page: Editorial Reading Columns -->
-            <div class="dnb-page dnb-page-right">
-              <div class="dnb-folio-head">
-                <span>FIELD PERSPECTIVE</span>
-                <span>PAGE 09</span>
-              </div>
-              <div class="dnb-page-content dnb-reading-body">
-                <div class="dnb-prose">
-                  <p class="dnb-lead">
-                    Oops, wait — readers, just pause for a second and think about what happens when a client gets your resume in their mail inbox. They might probably Google your name. What do they find in general? A LinkedIn profile maybe which you haven’t touched in a year, a couple of Instagram posts, and of course a byline or two which has already been buried on someone else’s site.
-                  </p>
-
-                  <p>
-                    Now just take a moment to visualize a different scenario: a simple website with your best samples, a short note on who you write for, and a button that says <em>“HIRE ME”</em>. Which writer would you pick? A website is the one place online that's completely and fully yours. Social media apps change their rules all the time, and due to increasing cyber crime rates in today’s fast-paced digital world, social media accounts can easily get hacked or banned. But your own domain stays put, and everything you build on it keeps adding up over the years.
-                  </p>
-
-                  <blockquote class="dnb-pullquote">
-                    “A website does a lot of the selling for you. A portfolio page lets clients verify proof in seconds.”
-                  </blockquote>
-
-                  <p>
-                    Every writer says they are absolutely great with words and storytelling, but at the end of the day, a wise client wants proof. Writers can organize their samples by topic — health, travel, tech — and even add a line about what the piece achieved, like more traffic or higher shares. If you start a blog on your site, it can show up on Google, which means clients may find you organically without you cold-pitching anyone. That’s also a quiet way of showing you understand SEO, which is exactly what clients pay for.
-                  </p>
-
-                  <p>
-                    It becomes your home base, where you can try out your own voice, start a newsletter, share free guides, or one day sell a course or ebook. Writers with a proper site look more established, and that often means they can charge more. Building one also clarifies who you write for and what makes your style unique. If you’ve been putting it off, this is your sign to start. You already have the words, so now give them somewhere to live.
-                  </p>
-                </div>
-                <div class="dnb-signoff">
-                  <button type="button" class="dnb-signoff-link" data-jump-spread="1">← Back to Contents</button>
-                  <span>WRITTEN BY DIYA · ISSUE 04</span>
-                </div>
-              </div>
-              <div class="dnb-dogear dnb-dogear-next" title="Back to Table of Contents"></div>
-            </div>
-          </div>
-
-          <!-- Edge Bookmarks / Tabs -->
-          <nav class="dnb-tabs" aria-label="Notebook edge bookmark tabs">
-            <button type="button" class="dnb-tab active" data-tab-idx="1" title="Table of Contents">TOC</button>
-            <button type="button" class="dnb-tab" data-tab-idx="2" title="Article 01">01</button>
-            <button type="button" class="dnb-tab" data-tab-idx="3" title="Article 02">02</button>
-            <button type="button" class="dnb-tab" data-tab-idx="4" title="Article 03">03</button>
-          <button type="button" class="dnb-tab" data-tab-idx="5" title="Article 04">04</button>
-          </nav>
-
-          <!-- 3D Page Turn Leaf Rig -->
-          <div class="dnb-flip-leaf" id="dnbFlipLeaf" aria-hidden="true">
-            <div class="dnb-leaf-face dnb-leaf-front" id="dnbLeafFront"></div>
-            <div class="dnb-leaf-face dnb-leaf-back" id="dnbLeafBack"></div>
-            <div class="dnb-leaf-shade" id="dnbLeafShade"></div>
-          </div>
-        </div>
+      <div class="art-drawer-prose" id="artDrawerContent">
+        <!-- Injected dynamically -->
       </div>
     </div>
 
-    <!-- Bottom HUD Bar -->
-    <footer class="dnb-hud-bottom">
-      <div class="mono" id="dnbSpreadIndicator">SPREAD: 01 · TABLE OF CONTENTS</div>
-      <div class="dnb-hud-progress-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1">
-        <div class="dnb-hud-progress-bar" id="dnbProgressBar"></div>
-      </div>
-      <div class="mono" id="dnbPageCounter">PAGE 01 OF 07</div>
-    </footer>
-  </div>
+    <div class="art-drawer-foot">
+      <button class="art-drawer-nav-btn" id="artDrawerPrev">← Previous Story</button>
+      <div class="mono" style="font-size: 10.5px; color: var(--ink-muted);" id="artDrawerCounter">1 of 4</div>
+      <button class="art-drawer-nav-btn" id="artDrawerNext">Next Story →</button>
+    </div>
+  </aside>
 
+
+  
   <script>
     // 1. Preloader Curtain + Handwritten Logo Signature
     const brandLogo = document.getElementById('brandLogo');
@@ -3207,7 +1893,7 @@
         // Section header elements fade in with gentle upward motion
         gsap.from('.nb-kicker, .nb-title, .nb-intro, .nb-divider', {
           scrollTrigger: {
-            trigger: '#blog',
+            trigger: '#notebook',
             start: 'top 82%',
           },
           y: 22,
@@ -3291,431 +1977,182 @@
     }
 
     // 18. IMMERSIVE 3D DIGITAL NOTEBOOK CONTROLLER & AUDIO RIG
-    (function initDigitalNotebook() {
-      const overlay = document.getElementById('digitalNotebookOverlay');
-      if (!overlay) return;
+    
+    // =========================================================
+    // EDITORIAL ARTICLE READING SUITE CONTROLLER
+    // =========================================================
+    const storiesData = {
+      story1: {
+        num: '01',
+        tag: 'PSYCHOLOGY / PERSPECTIVE',
+        readTime: '5 MIN READ',
+        title: 'Why understanding people makes communication more meaningful',
+        img: 'notebook-collage-01.jpg',
+        lead: 'Good communication starts before the first word is written. It starts with curiosity: Who am I speaking to? What might they need? What experiences shape the way they interpret a message?',
+        body: `
+          <p>Studying psychology has made me attentive to the invisible currents running beneath everyday language. People do not arrive at messages as blank slates or sterile audience segments. They carry unspoken assumptions, defensive reflexes, quiet fatigue, and an innate craving to feel understood rather than sold to.</p>
 
-      const book = document.getElementById('dnbBook');
-      const coverView = document.getElementById('dnbCoverView');
-      const spreadPanels = document.querySelectorAll('.dnb-spread-panel');
-      const tabs = document.querySelectorAll('.dnb-tab');
-      const spreadIndicator = document.getElementById('dnbSpreadIndicator');
-      const progressBar = document.getElementById('dnbProgressBar');
-      const pageCounter = document.getElementById('dnbPageCounter');
-      const prevBtn = document.getElementById('dnbPrevBtn');
-      const nextBtn = document.getElementById('dnbNextBtn');
-      const contentsBtn = document.getElementById('dnbContentsBtn');
-      const closeBtn = document.getElementById('dnbCloseBtn');
-      const flipLeaf = document.getElementById('dnbFlipLeaf');
-      const leafFront = document.getElementById('dnbLeafFront');
-      const leafBack = document.getElementById('dnbLeafBack');
-      const leafShade = document.getElementById('dnbLeafShade');
-      const underlayLeft = document.getElementById('dnbUnderlayLeft');
-      const underlayRight = document.getElementById('dnbUnderlayRight');
+          <div class="art-drawer-pullquote">
+            “When you respect a reader’s intelligence, you stop performing for them and start conversing with them.”
+          </div>
 
-      let currentSpread = 0; // 0: cover, 1: TOC, 2: art 01, 3: art 02, 4: art 03
-      let isFlipping = false;
-      let openChoreoTimer = null;
+          <p>In marketing and content strategy, we are frequently incentivized to chase algorithms, optimize keywords, and compress ideas into punchy bite-sized slogans. While clarity matters, reducing communication strictly to persuasion often produces work that feels hollow and forgettable.</p>
 
-      const spreadData = [
-        { name: 'COVER · HANDBOUND VOLUME', pages: 'COVER', progress: 0 },
-        { name: 'SPREAD: 01 · TABLE OF CONTENTS', pages: 'PAGE 01 OF 09', progress: 20 },
-        { name: 'SPREAD: 02 · ARTICLE 01', pages: 'PAGES 02–03 OF 09', progress: 40 },
-        { name: 'SPREAD: 03 · ARTICLE 02', pages: 'PAGES 04–05 OF 09', progress: 60 },
-        { name: 'SPREAD: 04 · ARTICLE 03', pages: 'PAGES 06–07 OF 09', progress: 80 },
-        { name: 'SPREAD: 05 · ARTICLE 04', pages: 'PAGES 08–09 OF 09', progress: 100 }
-      ];
+          <p>True communication begins with active noticing: listening to what people hesitate to say, observing the emotions behind their complaints, and leaving enough breathing room for nuance. When you build stories around real human complexity, you don't have to shout to be remembered.</p>
+        `
+      },
+      story2: {
+        num: '02',
+        tag: 'RESEARCH / INTERVIEWS',
+        readTime: '4 MIN READ',
+        title: 'The art of asking a better question',
+        img: 'notebook-collage-02.jpg',
+        lead: 'A thoughtful interview is not a checklist of questions. Preparation gives a conversation direction, but listening gives it life.',
+        body: `
+          <p>Across more than 50 on-ground and long-form interviews, the most valuable revelations never arrived from the scripted questions I spent hours refining. They arrived in the unscripted pauses — when a subject finished their rehearsed answer, looked away, and said something candid that surprised both of us.</p>
 
-      // Subtle Web Audio API paper turn sound synthesis (Zero network latency, 0 external files)
-      let audioCtx = null;
-      function playPaperSound() {
-        try {
-          if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          }
-          if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-          }
-          const bufferSize = audioCtx.sampleRate * 0.16;
-          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-          const data = buffer.getChannelData(0);
-          for (let i = 0; i < bufferSize; i++) {
-            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
-          }
-          const noise = audioCtx.createBufferSource();
-          noise.buffer = buffer;
+          <div class="art-drawer-pullquote">
+            “The most transformative questions are rarely complicated. They are open, attentive, and quiet enough to let the truth breathe.”
+          </div>
 
-          const filter = audioCtx.createBiquadFilter();
-          filter.type = 'bandpass';
-          filter.frequency.setValueAtTime(1400, audioCtx.currentTime);
-          filter.Q.setValueAtTime(2.2, audioCtx.currentTime);
+          <p>Most interviewers listen with the intent to reply, mentally queuing up their next bullet point while the interviewee is still speaking. This telegraphs impatience and keeps conversations on the surface.</p>
 
-          const gain = audioCtx.createGain();
-          gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+          <p>Instead, ask questions that invite reflection: <em>“What did everyone misunderstand about that moment?”</em> or <em>“When did you realize things had fundamentally shifted?”</em> When you hold space without rushing to fill the silence, people offer their most honest stories.</p>
+        `
+      },
+      story3: {
+        num: '03',
+        tag: 'WRITING / STORYTELLING',
+        readTime: '6 MIN READ',
+        title: 'From a blank page to a story worth sharing',
+        img: 'notebook-collage-03.jpg',
+        lead: 'I like to begin with a question, not a headline. I gather context, search for reliable details, and find the angle that makes the subject matter to someone.',
+        body: `
+          <p>Every piece of writing begins with scattered chaos: an overheard conversation in transit, an odd psychological contradiction noted in a margin, or a voice memo whispered at midnight. Staring at an empty document with the expectation of writing something brilliant immediately induces paralysis.</p>
 
-          noise.connect(filter);
-          filter.connect(gain);
-          gain.connect(audioCtx.destination);
-          noise.start();
-        } catch (e) {
-          // Audio not allowed or failed, fail silently
-        }
+          <div class="art-drawer-pullquote">
+            “The first draft is telling yourself what you think; the revision is making sure the reader feels it too.”
+          </div>
+
+          <p>The solution is granting yourself unconditional permission to write poorly at first. Clear thinking is not the prerequisite for writing — writing is the physical crucible in which thinking becomes clear.</p>
+
+          <p>Then comes the edit: ruthlessly deleting the decorative padding, clarifying what feels murky, and choosing the honest word over the impressive one. Strong writing is not about making simple ideas sound complex; it is about making vital truths impossible to misunderstand.</p>
+        `
+      },
+      story4: {
+        num: '04',
+        tag: 'STRATEGY / FREELANCING',
+        readTime: '4 MIN READ',
+        title: 'Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer',
+        img: 'notebook-collage-04.jpg',
+        lead: 'What happens when a prospective client gets your resume and Googles your name? What do they find? A neglected profile, or an authoritative home base that speaks for itself?',
+        body: `
+          <p>Oops, wait — readers, just pause for a second and think about what happens when a client gets your resume in their mail inbox. They might probably Google your name. What do they find in general? A LinkedIn profile maybe which you haven’t touched in a year, a couple of Instagram posts, and of course a byline or two which has already been buried on someone else’s site.</p>
+
+          <p>Now just take a moment to visualize a different scenario: a simple website with your best samples, a short note on who you write for, and a button that says <em>“HIRE ME”</em>. Which writer would you pick? A website is the one place online that's completely and fully yours. Social media apps change their rules all the time, and due to increasing cyber crime rates in today’s fast-paced digital world, social media accounts can easily get hacked or banned. But your own domain stays put, and everything you build on it keeps adding up over the years.</p>
+
+          <div class="art-drawer-pullquote">
+            “A website does the selling for you while you are asleep. Proof beats promises every time.”
+          </div>
+
+          <p>Do you know the best part? A website does a lot of the selling for you. Every writer says they are absolutely great with words and storytelling, but at the end of the day, a wise client wants proof. A dedicated portfolio page lets them read your work in seconds and thoroughly analyze whether you are the right fit. Writers can organize their samples by topic — health, travel, tech — and even add a line about what the piece achieved, like more traffic or higher shares.</p>
+
+          <p>If you start a blog on your site, it can show up on Google, which means clients may discover you organically without you cold-pitching anyone. That’s also a quiet way of showing you understand SEO, which is exactly what many clients are paying for. Add a few testimonials, a clear services page, and an About section that sounds genuinely like you, and a stranger can become a client while you’re asleep or busy with another deadline.</p>
+
+          <p>The best part is what a website lets you do down the road. It becomes your home base, where you can try out your own voice, start a newsletter, share free guides, or one day sell a course or ebook. Writers with a proper site also tend to look more established, and that often means they can charge higher rates. Building one also makes you decide who you write for and what makes your style different, which helps your whole career feel clearer. If you’ve been putting it off, this is your sign to start. You already have the words, so now give them somewhere to live.</p>
+        `
       }
+    };
 
-      function showPanel(idx) {
-        spreadPanels.forEach(p => {
-          p.style.display = parseInt(p.dataset.spreadIdx, 10) === idx ? 'contents' : 'none';
-        });
+    const storyKeys = ['story1', 'story2', 'story3', 'story4'];
+    let currentStoryIdx = 0;
+
+    const artDrawer = document.getElementById('artDrawer');
+    const artBackdrop = document.getElementById('artDrawerBackdrop');
+    const artKicker = document.getElementById('artDrawerKicker');
+    const artTag = document.getElementById('artDrawerTag');
+    const artReadTime = document.getElementById('artDrawerReadTime');
+    const artTitle = document.getElementById('artDrawerTitle');
+    const artImg = document.getElementById('artDrawerImg');
+    const artContent = document.getElementById('artDrawerContent');
+    const artCounter = document.getElementById('artDrawerCounter');
+    const artCloseBtn = document.getElementById('artDrawerClose');
+    const artPrevBtn = document.getElementById('artDrawerPrev');
+    const artNextBtn = document.getElementById('artDrawerNext');
+
+    function openStory(key) {
+      currentStoryIdx = storyKeys.indexOf(key);
+      if (currentStoryIdx === -1) currentStoryIdx = 0;
+      const data = storiesData[key] || storiesData[storyKeys[currentStoryIdx]];
+
+      artKicker.textContent = `ARTICLE ${data.num}`;
+      artTag.textContent = data.tag;
+      artReadTime.textContent = data.readTime;
+      artTitle.textContent = data.title;
+      artImg.src = data.img;
+      artImg.alt = data.title;
+      artContent.innerHTML = `<p class="lead">${data.lead}</p>${data.body}`;
+      artCounter.textContent = `${currentStoryIdx + 1} of ${storyKeys.length}`;
+
+      artDrawer.classList.add('open');
+      artBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Scroll drawer to top
+      const bodyEl = artDrawer.querySelector('.art-drawer-body');
+      if (bodyEl) bodyEl.scrollTop = 0;
+
+      // Update URL hash
+      if (window.location.hash !== '#' + key) {
+        history.pushState(null, '', '#' + key);
       }
+    }
 
-      function updateUI() {
-        const data = spreadData[currentSpread];
-        if (spreadIndicator) spreadIndicator.textContent = data.name;
-        if (pageCounter) pageCounter.textContent = data.pages;
-        if (progressBar) progressBar.style.width = data.progress + '%';
-
-        // Update side tabs
-        tabs.forEach(tab => {
-          const idx = parseInt(tab.dataset.tabIdx, 10);
-          tab.classList.toggle('active', idx === currentSpread);
-        });
-
-        // Prev/Next buttons
-        if (prevBtn) {
-          prevBtn.style.opacity = currentSpread === 0 ? '0.4' : '1';
-          prevBtn.style.pointerEvents = currentSpread === 0 ? 'none' : 'auto';
-        }
-        if (nextBtn) {
-          nextBtn.style.opacity = currentSpread === 4 ? '0.4' : '1';
-          nextBtn.style.pointerEvents = currentSpread === 4 ? 'none' : 'auto';
-        }
+    function closeStory() {
+      artDrawer.classList.remove('open');
+      artBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+      if (window.location.hash.startsWith('#story')) {
+        history.pushState(null, '', window.location.pathname);
       }
+    }
 
-      function goToSpread(targetIdx, direction = 'auto') {
-        if (isFlipping) return;
-        targetIdx = Math.max(0, Math.min(4, targetIdx));
-        if (targetIdx === currentSpread) return;
+    document.querySelectorAll('[data-open-story]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        openStory(btn.dataset.openStory);
+      });
+    });
 
-        if (direction === 'auto') {
-          direction = targetIdx > currentSpread ? 'next' : 'prev';
-        }
+    artCloseBtn?.addEventListener('click', closeStory);
+    artBackdrop?.addEventListener('click', closeStory);
 
-        playPaperSound();
+    artPrevBtn?.addEventListener('click', () => {
+      currentStoryIdx = (currentStoryIdx - 1 + storyKeys.length) % storyKeys.length;
+      openStory(storyKeys[currentStoryIdx]);
+    });
 
-        // Transitioning from cover -> spread
-        if (currentSpread === 0) {
-          showPanel(targetIdx);
-          book.classList.remove('state-cover');
-          currentSpread = targetIdx;
-          updateUI();
-          return;
-        }
+    artNextBtn?.addEventListener('click', () => {
+      currentStoryIdx = (currentStoryIdx + 1) % storyKeys.length;
+      openStory(storyKeys[currentStoryIdx]);
+    });
 
-        // Transitioning from spread -> closed cover
-        if (targetIdx === 0) {
-          book.classList.add('state-cover');
-          currentSpread = 0;
-          updateUI();
-          return;
-        }
+    window.addEventListener('keydown', e => {
+      if (!artDrawer.classList.contains('open')) return;
+      if (e.key === 'Escape') closeStory();
+      if (e.key === 'ArrowRight') artNextBtn?.click();
+      if (e.key === 'ArrowLeft') artPrevBtn?.click();
+    });
 
-        // Real 3D Page Turning with Content Cloning between Open Spreads
-        const currentPanel = overlay.querySelector(`.dnb-spread-panel[data-spread-idx="${currentSpread}"]`);
-        const targetPanel = overlay.querySelector(`.dnb-spread-panel[data-spread-idx="${targetIdx}"]`);
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        if (
-          !prefersReduced &&
-          typeof gsap !== 'undefined' &&
-          flipLeaf && leafFront && leafBack && leafShade &&
-          underlayLeft && underlayRight &&
-          currentPanel && targetPanel
-        ) {
-          isFlipping = true;
-
-          const currentLeft = currentPanel.querySelector('.dnb-page-left');
-          const currentRight = currentPanel.querySelector('.dnb-page-right');
-          const targetLeft = targetPanel.querySelector('.dnb-page-left');
-          const targetRight = targetPanel.querySelector('.dnb-page-right');
-
-          const cleanupFlip = () => {
-            flipLeaf.classList.remove('turning');
-            underlayLeft.classList.remove('active');
-            underlayRight.classList.remove('active');
-            leafFront.innerHTML = '';
-            leafBack.innerHTML = '';
-            underlayLeft.innerHTML = '';
-            underlayRight.innerHTML = '';
-            gsap.set(flipLeaf, { rotateY: 0 });
-            leafShade.style.opacity = 0;
-            currentSpread = targetIdx;
-            updateUI();
-            isFlipping = false;
-          };
-
-          if (direction === 'next') {
-            // Right page lifts from right to left, revealing new Right Page underneath
-            leafFront.innerHTML = currentRight ? currentRight.innerHTML : '';
-            leafBack.innerHTML = targetLeft ? targetLeft.innerHTML : '';
-            underlayLeft.innerHTML = currentLeft ? currentLeft.innerHTML : '';
-            underlayLeft.classList.add('active');
-
-            showPanel(targetIdx);
-            flipLeaf.classList.add('turning');
-
-            gsap.fromTo(
-              flipLeaf,
-              { rotateY: 0 },
-              {
-                rotateY: -180,
-                duration: 0.75,
-                ease: 'power2.inOut',
-                onUpdate: function() {
-                  const p = this.progress();
-                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.52;
-                },
-                onComplete: cleanupFlip
-              }
-            );
-          } else {
-            // Left page lifts from left back to right, revealing new Left Page underneath
-            leafFront.innerHTML = targetRight ? targetRight.innerHTML : '';
-            leafBack.innerHTML = currentLeft ? currentLeft.innerHTML : '';
-            underlayRight.innerHTML = currentRight ? currentRight.innerHTML : '';
-            underlayRight.classList.add('active');
-
-            showPanel(targetIdx);
-            flipLeaf.classList.add('turning');
-
-            gsap.fromTo(
-              flipLeaf,
-              { rotateY: -180 },
-              {
-                rotateY: 0,
-                duration: 0.75,
-                ease: 'power2.inOut',
-                onUpdate: function() {
-                  const p = this.progress();
-                  leafShade.style.opacity = Math.sin(p * Math.PI) * 0.52;
-                },
-                onComplete: cleanupFlip
-              }
-            );
-          }
-        } else {
-          // Instant fallback / reduced motion
-          showPanel(targetIdx);
-          currentSpread = targetIdx;
-          updateUI();
-        }
+    // Check direct hash URL on load e.g. #story4
+    function checkStoryRoute() {
+      const h = window.location.hash;
+      if (h && storiesData[h.replace('#', '')]) {
+        setTimeout(() => openStory(h.replace('#', '')), 200);
       }
-
-      function openNotebook(targetSpread = 1) {
-        if (openChoreoTimer) {
-          clearTimeout(openChoreoTimer);
-          openChoreoTimer = null;
-        }
-
-        const wasOpen = overlay.classList.contains('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (window.location.hash !== '#notebook') {
-          history.pushState(null, '', '#notebook');
-        }
-
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        if (!wasOpen && targetSpread > 0 && !prefersReduced) {
-          // Physical Opening Choreography: Rest closed on desk briefly, then swing cover open
-          book.classList.add('state-cover');
-          currentSpread = 0;
-          showPanel(targetSpread);
-          updateUI();
-
-          openChoreoTimer = setTimeout(() => {
-            openChoreoTimer = null;
-            if (overlay.classList.contains('active') && currentSpread === 0) {
-              goToSpread(targetSpread, 'next');
-            }
-          }, 420);
-        } else {
-          if (targetSpread > 0) {
-            if (wasOpen && currentSpread > 0) {
-              goToSpread(targetSpread);
-            } else {
-              book.classList.remove('state-cover');
-              showPanel(targetSpread);
-              currentSpread = targetSpread;
-              updateUI();
-              playPaperSound();
-            }
-          } else {
-            book.classList.add('state-cover');
-            currentSpread = 0;
-            updateUI();
-          }
-        }
-      }
-
-      function closeNotebook() {
-        if (openChoreoTimer) {
-          clearTimeout(openChoreoTimer);
-          openChoreoTimer = null;
-        }
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-        if (window.location.hash === '#notebook') {
-          history.pushState(null, '', window.location.pathname + window.location.search);
-        }
-      }
-
-      // Event Listeners
-      coverView?.addEventListener('click', () => goToSpread(1, 'next'));
-      coverView?.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          goToSpread(1, 'next');
-        }
-      });
-      contentsBtn?.addEventListener('click', () => goToSpread(1));
-      
-      prevBtn?.addEventListener('click', () => {
-        if (currentSpread > 1) {
-          goToSpread(currentSpread - 1, 'prev');
-        } else if (currentSpread === 1) {
-          goToSpread(0, 'prev');
-        }
-      });
-
-      nextBtn?.addEventListener('click', () => {
-        if (currentSpread < 5) {
-          goToSpread(currentSpread + 1, 'next');
-        }
-      });
-
-      closeBtn?.addEventListener('click', closeNotebook);
-
-      // Edge Bookmark Tabs
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const idx = parseInt(tab.dataset.tabIdx, 10);
-          goToSpread(idx);
-        });
-      });
-
-      // Signoff Inline Jump Links
-      overlay.querySelectorAll('[data-jump-spread]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const idx = parseInt(btn.dataset.jumpSpread, 10);
-          goToSpread(idx);
-        });
-      });
-
-      // Dog-ear Corner Click Listeners
-      document.querySelectorAll('.dnb-dogear-next').forEach(dogear => {
-        dogear.addEventListener('click', e => {
-          e.stopPropagation();
-          if (currentSpread < 5) {
-            goToSpread(currentSpread + 1, 'next');
-          } else {
-            goToSpread(1, 'prev'); // Loop back to TOC
-          }
-        });
-      });
-
-      document.querySelectorAll('.dnb-dogear-prev').forEach(dogear => {
-        dogear.addEventListener('click', e => {
-          e.stopPropagation();
-          if (currentSpread > 1) {
-            goToSpread(currentSpread - 1, 'prev');
-          } else if (currentSpread === 1) {
-            goToSpread(0, 'prev');
-          }
-        });
-      });
-
-      // TOC Item Clicks -> Go to Article Spread
-      document.querySelectorAll('.dnb-toc-item[data-goto-spread]').forEach(item => {
-        item.addEventListener('click', () => {
-          const target = parseInt(item.dataset.gotoSpread, 10);
-          goToSpread(target, 'next');
-        });
-        item.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            const target = parseInt(item.dataset.gotoSpread, 10);
-            goToSpread(target, 'next');
-          }
-        });
-      });
-
-      // Keyboard Navigation
-      window.addEventListener('keydown', e => {
-        if (!overlay.classList.contains('active')) return;
-        if (e.key === 'Escape') {
-          closeNotebook();
-        } else if (e.key === 'ArrowRight' || e.key === 'PageDown') {
-          if (currentSpread < 5) goToSpread(currentSpread + 1, 'next');
-        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-          if (currentSpread > 1) goToSpread(currentSpread - 1, 'prev');
-          else if (currentSpread === 1) goToSpread(0, 'prev');
-        }
-      });
-
-      // Mobile Touch Gesture Support (Swipe left/right)
-      let touchStartX = 0;
-      let touchEndX = 0;
-      overlay.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      overlay.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diffX = touchEndX - touchStartX;
-        if (Math.abs(diffX) > 55) {
-          if (diffX < 0 && currentSpread < 5) {
-            goToSpread(currentSpread + 1, 'next'); // Swipe left -> next
-          } else if (diffX > 0 && currentSpread > 0) {
-            goToSpread(currentSpread - 1, 'prev'); // Swipe right -> prev
-          }
-        }
-      }, { passive: true });
-
-      // Portfolio page triggers
-      const navNotebook = document.getElementById('navNotebookLink');
-      if (navNotebook) {
-        navNotebook.addEventListener('click', e => {
-          e.preventDefault();
-          openNotebook(1);
-        });
-      }
-
-      const portalBtn = document.getElementById('openNotebookPortalBtn');
-      if (portalBtn) {
-        portalBtn.addEventListener('click', () => openNotebook(1));
-      }
-
-      document.querySelectorAll('.nb-open-journal-link[data-open-spread]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const target = parseInt(btn.dataset.openSpread, 10);
-          openNotebook(target);
-        });
-      });
-
-      // Hash routing
-      function checkRoute() {
-        if (window.location.hash === '#notebook' || window.location.pathname.endsWith('/notebook')) {
-          openNotebook(1);
-        }
-      }
-      window.addEventListener('hashchange', checkRoute);
-
-      // Export functions for debugging / external triggers if needed
-      window.openDigitalNotebook = openNotebook;
-      window.closeDigitalNotebook = closeNotebook;
-      window.goToNotebookSpread = goToSpread;
-    })();
+    }
+    window.addEventListener('hashchange', checkStoryRoute);
+    checkStoryRoute();
 
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
