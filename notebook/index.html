@@ -26,40 +26,94 @@
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Blog",
-        "@id": "https://diyainscribe.in/notebook/#blog",
-        "name": "The Open Notebook",
-        "url": "https://diyainscribe.in/notebook/",
-        "author": {
-          "@type": "Person",
-          "name": "Diya Das",
-          "url": "https://diyainscribe.in/"
-        },
-        "description": "Thoughts, little discoveries and drafts about communication, people, creativity and storytelling."
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://diyainscribe.in/notebook/#blog",
+      "name": "The Open Notebook",
+      "url": "https://diyainscribe.in/notebook/",
+      "author": {
+        "@type": "Person",
+        "name": "Diya Das",
+        "url": "https://diyainscribe.in/"
       },
-      {
-        "@type": "BlogPosting",
-        "@id": "https://diyainscribe.in/notebook/#story6",
-        "headline": "Why Do You Suddenly Stop Scrolling?",
-        "description": "The psychology of pattern interrupts, why our brains ignore repetitive content, and how great creators and Indian brands (CRED, Zomato, Fevicol) make people pause in the first 3 seconds.",
-        "image": "https://diyainscribe.in/notebook-collage-06.jpg",
-        "url": "https://diyainscribe.in/notebook/#story6",
-        "datePublished": "2026-11-19",
-        "author": {
-          "@type": "Person",
-          "name": "Diya Das"
-        },
-        "publisher": {
-          "@type": "Person",
-          "name": "Diya Das"
-        },
-        "mainEntityOfPage": "https://diyainscribe.in/notebook/"
-      }
-    ]
-  }
+      "description": "Thoughts, little discoveries and drafts about communication, people, creativity and storytelling."
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://diyainscribe.in/notebook/#story4",
+      "headline": "Why Do You Suddenly Stop Scrolling?",
+      "description": "Have you ever noticed that you have opened Instagram for five minutes and somehow, it’s been over an hour. Suddenly then one reel makes you stop scrolling. So why that video, and not the twenty before it have you ever thought of it?",
+      "image": "https://diyainscribe.in/notebook-collage-06.jpg",
+      "url": "https://diyainscribe.in/notebook/#story4",
+      "datePublished": "2026-11-21",
+      "author": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://diyainscribe.in/notebook/#story3",
+      "headline": "Why are my customers going to my competitors?",
+      "description": "Have you ever noticed while crossing down the streets how two tea stalls can be right next to each other, selling almost the same chai at the same price, yet one stall is always crowded while the other is struggling to get customers?",
+      "image": "https://diyainscribe.in/notebook-mondo-competitors.jpg",
+      "url": "https://diyainscribe.in/notebook/#story3",
+      "datePublished": "2026-11-21",
+      "author": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://diyainscribe.in/notebook/#story2",
+      "headline": "Studying Psychology Before an MBA Can Help You Grow a Business and Make More Money",
+      "description": "Every business whether it is big or small is built on understanding people, and that’s where having a psychology degree before an MBA can be a total game changer.",
+      "image": "https://diyainscribe.in/notebook-mondo-mba.jpg",
+      "url": "https://diyainscribe.in/notebook/#story2",
+      "datePublished": "2026-11-21",
+      "author": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://diyainscribe.in/notebook/#story1",
+      "headline": "Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer",
+      "description": "Think about what happens when a client gets your resume in their mail inbox and Googles your name. A simple website with your best samples, a short note on who you write for, and a button that says HIRE ME.",
+      "image": "https://diyainscribe.in/notebook-mondo-website.jpg",
+      "url": "https://diyainscribe.in/notebook/#story1",
+      "datePublished": "2026-11-21",
+      "author": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Diya Das"
+      },
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+    }
+  ]
+}
   </script>
   <meta name="theme-color" content="#f7f2e9" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -304,8 +358,9 @@
       width: 100%;
       height: auto;
       display: block;
-      aspect-ratio: 16/10;
-      object-fit: cover;
+      aspect-ratio: 16/9;
+      object-fit: contain;
+      background: #F5EFE4;
     }
     .featured-card .art-img-frame img {
       aspect-ratio: auto;
@@ -694,11 +749,11 @@
             <button class="filter-btn" data-filter="writing">Writing</button>
             <button class="filter-btn" data-filter="business">Business &amp; Leadership</button>
           </div>
-          <div class="filter-count">6 ESSAYS PUBLISHED</div>
+          <div class="filter-count">4 ESSAYS PUBLISHED</div>
         </div>
 
         <div style="margin-top: 40px;">
-          <!-- FEATURED / LATEST ARTICLE: Issue 06 (Pattern Interrupt & Attention) -->
+          <!-- FEATURED / LATEST ARTICLE: Issue 04 -->
           <article class="featured-card" data-category="psychology" aria-labelledby="featArtTitle">
             <div class="art-img-frame" data-cursor="VIEW">
               <div class="tape-corner"></div>
@@ -707,7 +762,7 @@
 
             <div class="art-content">
               <div class="art-meta">
-                <span class="art-meta-pill">★ LATEST STORY · ISSUE 06</span>
+                <span class="art-meta-pill">★ LATEST STORY · ISSUE 04</span>
                 <span>·</span>
                 <span>PSYCHOLOGY &amp; CONTENT MARKETING</span>
               </div>
@@ -717,106 +772,68 @@
               <p class="art-desc">
                 Have you ever noticed that you have opened Instagram for five minutes and somehow, it’s been over an hour. Suddenly then one reel makes you stop scrolling. So why that video, and not the twenty before it have you ever thought of it?
               </p>
-              <button type="button" class="art-read-cta" data-story="story6" data-cursor="READ">
+              <button type="button" class="art-read-cta" data-story="story4" data-cursor="READ">
                 <span>Read Full Essay</span>
                 <span>→</span>
               </button>
             </div>
           </article>
 
-          <!-- 3-COLUMN SECONDARY ARTICLE GRID -->
+          <!-- SECONDARY ARTICLE GRID -->
           <div class="articles-grid">
-            <!-- Article 05 -->
+            <!-- Article 03 -->
+            <article class="art-card" data-category="strategy">
+              <div class="art-img-frame" data-cursor="VIEW">
+                <img src="/notebook-mondo-competitors.jpg" alt="Mondo narrative screen-print poster: split Indian street scene comparing an empty Cash Only chai tapri with a thriving, crowded tea stall accepting UPI payments" loading="lazy">
+              </div>
+              <div class="art-meta">
+                <span>STRATEGY &amp; BUSINESS</span>
+                <span>·</span>
+                <span>5 MIN</span>
+              </div>
+              <h3 class="art-title">Why are my customers going to my competitors?</h3>
+              <p class="art-desc">
+                Have you ever noticed while crossing down the streets how two tea stalls can be right next to each other, selling almost the same chai at the same price, yet one stall is always crowded while the other is struggling to get customers?
+              </p>
+              <button type="button" class="art-read-cta" data-story="story3" data-cursor="READ">
+                Read the story →
+              </button>
+            </article>
+
+            <!-- Article 02 -->
             <article class="art-card" data-category="business">
               <div class="art-img-frame" data-cursor="VIEW">
-                <img src="/notebook-collage-05.jpg" alt="Psychology and MBA business collage: brain line-art intertwined with growth trajectory chart, torn cobalt and terracotta layers, and Inscribe Issue 05 stamp" loading="lazy">
+                <img src="/notebook-mondo-mba.jpg" alt="Mondo narrative screen-print poster: composed woman in a boardroom observing outspoken and quiet team members, layered with Ringelmann tug-of-war rope and Kahneman price-tag anchoring scale" loading="lazy">
               </div>
               <div class="art-meta">
                 <span>PSYCHOLOGY &amp; BUSINESS</span>
                 <span>·</span>
                 <span>6 MIN</span>
               </div>
-              <h3 class="art-title">How Studying Psychology Before an MBA Can Help You Grow a Business and Make More Money</h3>
+              <h3 class="art-title">Studying Psychology Before an MBA Can Help You Grow a Business and Make More Money</h3>
               <p class="art-desc">
-                An MBA teaches you how to make business decisions, but psychology teaches you to question the mind making those decisions. Why understanding cognitive bias and human motivation is a genuine corporate superpower.
-              </p>
-              <button type="button" class="art-read-cta" data-story="story5" data-cursor="READ">
-                Read the story →
-              </button>
-            </article>
-
-            <!-- Article 04 -->
-            <article class="art-card" data-category="strategy">
-              <div class="art-img-frame" data-cursor="VIEW">
-                <img src="/notebook-collage-04.jpg" alt="Freelance writing & website strategy collage" loading="lazy">
-              </div>
-              <div class="art-meta">
-                <span>STRATEGY / FREELANCING</span>
-                <span>·</span>
-                <span>4 MIN</span>
-              </div>
-              <h3 class="art-title">Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer</h3>
-              <p class="art-desc">
-                What happens when a client Googles your name? Why owning an independent digital domain builds authority, establishes proof, and helps you earn more.
-              </p>
-              <button type="button" class="art-read-cta" data-story="story4" data-cursor="READ">
-                Read the story →
-              </button>
-            </article>
-
-            <!-- Article 01 -->
-            <article class="art-card" data-category="psychology">
-              <div class="art-img-frame" data-cursor="VIEW">
-                <img src="/notebook-collage-01.jpg" alt="Psychology profile collage" loading="lazy">
-              </div>
-              <div class="art-meta">
-                <span>PSYCHOLOGY / PERSPECTIVE</span>
-                <span>·</span>
-                <span>5 MIN</span>
-              </div>
-              <h3 class="art-title">Why understanding people makes communication more meaningful</h3>
-              <p class="art-desc">
-                A look at how listening closely, noticing behavior, and showing empathy turn everyday communication into something more honest, effective, and human.
-              </p>
-              <button type="button" class="art-read-cta" data-story="story1" data-cursor="READ">
-                Read the story →
-              </button>
-            </article>
-
-            <!-- Article 02 -->
-            <article class="art-card" data-category="research">
-              <div class="art-img-frame" data-cursor="VIEW">
-                <img src="/notebook-collage-02.jpg" alt="Research & Interviews collage" loading="lazy">
-              </div>
-              <div class="art-meta">
-                <span>RESEARCH / INTERVIEWS</span>
-                <span>·</span>
-                <span>4 MIN</span>
-              </div>
-              <h3 class="art-title">The art of asking a better question</h3>
-              <p class="art-desc">
-                How a more curious, open, and thoughtful question can lead to richer conversations, sharper insights, and more honest stories across 50+ interviews.
+                Every business whether it is big or small is built on understanding people, and that’s where having a psychology degree before an MBA can be a total game changer.
               </p>
               <button type="button" class="art-read-cta" data-story="story2" data-cursor="READ">
                 Read the story →
               </button>
             </article>
 
-            <!-- Article 03 -->
+            <!-- Article 01 -->
             <article class="art-card" data-category="writing">
               <div class="art-img-frame" data-cursor="VIEW">
-                <img src="/notebook-collage-03.jpg" alt="Writing & Storytelling collage" loading="lazy">
+                <img src="/notebook-mondo-website.jpg" alt="Mondo narrative screen-print diptych: exhausted freelance writer under cobwebs and algorithm gears vs smiling Indian woman content writer beside her glowing HIRE ME website storefront" loading="lazy">
               </div>
               <div class="art-meta">
-                <span>WRITING / STORYTELLING</span>
+                <span>WRITING &amp; FREELANCING</span>
                 <span>·</span>
-                <span>6 MIN</span>
+                <span>4 MIN</span>
               </div>
-              <h3 class="art-title">From a blank page to a story worth sharing</h3>
+              <h3 class="art-title">Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer</h3>
               <p class="art-desc">
-                A personal take on the messy, exciting process of turning scattered notes, instincts, and fragments into a story that feels real and worth reading.
+                Think about what happens when a client gets your resume in their mail inbox and Googles your name. A simple website with your best samples, a short note on who you write for, and a button that says HIRE ME.
               </p>
-              <button type="button" class="art-read-cta" data-story="story3" data-cursor="READ">
+              <button type="button" class="art-read-cta" data-story="story1" data-cursor="READ">
                 Read the story →
               </button>
             </article>
@@ -869,174 +886,45 @@
   <script>
     // Full Article Content Repository
     const articles = {
-      story6: {
-        num: '06',
-        tag: 'PSYCHOLOGY & MARKETING',
-        time: '5 MIN READ',
-        title: 'Why Do You Suddenly Stop Scrolling?',
-        img: '/notebook-collage-06.jpg',
-        lead: 'Have you ever noticed that you have opened Instagram for five minutes and somehow, it’s been over an hour. You’ve seen a stranger’s breakup story, a dog refusing to take a bath, someone explaining how they got rich overnight and how a another person spends lakhs in a minute on things which is undoubtedly stupidly. Suddenly then one reel makes you stop scrolling.',
-        body: `
-          <p>Maybe someone says, “I’ve never told anyone this.” Maybe they pull a face so funny you can’t get over it. Or maybe they say something so specific that you feel a little exposed. Now you’re watching the whole thing and checking their profile like a little detective.</p>
-
-          <p>So why that video, and not the twenty before it have you ever thought of it?</p>
-
-          <p>The reason behind is while you scroll, your brain is constantly taking in faces, sounds, captions and movement. But when everything looks alike, it stops paying attention. Another GRWM, another dance trend, another “five habits that will change your life” video at 2 AM.</p>
-
-          <p>Then something different shows up. An opening you didn’t expect, a strangely specific line or a clip that starts right in the middle of the drama. Your brain wakes up. This is called a pattern interrupt which means when something breaks the usual pattern, you notice it. Researchers have long studied how sudden changes grab our attention and great creators and outstanding marketers use the same idea to stop the scroll.</p>
-
-          <p>It also has an old survival link. For early humans, noticing something unusual could be the difference between safety and danger. Today that same instinct has us watching a 90-second video about a stranger’s office drama. Like seriously, Evolution really did all just for that Wi-Fi.</p>
-
-          <p>Do you remember the CRED ad where Rahul Dravid loses his temper in traffic? We know him as the calm, composed “Wall,” so seeing him shout was both shocking and hilarious. It worked because nobody saw it coming and people shared it without being asked. Other Indian brands also used the same trick in their own way. Zomato and Swiggy write notifications that sound like a friend teasing you. Fevicol builds ridiculous situations around one simple promise. Amul has an opinion on whatever is trending that week. These campaigns last because people rarely remember what a brand said. They remember how it made them feel.</p>
-
-          <div class="reader-pullquote">
-            “If it doesn’t sell, it isn’t creative.”
-            <span style="font-size: 16px; font-weight: normal; font-style: normal; display: block; margin-top: 8px;">— David Ogilvy, the “Father of Advertising”</span>
-          </div>
-
-          <p>Another big reason would be curiosity. A video that begins with “Nobody tells you this about your first job” makes you want to know what comes next. When we get only part of a story, our mind wants to fill in the rest. That’s what keeps you watching, as long as the video actually delivers, unlike the ones that say “wait till the end” for 45 seconds.</p>
-
-          <p>For anyone who is working in digital content creation or marketing, the first few seconds matter most. But getting the view and keeping the viewer are two different jobs. Here’s what tends to work, whether you’re a big brand or a small business:</p>
-
-          <ul style="margin: 16px 0 24px 20px; line-height: 1.8;">
-            <li>Start in the middle of the story. Skip the long intro and begin with the interesting part.</li>
-            <li>Be specific. “My 2 AM hostel Maggi routine” feels more real than “my daily life.”</li>
-            <li>Say something true. People can tell when a hook is empty.</li>
-            <li>Deliver what you promised. If the payoff is good, viewers will trust your next video.</li>
-            <li>Make people feel something. Humour, surprise and comfort get remembered far more than facts.</li>
-          </ul>
-
-          <p>A local bakery, a thrift store on Instagram or a student selling handmade bracelets can all grow with this approach. You don’t need a big budget to make someone pause, just a clear idea and an honest tone. Giving the audience a reason to stay, laugh, think or send that video to three friends? That's the real skill.</p>
-
-          <div class="reader-pullquote">
-            “Marketing is no longer about the stuff that you make, but about the stories you tell.”
-            <span style="font-size: 16px; font-weight: normal; font-style: normal; display: block; margin-top: 8px;">— Seth Godin</span>
-          </div>
-        `
+      "story4": {
+            "num": "04",
+            "tag": "PSYCHOLOGY & CONTENT MARKETING",
+            "time": "5 MIN READ",
+            "title": "Why Do You Suddenly Stop Scrolling?",
+            "img": "/notebook-collage-06.jpg",
+            "lead": "Have you ever noticed that you have opened Instagram for five minutes and somehow, it’s been over an hour? You’ve seen a stranger’s breakup story, a dog refusing to take a bath, someone explaining how they got rich overnight and how another person spends lakhs in a minute on things which are undoubtedly stupid. Then suddenly, one reel makes you stop scrolling.",
+            "body": "\n          <p>Maybe someone says, “I’ve never told anyone this.” Maybe they pull a face so funny you can’t get over it. Or maybe they say something so specific that you feel a little exposed. Now you’re watching the whole thing and checking their profile like a little detective.</p>\n\n          <p>So why that video, and not the twenty before it? Have you ever thought of it?</p>\n\n          <p>The reason behind it is that while you scroll, your brain is constantly taking in faces, sounds, captions and movement. But when everything looks alike, it stops paying attention. Another GRWM, another dance trend, another “five habits that will change your life” video at 2 AM.</p>\n\n          <p>Then something different shows up. An opening you didn’t expect, a strangely specific line or a clip that starts right in the middle of the drama. Your brain wakes up. This is called a pattern interrupt, which means when something breaks the usual pattern, you notice it. Researchers have long studied how sudden changes grab our attention, and great creators and outstanding marketers use the same idea to stop the scroll.</p>\n\n          <p>It also has an old survival link. For early humans, noticing something unusual could be the difference between safety and danger. Today that same instinct has us watching a 90-second video about a stranger’s office drama. Like seriously, evolution really did all that just for that Wi-Fi?</p>\n\n          <p>Do you remember the CRED ad where Rahul Dravid loses his temper in traffic? We know him as the calm, composed “Wall,” so seeing him shout was both shocking and hilarious. It worked because nobody saw it coming and people shared it without being asked. Other Indian brands also used the same trick in their own way. Zomato and Swiggy write notifications that sound like a friend teasing you. Fevicol builds ridiculous situations around one simple promise. Amul has an opinion on whatever is trending that week. These campaigns last because people rarely remember what a brand said. They remember how it made them feel.</p>\n\n          <div class=\"reader-pullquote\">\n            “If it doesn’t sell, it isn’t creative.” — David Ogilvy, the “Father of Advertising”\n          </div>\n\n          <p>Another big reason would be curiosity. A video that begins with “Nobody tells you this about your first job” makes you want to know what comes next. When we get only part of a story, our mind wants to fill in the rest. That’s what keeps you watching, as long as the video actually delivers, unlike the ones that say “wait till the end” for 45 seconds.</p>\n\n          <p>For anyone who is working in digital content creation or marketing, the first few seconds matter most. But getting the view and keeping the viewer are two different jobs. Here’s what tends to work, whether you’re a big brand or a small business:</p>\n\n          <ul style=\"margin: 16px 0 24px 20px; line-height: 1.8;\">\n            <li>Start in the middle of the story. Skip the long intro and begin with the interesting part.</li>\n            <li>Be specific. “My 2 AM hostel Maggi routine” feels more real than “my daily life.”</li>\n            <li>Say something true. People can tell when a hook is empty.</li>\n            <li>Deliver what you promised. If the payoff is good, viewers will trust your next video.</li>\n            <li>Make people feel something. Humour, surprise and comfort get remembered far more than facts.</li>\n          </ul>\n\n          <p>A local bakery, a thrift store on Instagram or a student selling handmade bracelets can all grow with this approach. You don’t need a big budget to make someone pause, just a clear idea and an honest tone. Giving the audience a reason to stay, laugh, think or send that video to three friends? That’s the real skill.</p>\n\n          <p>“Marketing is no longer about the stuff that you make, but about the stories you tell.” — Seth Godin</p>\n"
       },
-      story5: {
-        num: '05',
-        tag: 'PSYCHOLOGY & BUSINESS',
-        time: '6 MIN READ',
-        title: 'How Studying Psychology Before an MBA Can Help You Grow a Business and Make More Money',
-        img: '/notebook-collage-05.jpg',
-        lead: '“An MBA teaches you how to make business decisions. Psychology teaches you to question the mind making those decisions.”',
-        body: `
-          <p>Let's be real: these days everyone seems to be chasing their dream of starting their own business or jumping straight into the corporate world. Whether getting an idea to become an entrepreneur or climbing the corporate ladder, everyone is looking for their own way to make it big.</p>
-
-          <p>But there is one fundamental thing that people often overlook in this rat race: <strong>every business, whether big or small, is built on understanding people</strong>. And that is where having a psychology degree before an MBA can be a total game changer.</p>
-
-          <div class="reader-pullquote">
-            “Business is just two or more people making decisions together. That is what psychology teaches you before you ever step into a boardroom.”
-          </div>
-
-          <p>Students often believe that an MBA is the only place where one learns how business works. But when you step into the real world, you quickly realize that business isn't just balance sheets; it's human behavior.</p>
-
-          <p>Imagine a team meeting where one employee barely speaks while another dominates the entire conversation. A typical business perspective might view the first as lacking confidence and the second as a natural leader. But studying psychology encourages you to look deeper: Is the quiet employee afraid of being judged or uncomfortable speaking in a group? Is the outspoken employee genuinely confident, or seeking validation? Suddenly, the same meeting becomes a practical masterclass in group dynamics, communication, and leadership.</p>
-
-          <p>A psychology background immediately recognizes this as <em>social loafing</em> (first noticed by Ringelmann when he discovered people pull less hard on a rope as the group size grows). Or consider <em>Maslow’s hierarchy of needs</em>: a great manager knows an employee worried about job security won’t be motivated by fancy speeches. They need safety first. When you eventually enter an MBA classroom and study Organizational Behavior, these concepts won't be foreign theories — they are already your natural lens.</p>
-
-          <div class="reader-pullquote">
-            “You don't just analyze numbers; you question the thinking behind those numbers.”
-          </div>
-
-          <p>Psychology also trains you to question cognitive shortcuts. Pioneers like Daniel Kahneman and Amos Tversky proved how easily our judgment is bent by heuristics like <em>anchoring bias</em> — where the first number introduced quietly anchors every negotiation that follows. Whether pricing a product or negotiating salary, understanding anchoring lets you use it strategically instead of being victim to it.</p>
-
-          <p>Then comes <em>confirmation bias</em> — believing you are right and only seeking data that validates your assumption. This is precisely why multi-million dollar corporations launch products nobody wants or burn marketing budgets on campaigns doomed from the start.</p>
-
-          <p>According to Herzberg’s two-factor theory, a salary hike makes an employee happy on payday, but it doesn't automatically make them love showing up on Monday. People want to feel valued, have room to grow, and know their work matters. Combine that with Albert Bandura’s concept of <em>self-efficacy</em>: sometimes a leader saying <em>'I know you've got this'</em> provides the exact psychological safety needed to unlock breakthrough performance.</p>
-
-          <blockquote class="reader-pullquote">
-            “You don't need to be a mind reader to become a great leader. Sometimes, you just need to understand people a little better than the person sitting across the table.” — Diya Das
-          </blockquote>
-
-          <p>Ultimately, psychology doesn't just teach you how to understand other people; it helps you understand yourself. You become more self-aware, more patient with diverse personalities, and equipped to lead without losing your composure under pressure. Behind every business decision is a human decision — and knowing how to read that difference is a true superpower.</p>
-        `
+      "story3": {
+            "num": "03",
+            "tag": "STRATEGY & BUSINESS",
+            "time": "5 MIN READ",
+            "title": "Why are my customers going to my competitors?",
+            "img": "/notebook-mondo-competitors.jpg",
+            "lead": "Have you ever noticed while crossing down the streets how two tea stalls can be right next to each other, selling almost the same chai at the same price, yet one stall is always crowded while the other is struggling to get customers and earning less? Have you ever thought about finding out the differences?",
+            "body": "\n          <p>The secret lies in the little things the owner does every single day that most people rarely notice. Yes, of course businesses don’t always lose customers because they have a bad product. Sometimes, the reason lies behind the very few habits they refuse to fix.</p>\n\n          <h3 style=\"font-family: var(--serif-display); font-size: 26px; margin: 28px 0 12px; color: var(--ink);\">1. Waiting for Everything to Be Perfect</h3>\n\n          <p>When you are planning to start a business, you always pay more attention towards building a perfect logo, a perfect website, the perfect product packaging etc. You constantly keep yourself so rigid towards planning, changing things and waiting until everything feels top notch.</p>\n\n          <p>Meanwhile, your competitors have already launched with something that isn’t even half as polished as yours. They’ve of course made mistakes several times but still figured out the marketing game while you are still stuck about picking the right time to start. If you want to really grow, you have to stop overthinking and actually start. Your first version doesn’t have to be perfect. It just has to be present in the market.</p>\n\n          <h3 style=\"font-family: var(--serif-display); font-size: 26px; margin: 28px 0 12px; color: var(--ink);\">2. Replying Too Slowly</h3>\n\n          <p>Imagine messaging a business to ask about a product while getting no reply for an entire day and then after a week finally receiving, “Hello, how can we help you?” Definitely you won’t be interested anymore, right?</p>\n\n          <p>You need to understand that customers don’t sit around waiting for businesses to respond. They just simply move on. There are ten other options in the market and one of them will surely reply on time before you do. You might have the best product at better pricing and better quality, but none of that matters when the customer has already bought from someone else. A quick reply isn’t some revolutionary business strategy. It’s basic courtesy you need to understand, and surely it gives businesses a great advantage.</p>\n\n          <h3 style=\"font-family: var(--serif-display); font-size: 26px; margin: 28px 0 12px; color: var(--ink);\">3. Treating Every Complaint as an Attack</h3>\n\n          <p>You need to get it straight that not every complaint means your customer is right, but that doesn’t mean every complaint should be ignored either. When a customer tells you about your delivery being late or someone else mentions that your product isn’t worth the price, instead of asking what went wrong, you immediately start explaining why it wasn’t your fault.</p>\n\n          <p>Yes, we all have been in this defensive mode at some point. But if every piece of feedback feels like an attack on your business, you will never know what actually needs fixing. It can be your customers are literally telling you why they might not come back. So, you should probably listen with patience first before losing the customers.</p>\n\n          <h3 style=\"font-family: var(--serif-display); font-size: 26px; margin: 28px 0 12px; color: var(--ink);\">4. Having Nothing That Sets You Apart</h3>\n\n          <p>When someone asks why they should buy from you and your only answer is, “We offer good quality at affordable prices,” in that case you definitely have a problem. Selling at lowest rates can get you customers. It’s true, but it doesn’t always make them stay for a long time. Maybe you deliver faster, have better services, but there needs to be something.</p>\n\n          <p>If people cannot tell the difference between you and your competitor, they will eventually make their decision based on price, convenience or whichever business they notice at first.</p>\n\n          <h3 style=\"font-family: var(--serif-display); font-size: 26px; margin: 28px 0 12px; color: var(--ink);\">5. Refusing to Change</h3>\n\n          <p>Lastly, there’s the mindset of refusing to change because the old way still works. This one is probably the most dangerous.</p>\n\n          <p>Remember that customers change, and technology changes every single day. The way people discover, compare and buy products changes and your competitors change, too. For example, the shop that refused to accept online payments probably didn’t think UPI would make much difference either. Until customers started choosing the shop that made paying easier. You really don’t have to change everything every other year. But being unwilling to change anything is a different problem altogether.</p>\n\n          <div class=\"reader-pullquote\">\n            “Sometimes, what worked for your business five years ago is exactly what’s holding it back today.”\n          </div>\n\n          <p>You might just need to fix what’s already in front of you. Because sometimes, the reason your competitor is doing better isn’t that they’re doing something extraordinary. They’re just doing the things you’re not.</p>\n\n          <p>Fix even one of them this week, and you’ll feel the difference far sooner than you expect.</p>\n\n          <p>Written by Diya</p>\n"
       },
-      
-      story4: {
-        num: '04',
-        tag: 'STRATEGY / FREELANCING',
-        time: '4 MIN READ',
-        title: 'Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer',
-        img: '/notebook-collage-04.jpg',
-        lead: 'What happens when a prospective client gets your resume and Googles your name? What do they find? A neglected profile, or an authoritative home base that speaks for itself?',
-        body: `
-          <p>Oops, wait — readers, just pause for a second and think about what happens when a client gets your resume in their mail inbox. They might probably Google your name. What do they find in general? A LinkedIn profile maybe which you haven’t touched in a year, a couple of Instagram posts, and of course a byline or two which has already been buried on someone else’s site.</p>
-
-          <p>Now just take a moment to visualize a different scenario: a simple website with your best samples, a short note on who you write for, and a button that says <em>“HIRE ME”</em>. Which writer would you pick? A website is the one place online that's completely and fully yours. Social media apps change their rules all the time, and due to increasing cyber crime rates in today’s fast-paced digital world, social media accounts can easily get hacked or banned. But your own domain stays put, and everything you build on it keeps adding up over the years.</p>
-
-          <div class="reader-pullquote">
-            “A website does the selling for you while you are asleep. Proof beats promises every time.”
-          </div>
-
-          <p>Do you know the best part? A website does a lot of the selling for you. Every writer says they are absolutely great with words and storytelling, but at the end of the day, a wise client wants proof. A dedicated portfolio page lets them read your work in seconds and thoroughly analyze whether you are the right fit. Writers can organize their samples by topic — health, travel, tech — and even add a line about what the piece achieved, like more traffic or higher shares.</p>
-
-          <p>If you start a blog on your site, it can show up on Google, which means clients may discover you organically without you cold-pitching anyone. That’s also a quiet way of showing you understand SEO, which is exactly what many clients are paying for. Add a few testimonials, a clear services page, and an About section that sounds genuinely like you, and a stranger can become a client while you’re asleep or busy with another deadline.</p>
-
-          <p>The best part is what a website lets you do down the road. It becomes your home base, where you can try out your own voice, start a newsletter, share free guides, or one day sell a course or ebook. Writers with a proper site also tend to look more established, and that often means they can charge higher rates. Building one also makes you decide who you write for and what makes your style different, which helps your whole career feel clearer. And it doesn’t have to be expensive or hard. If you’ve been putting it off, this is your sign to start. You already have the words, so now give them somewhere to live.</p>
-        `
+      "story2": {
+            "num": "02",
+            "tag": "PSYCHOLOGY & BUSINESS",
+            "time": "6 MIN READ",
+            "title": "Studying Psychology Before an MBA Can Help You Grow a Business and Make More Money",
+            "img": "/notebook-mondo-mba.jpg",
+            "lead": "Let’s be real, these days everyone seems to be chasing their dream of starting their own business or jumping straight into the big corporate world.Whether getting an idea to become an entrepreneur or climbing up the corporate ladder, everyone’s looking for their own way to make it big. But there is one thing that people often overlook in this rat race,that every business whether it is big or small is built on understanding people, and that’s where having a psychology degree before an MBA can be a total game changer.",
+            "body": "\n          <p>Students believe that MBA can be their best place where one learns about how business works, but when someone will get into the real world field they will explore that business is just two or more wise people making decisions together and that is what a psychology degree teaches you before you step into a boardroom. Imagine a team meeting where one employee barely speaks, while another dominates the entire conversation. If someone observes it with a typical business perspective, they might see the first as lacking confidence and the second as a natural leader. But studying psychology encourages you to look deeper into the matter. Is the quiet employee afraid of being judged or uncomfortable speaking in a group? Is the outspoken employee genuinely confident, or seeking validation? Suddenly, the same meeting becomes a practical lesson in human behaviour, communication and leadership.But someone with a psychology background will recognize this as social loafing, a concept researchers like Ringelmann first noticed when he saw that people pull less hard on a rope as the group gets bigger or if we consider Maslow’s hierarchy of needs we understand that a good manager knows that an employee who is worried about losing their job won’t be motivated by big promises or fancy speeches. They need to feel secure first. These are not the simple ,boring lessons one learns for an exam and forget later. These theories simply become a part of how you understand people and situations.Therefore when you will eventually enter into a business classroom and study about the subject Organisational Behaviour,the concepts won’t feel entirely new. You will already have an idea in them and will feel easier to connect theories with real world business situations which just gives you a real fresh head to start.</p>\n\n          <p>The other benefit would be that the subject psychology trains you to question your own thinking and vision, something that most business courses assume or believe you already do well. Earlier famous personalities like Daniel Kahneman and Amos Tversky showed us how often our judgment is bent by shortcuts, like anchoring, where the first number we hear quietly shapes every decision that follows. Let’s say you’re negotiating your salary or deciding the price of a product. Someone who understands anchoring bias knows how the first number can influence the entire negotiation, so they use it strategically rather than letting it work against them.Then lets come to confirmation bias, which is basically believing you’re right and only looking for the information that proves your point. Sounds familiar right? This is exactly how businesses sometimes make bad decisions, launch products nobody wants or waste money on marketing campaigns without a proper plan that simply doesn’t work.</p>\n\n          <p>Now when you study psychology, you spend years understanding these patterns, questioning assumptions and learning to look at situations from different angles. So, when you enter the business world, you don’t just analyse numbers; you also question the thinking behind those numbers.This is the reason behind simply justifing the statement that “An MBA teaches you how to make business decisions and Psychology teaches you to question the mind making those decisions.”</p>\n\n          <p>Here’s the thing that anyone can manage deadlines, assign tasks and keep a spreadsheet in check. But can you handle different personalities, understand what makes people tick and figure out why one employee thrives while another struggles? That’s a whole different skill set. The best managers don’t just know how to run a business; they know how to read people. And honestly, that’s where psychology gives you an unfair advantage.</p>\n\n          <p>According to Herzberg’s two-factor theory, let’s get one thing straight that a great salary hike might make an employee happier on payday, but it doesn’t automatically make them love showing up to work every Monday .People want more than money that’s true but they also want to feel valued, have room to grow and know that what they do actually matters to them and others .Overhere Psychology explains “WHY?” Now take Bandura’s concept of self efficacy. It’s basically about how believing you can do something influences how well you actually do it. Sometimes, one mentor saying, ‘I KNOW YOU HAVE GOT THIS’ can give someone the most satisfaction and confidence to take a completely different direction into their career.</p>\n\n          <p>Now, imagine when you are bringing that mindset into an MBA classroom. You’re not just looking at spreadsheets and business strategies; you’re wisely connecting the dots that others might miss.Example a merger that went downhill? Maybe the two company cultures couldn’t get along. A brand that suddenly became everyone’s favourite? Maybe you simply understood the reason behind what people wanted better than its competitors.Because at the end behind every business decision, there’s a human decision. And knowing how to read that difference? That’s a real business superpower.</p>\n\n          <p>Coming to the best part, Psychology doesn’t just teach you how to understand other people; it just helps you understand yourself, too. You become more aware of your reactions, more patient with different personalities and better at handling situations without losing your cool.These can be the beneficial qualities that really matter when you’re in a leadership position.So, by the time you pursue an MBA, you’re not starting from zero. You’re bringing something valuable to the table.Now before we wrap up, let’s be clear. No, studying psychology doesn’t mean you can read minds, predict someone’s next move, decode every WhatsApp text or magically know why your boss said, ‘We need to talk’.</p>\n\n          <p>“You don’t need to be a mind reader to become a great leader. Sometimes, you just need to understand people a little better than the person sitting across the table.” — Diya Das</p>\n\n          <p>Writer &amp; Founder, www.diyainscribe.in</p>\n\n          <p>-Written by Diya</p>\n"
       },
-      story1: {
-        num: '01',
-        tag: 'PSYCHOLOGY / PERSPECTIVE',
-        time: '5 MIN READ',
-        title: 'Why understanding people makes communication more meaningful',
-        img: '/notebook-collage-01.jpg',
-        lead: 'Good communication starts before the first word is written. It starts with curiosity: Who am I speaking to? What might they need? What experiences shape the way they interpret a message?',
-        body: `
-          <p>Studying psychology has made me attentive to the invisible currents running beneath everyday language. People do not arrive at messages as blank slates or sterile audience segments. They carry unspoken assumptions, defensive reflexes, quiet fatigue, and an innate craving to feel understood rather than sold to.</p>
-
-          <div class="reader-pullquote">
-            “When you respect a reader’s intelligence, you stop performing for them and start conversing with them.”
-          </div>
-
-          <p>In marketing and content strategy, we are frequently incentivized to chase algorithms, optimize keywords, and compress ideas into punchy bite-sized slogans. While clarity matters, reducing communication strictly to persuasion often produces work that feels hollow and forgettable.</p>
-
-          <p>True communication begins with active noticing: listening to what people hesitate to say, observing the emotions behind their complaints, and leaving enough breathing room for nuance. When you build stories around real human complexity, you don't have to shout to be remembered.</p>
-        `
-      },
-      story2: {
-        num: '02',
-        tag: 'RESEARCH / INTERVIEWS',
-        time: '4 MIN READ',
-        title: 'The art of asking a better question',
-        img: '/notebook-collage-02.jpg',
-        lead: 'A thoughtful interview is not a checklist of questions. Preparation gives a conversation direction, but listening gives it life.',
-        body: `
-          <p>Across more than 50 on-ground and long-form interviews, the most valuable revelations never arrived from the scripted questions I spent hours refining. They arrived in the unscripted pauses — when a subject finished their rehearsed answer, looked away, and said something candid that surprised both of us.</p>
-
-          <div class="reader-pullquote">
-            “The most transformative questions are rarely complicated. They are open, attentive, and quiet enough to let the truth breathe.”
-          </div>
-
-          <p>Most interviewers listen with the intent to reply, mentally queuing up their next bullet point while the interviewee is still speaking. This telegraphs impatience and keeps conversations on the surface.</p>
-
-          <p>Instead, ask questions that invite reflection: <em>“What did everyone misunderstand about that moment?”</em> or <em>“When did you realize things had fundamentally shifted?”</em> When you hold space without rushing to fill the silence, people offer their most honest stories.</p>
-        `
-      },
-      story3: {
-        num: '03',
-        tag: 'WRITING / STORYTELLING',
-        time: '6 MIN READ',
-        title: 'From a blank page to a story worth sharing',
-        img: '/notebook-collage-03.jpg',
-        lead: 'I like to begin with a question, not a headline. I gather context, search for reliable details, and find the angle that makes the subject matter to someone.',
-        body: `
-          <p>Every piece of writing begins with scattered chaos: an overheard conversation in transit, an odd psychological contradiction noted in a margin, or a voice memo whispered at midnight. Staring at an empty document with the expectation of writing something brilliant immediately induces paralysis.</p>
-
-          <div class="reader-pullquote">
-            “The first draft is telling yourself what you think; the revision is making sure the reader feels it too.”
-          </div>
-
-          <p>The solution is granting yourself unconditional permission to write poorly at first. Clear thinking is not the prerequisite for writing — writing is the physical crucible in which thinking becomes clear.</p>
-
-          <p>Then comes the edit: ruthlessly deleting the decorative padding, clarifying what feels murky, and choosing the honest word over the impressive one. Strong writing is not about making simple ideas sound complex; it is about making vital truths impossible to misunderstand.</p>
-        `
+      "story1": {
+            "num": "01",
+            "tag": "WRITING & FREELANCING",
+            "time": "4 MIN READ",
+            "title": "Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer",
+            "img": "/notebook-mondo-website.jpg",
+            "lead": "Opps wait readers just pause for a second and think about what happens when a client gets your resume in their mail inbox.They might probably Google your name.What do they find in general a LinkedIn profile maybe which you haven’t touched in a year,a couple of instagram posts and offcourse a byline or two which has already buried on someone else’s site.",
+            "body": "\n          <p>Now just take a moment to visualize a different scenario, a simple website with your best samples,a short note on who you write for,and a button that says “HIRE ME”.Which writer would you pick?A website is the one place online that's completely and fully yours.Social media apps change their rules all the time and due to increasing cyber crimes rates in today’s fast paced digital world social media accounts can easily get hacked and banned. But your own domain stays put and everything you build on it keeps adding up over the years.</p>\n\n          <p>Do you know the best part is that a website does a lot of the selling for you.Every writer says they are absolutely great with words and storytelling but at the end a wise client wants a proof and a portfolio page that lets them read it in seconds and thoroughly in order to analyze whether they are a fit to perform or not. Therefore the writers can sort out their samples by topic like health,travel,tech and even add a line about what the piece achieved like more traffic or more shares.</p>\n\n          <p>If you start a blog on your site, it can show up on Google, which means clients may find you without you pitching anyone.That’s also a quiet way of showing you understand SEO, which is exactly what many clients are paying for. Add a few testimonials, a clear services page, and an About section that sounds like you, and a stranger can become a client while you’re asleep or busy with another deadline.</p>\n\n          <p>The best part is what a website lets you do down the road. It becomes your home base, where you can try out your own voice, start a newsletter, share free guides, or one day sell a course or ebook. Writers with a proper site also tend to look more established, and that often means they can charge more. Building one also makes you decide who you write for and what makes your style different, which helps your whole career feel clearer. And it doesn’t have to be expensive or hard. WordPress, Wix, and Squarespace can get you online in an afternoon. If you’ve been putting it off, this is your sign to start. You already have the words, so now give them somewhere to live.</p>\n\n          <p>Written by : Diya</p>\n"
       }
-    };
+};
 
-    const storyOrder = ['story6', 'story5', 'story4', 'story1', 'story2', 'story3'];
+    const storyOrder = ["story4","story3","story2","story1"];
     let currentStoryIdx = 0;
 
     const drawer = document.getElementById('readerDrawer');
@@ -1053,6 +941,7 @@
       currentStoryIdx = storyOrder.indexOf(key);
       if (currentStoryIdx === -1) currentStoryIdx = 0;
       const data = articles[key] || articles[storyOrder[currentStoryIdx]];
+      if (!data) return;
 
       rKicker.innerHTML = `<span>05 / THE OPEN NOTEBOOK</span> · <span>ARTICLE ${data.num}</span>`;
       rTag.textContent = data.tag;
