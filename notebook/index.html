@@ -42,11 +42,11 @@
     },
     {
       "@type": "BlogPosting",
-      "@id": "https://diyainscribe.in/notebook/#story4",
+      "@id": "https://diyainscribe.in/notebook/why-do-you-suddenly-stop-scrolling/",
       "headline": "Why Do You Suddenly Stop Scrolling?",
       "description": "Have you ever noticed that you have opened Instagram for five minutes and somehow, it’s been over an hour. Suddenly then one reel makes you stop scrolling. So why that video, and not the twenty before it have you ever thought of it?",
       "image": "https://diyainscribe.in/notebook-collage-06.jpg",
-      "url": "https://diyainscribe.in/notebook/#story4",
+      "url": "https://diyainscribe.in/notebook/why-do-you-suddenly-stop-scrolling/",
       "datePublished": "2026-11-21",
       "author": {
         "@type": "Person",
@@ -56,15 +56,15 @@
         "@type": "Person",
         "name": "Diya Das"
       },
-      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/why-do-you-suddenly-stop-scrolling/"
     },
     {
       "@type": "BlogPosting",
-      "@id": "https://diyainscribe.in/notebook/#story3",
+      "@id": "https://diyainscribe.in/notebook/why-are-my-customers-going-to-my-competitors/",
       "headline": "Why are my customers going to my competitors?",
       "description": "Have you ever noticed while crossing down the streets how two tea stalls can be right next to each other, selling almost the same chai at the same price, yet one stall is always crowded while the other is struggling to get customers?",
       "image": "https://diyainscribe.in/notebook-mondo-competitors.jpg",
-      "url": "https://diyainscribe.in/notebook/#story3",
+      "url": "https://diyainscribe.in/notebook/why-are-my-customers-going-to-my-competitors/",
       "datePublished": "2026-11-21",
       "author": {
         "@type": "Person",
@@ -74,15 +74,15 @@
         "@type": "Person",
         "name": "Diya Das"
       },
-      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/why-are-my-customers-going-to-my-competitors/"
     },
     {
       "@type": "BlogPosting",
-      "@id": "https://diyainscribe.in/notebook/#story2",
+      "@id": "https://diyainscribe.in/notebook/studying-psychology-before-an-mba/",
       "headline": "Studying Psychology Before an MBA Can Help You Grow a Business and Make More Money",
       "description": "Every business whether it is big or small is built on understanding people, and that’s where having a psychology degree before an MBA can be a total game changer.",
       "image": "https://diyainscribe.in/notebook-mondo-mba.jpg",
-      "url": "https://diyainscribe.in/notebook/#story2",
+      "url": "https://diyainscribe.in/notebook/studying-psychology-before-an-mba/",
       "datePublished": "2026-11-21",
       "author": {
         "@type": "Person",
@@ -92,15 +92,15 @@
         "@type": "Person",
         "name": "Diya Das"
       },
-      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/studying-psychology-before-an-mba/"
     },
     {
       "@type": "BlogPosting",
-      "@id": "https://diyainscribe.in/notebook/#story1",
+      "@id": "https://diyainscribe.in/notebook/beyond-freelancing-platforms/",
       "headline": "Beyond Freelancing Platforms: How Your Website Can Help You Earn More as a Content Writer",
       "description": "Think about what happens when a client gets your resume in their mail inbox and Googles your name. A simple website with your best samples, a short note on who you write for, and a button that says HIRE ME.",
       "image": "https://diyainscribe.in/notebook-mondo-website.jpg",
-      "url": "https://diyainscribe.in/notebook/#story1",
+      "url": "https://diyainscribe.in/notebook/beyond-freelancing-platforms/",
       "datePublished": "2026-11-21",
       "author": {
         "@type": "Person",
@@ -110,7 +110,7 @@
         "@type": "Person",
         "name": "Diya Das"
       },
-      "mainEntityOfPage": "https://diyainscribe.in/notebook/"
+      "mainEntityOfPage": "https://diyainscribe.in/notebook/beyond-freelancing-platforms/"
     }
   ]
 }
@@ -1001,10 +1001,18 @@
       if (e.key === 'ArrowLeft') document.getElementById('readerPrev').click();
     });
 
-    // Hash direct router
+    // Hash direct router — redirect legacy #storyX links to canonical SEO URLs
+    const slugRedirects = {
+      story4: '/notebook/why-do-you-suddenly-stop-scrolling/',
+      story3: '/notebook/why-are-my-customers-going-to-my-competitors/',
+      story2: '/notebook/studying-psychology-before-an-mba/',
+      story1: '/notebook/beyond-freelancing-platforms/'
+    };
     function checkHash() {
       const h = window.location.hash.replace('#', '');
-      if (h && articles[h]) {
+      if (h && slugRedirects[h]) {
+        window.location.replace(slugRedirects[h]);
+      } else if (h && articles[h]) {
         openReader(h);
       }
     }
